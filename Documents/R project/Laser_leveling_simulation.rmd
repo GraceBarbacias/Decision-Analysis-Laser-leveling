@@ -1,0 +1,140 @@
+---
+title: "Decision Analysis for Laser Leveling Application"
+subtitle: "Creating a decision support model for smale scale farmers in Vietnam using the decisionSupport R package by Lüdeling et al."
+author: "Marina, Sara, Kent, Frederic, Grace"
+output: pdf_document
+date: "`r Sys.Date()`"
+bibliography: project_packages.bib
+---
+---
+title: Decision Analysis for Laser Leveling Application
+author: Your Name
+date: June 2, 2023
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+---
+
+# Introduction
+
+## Background
+-Overview
+-potential benefits
+-relevance of the decision for farmers
+
+
+## Objective
+-Determine whether laser leveling should be applied by a small farmer in Vietnam
+
+# Methodology
+-Methods we use
+-Decision analysis theory
+
+## Decision Criteria (maybe with Data Sources?)
+-features of our input table explained and sorted by overlying category (eg. Economical, Ecological etc.)
+
+**Economical Criteria**
+cost-effectiveness
+potential yield improvement
+
+**Ecological Criteria**
+environmental impact
+
+**Social Criteria**
+ease of implementation
+
+
+## Package Management Section
+
+```{r package-installation, echo=TRUE}
+# Install packages if needed (uncomment code):
+# install.packages("decisionSupport")
+# install.packages("dplyr")
+# install.packages("ggplot2")
+
+library(decisionSupport)
+library(dplyr)
+library(ggplot2)
+```
+
+```{r, warning=FALSE, include = FALSE}
+#Automatically write R package citation entries to a .bib file
+knitr::write_bib(c(.packages(),
+                   'decisionSupport',
+                   'dplyr',
+                   'ggplot2'),'project_packages.bib')
+```
+
+# Data Preparation
+
+## Loading and organizing existing data and assumptions made
+
+```{r data preparation, echo=TRUE}
+# data loading and sorting R code:
+
+```
+
+# Analysis
+
+## Cost Analysis
+Performing a cost analysis comparing the expenses associated with laser leveling to the potential benefits it may bring.
+
+```{r cost-analysis, echo=TRUE}
+# cost analysis R code:
+
+```
+
+## Yield Analysis
+Performing an analysis to determine the potential yield improvement laser leveling could offer in comparison to tradtional farming. 
+
+```{r yield-analysis, echo=TRUE}
+# yield analysis R:
+
+```
+
+## Sensitivity Analysis
+Conducting a sensitivity analysis to assess the impact of varying key parameters and assumptions on the decision outcome.
+Maybe explore different scenarios and evaluate their influence on the decision to adopt laser leveling?
+
+```{r sensitivity-analysis, echo=TRUE}
+# sensitivity analysis R code:
+
+```
+
+# Results
+
+## Monte Carlo Simulation Results
+Include:
+-probability distributions
+-sensitivity analyses
+-relevant metrics or charts that provide insights into the decision-making process
+
+```{r monte-carlo-results, echo=TRUE}
+# Monte Carlo simulation results R code:
+
+```
+
+## Data Visualization
+The simulated scenarios for the application of laser leveling visualized using the `ggplot2` package [@R-ggplot2]
+-Time charts?
+
+```{r data visualization, echo=TRUE}
+# R code for vizualisation of results:
+
+```
+
+
+
+## Decision Recommendation
+-based on the analysis and simulation results of whether or not to implement laser leveling
+considering:
+-decision criteria
+-cost-benefit analysispotential risks and uncertainties.
+
+# Conclusion
+
+-summary of the key findings 
+-implications of the recommendation 
+-areas for future research or consideration
+
