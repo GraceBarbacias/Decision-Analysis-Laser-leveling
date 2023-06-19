@@ -33,9 +33,10 @@ Vietnam
 (eg. Economical, Ecological etc.)
 
 **Economical Criteria** cost-effectiveness potential yield improvement
-(fertilizer savings, yield increase, seed savings)
 
-**Ecological** (Water use savings, GHGE, soil conservation)
+**Ecological Criteria** environmental impact
+
+**Social Criteria** ease of implementation
 
 ## Package Management Section
 
@@ -67,10 +68,6 @@ knitr::write_bib(c(.packages(),
 
 ```
 
-## Conceptual Model
-
-## ![](images/Screenshot 2023-06-19 at 6.14.44 PM.png)
-
 # Analysis
 
 ## Cost-benefit Analysis
@@ -81,8 +78,6 @@ cooperatives was conducted. The computations are done under the
 assumptions below.
 
 ### Assumption sources for 4W tractor laser leveler:
-
-![](images/Screenshot 2023-06-19 at 5.34.39 PM.png)
 
 ![](images/Screenshot%202023-06-12%20at%209.42.22%20PM.png)
 
@@ -96,8 +91,6 @@ Source: (Nguyen-Van-Hung et al., 2022)
 
 Source: (Nguyen-Van-Hung et al., 2022)
 
-![](images/Screenshot 2023-06-19 at 4.27.41 PM.png)
-
 20000 VND-\> minimum wage in Region II Vietnam (Dat, 2023)
 
 7.8% interest rate -\> current rate for short term loans in Vietnam
@@ -110,16 +103,6 @@ production will be done every cropping season
 
 20% additional input cost per season for re-smoothing of field
 
-### **Formulas used**
-
-𝐼𝑛𝐶𝑜𝑠𝑡𝑓𝑎𝑟𝑚𝑒𝑟=𝐹𝑒𝑒𝑠𝑒𝑟𝑣𝑖𝑐𝑒(1+0.2∗9)
-
-𝑂𝑢𝑡𝑝𝑢𝑡𝑓𝑎𝑟𝑚𝑒𝑟=𝑃𝑟𝑜𝑓𝑖𝑡𝑠𝑒𝑎𝑠𝑜𝑛∗10
-
-𝐼𝑛𝐶𝑜𝑠𝑡𝑠𝑒𝑟𝑣𝑖𝑐𝑒=𝐶𝑜𝑠𝑡𝐷𝑒𝑝𝑟𝑒𝑐𝑖𝑎𝑡𝑖𝑜𝑛+𝐼𝑛𝑡𝑒𝑟𝑒𝑠𝑡+𝐿𝑎𝑏𝑜𝑟+𝐹𝑢𝑒𝑙+𝑇𝑟𝑎𝑐𝑡𝑜𝑟𝑟𝑒𝑛𝑡𝑎𝑙+𝑀𝑎𝑛𝑎𝑔𝑒𝑚𝑒𝑛𝑡
-
-𝑂𝑢𝑡𝑝𝑢𝑡𝑠𝑒𝑟𝑣𝑖𝑐𝑒=𝐹𝑒𝑒 𝑠𝑒𝑟𝑣𝑖𝑐𝑒
-
 ### Code
 
 ```{r cost-benefit-analysis, echo=TRUE}
@@ -131,7 +114,7 @@ VND<-23487.50 #value of 1 USD to Vietnamese Dong (VND) as of date
 ###operation (plowing, planting, harvest)
 area_covered<- 3 #in ha
 working_days<- 60 #in days
-hours_day<-10 #number of working hours per day
+hours_day<-8 #number of working hours per day
 hrs_area<-(area_covered/working_days/hours_day)*10000 #area to be covered in sq.m per hour
 
 ###equipment sizing
@@ -248,7 +231,54 @@ adopt laser leveling?
 
 # Results
 
-## Monte Carlo Simulation Results
+## Input data for the Model for a Business as usual scenario
+
+```{r}
+#Input data for Business as usual (BAU) scenario 
+#Production cost consisted of: (1) land use; (2) service costs of mechanized operations such as land preparation, mechanical transplanting, fertilizer and pesticide applications and combine harvesting; (3) agronomic inputs including seeds, fertilizer and pesticide; and, (4) labor.
+
+input_estimates_BAU<- data.frame(variable = c("Yield", "Market_price", "Production_cost"),
+                    lower = c(4, 350, 2300),
+                    median = NA,
+                    upper = c(7, 450, 3300),
+                    distribution = c("posnorm", "posnorm", "posnorm"),
+                    label = c("Yield (tonne/ha)", "Price (USD/tonne)", "Production cost (USD/ha)"),
+                    Description = c("Yield in a rice field without LL",
+                                    "Price of rice in a normal season",
+                                    "Production costs in a normal season"))
+
+input_estimates_BAU
+```
+
+## Monte Carlo Simulation for business as usual scenario
+
+```{r}
+model_function <- function(){
+  
+  # Estimate the income in a normal season
+  income <- Yield * Market_price
+  
+  # Estimate the final results from the model
+  final_result <- income - Production_cost
+  
+  # Generate the list of outputs from the Monte Carlo simulation
+  return(list(final_result = final_result))
+}
+
+# Run the Monte Carlo simulation using the model function
+example_mc_simulation_BAU <- mcSimulation(estimate = as.estimate(input_estimates_BAU),
+                              model_function = model_function,
+                              numberOfModelRuns = 800,
+                              functionSyntax = "plainNames")
+
+example_mc_simulation_BAU
+
+plot_distributions(mcSimulation_object = example_mc_simulation_BAU,
+                   vars = "final_result",
+                   method = "boxplot_density",
+                   old_names = "final_result",
+                   new_names = "Outcome distribution for profits")
+```
 
 Include: -probability distributions -sensitivity analyses -relevant
 metrics or charts that provide insights into the decision-making process
