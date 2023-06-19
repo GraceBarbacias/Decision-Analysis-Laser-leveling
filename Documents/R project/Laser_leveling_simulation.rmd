@@ -73,16 +73,21 @@ knitr::write_bib(c(.packages(),
 ## Cost-benefit Analysis
 
 A cost-benefit analysis comparing the expenses associated with laser
-leveling to the potential benefits it may bring to the farmers was
-conducted. The computations are done under the assumptions below.
+leveling to the potential benefits it may bring to the farmer
+cooperatives was conducted. The computations are done under the
+assumptions below.
 
 ### Assumption sources for 4W tractor laser leveler:
 
-![](images/Screenshot 2023-06-12 at 9.42.22 PM.png)
+![](images/Screenshot%202023-06-12%20at%209.42.22%20PM.png)
 
 Source: (Nguyen-Van-Hung et al., 2022)
 
-![](images/Screenshot 2023-06-12 at 10.52.03 PM.png)
+![](images/Screenshot%202023-06-12%20at%2010.52.03%20PM.png)
+
+Source: (Nguyen-Van-Hung et al., 2022)
+
+![](images/Screenshot 2023-06-16 at 12.29.18 PM.png)
 
 Source: (Nguyen-Van-Hung et al., 2022)
 
@@ -200,7 +205,7 @@ laser leveling could offer in comparison to tradtional farming.
 
 ### Assumption sources:
 
-![](images/Screenshot 2023-06-12 at 9.38.09 PM.png)
+![](images/Screenshot%202023-06-12%20at%209.38.09%20PM.png)
 
 Source: (Nguyen-Van-Hung et al., 2022)
 
