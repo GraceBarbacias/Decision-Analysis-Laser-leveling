@@ -69,7 +69,7 @@ knitr::write_bib(c(.packages(),
 
 ## Conceptual model
 
-![](images/Screenshot 2023-06-19 at 6.14.44 PM-01.png)
+![](images/Screenshot%202023-06-19%20at%206.14.44%20PM-01.png)
 
 # Analysis
 
@@ -82,7 +82,7 @@ assumptions below.
 
 ### Assumption sources for 4W tractor laser leveler:
 
-![](images/Screenshot 2023-06-19 at 5.34.39 PM-01.png)
+![](images/Screenshot%202023-06-19%20at%205.34.39%20PM-01.png)
 
 ![](images/Screenshot%202023-06-12%20at%209.42.22%20PM.png)
 
@@ -268,31 +268,75 @@ input_estimates_BAU
 ## Monte Carlo Simulation for business as usual scenario
 
 ```{r}
-model_function <- function(){
-  
-  # Estimate the income in a normal season
-  income <- Yield * Market_price
-  
-  # Estimate the final results from the model
-  final_result <- income - Production_cost
-  
-  # Generate the list of outputs from the Monte Carlo simulation
-  return(list(final_result = final_result))
-}
+investment_LLL = TRUE
+n_years = 25
+establishment_cost_LLL = cost_area # assuming 1 hectar right now
+maintenance_cost = (establishment_cost_LLL * 0.8)/5 
+# fictive assumtion that maintenance costs are 80% of initial investment costs each 5 years
+Yield = 5400 # assuming 5.4 tons for testing
+Market_price = 0.439 * VND # 0.439 USD times VND exchange rate
+intervention_communication_cost = 200 * VND
+intervention_zoning_cost = 150 * VND
 
-# Run the Monte Carlo simulation using the model function
-example_mc_simulation_BAU <- mcSimulation(estimate = as.estimate(input_estimates_BAU),
-                              model_function = model_function,
-                              numberOfModelRuns = 800,
-                              functionSyntax = "plainNames")
+LLL_model_function <- function(x, varnames){
+  
+    # Estimate the income in a normal season
+  income_norm <- Yield * Market_price
+  
+  #  Intervention ####
+  
+  # summing up the investment costs if LLL is applied or not
+  if (investment_LLL) {
+    investment_cost_LLL <- establishment_cost_LLL
+  } else
+    investment_cost_LLL <- 0
+  
+  # calculating the planning costs
+  if (intervention_strips_PlanningCost) {
+    plan_cost_intervention_LLL <- intervention_communication_cost + 
+                                  intervention_zoning_cost
+  } else
+    plan_cost_intervention_LLL <- 0
+  
+  # calculating the maintenance costs
+  maintenance_cost <- rep(4, n_years) 
+  # calculation the mainentance cost only after the first 5 years
+  
+  if (intervention_LLL)
+    maintenance_cost <-
+    maintenance_cost + 
+    # add a variation of the variable over the years
+    decisionSupport::vv(maintenance_intervention_strips, var_CV, n_years)
+  
+  intervention_cost <- maintenance_cost
+  intervention_cost[1] <- intervention_cost[1] + 
+    investment_cost_LLL + 
+    plan_cost_intervention_LLL
 
-example_mc_simulation_BAU
+} #close intervention loop bracket
 
-plot_distributions(mcSimulation_object = example_mc_simulation_BAU,
-                   vars = "final_result",
-                   method = "boxplot_density",
-                   old_names = "final_result",
-                   new_names = "Outcome distribution for profits")
+
+#   # Estimate the final results from the model
+#   final_result <- income - Production_cost
+#   
+#   # Generate the list of outputs from the Monte Carlo simulation
+#   return(list(final_result = final_result))
+# }
+# 
+# # Run the Monte Carlo simulation using the model function
+# example_mc_simulation_BAU <- mcSimulation(estimate = as.estimate(input_estimates_BAU),
+#                               model_function = LLL_model_function,
+#                               numberOfModelRuns = 800,
+#                               functionSyntax = "plainNames")
+# 
+# example_mc_simulation_BAU
+# 
+# plot_distributions(mcSimulation_object = example_mc_simulation_BAU,
+#                    vars = "final_result",
+#                    method = "boxplot_density",
+#                    old_names = "final_result",
+#                    new_names = "Outcome distribution for profits")
+
 ```
 
 Include: -probability distributions -sensitivity analyses -relevant
@@ -300,6 +344,12 @@ metrics or charts that provide insights into the decision-making process
 
 ```{r monte-carlo-results, echo=TRUE}
 # Monte Carlo simulation results R code:
+mcSimulation_results <- decisionSupport::mcSimulation(
+  estimate = decisionSupport::estimate_read_csv("example_input_table.csv"),
+  model_function = LLL_model_function,
+  numberOfModelRuns = 1e3, #run 1,000 times
+  functionSyntax = "plainNames"
+)
 
 ```
 
@@ -311,6 +361,22 @@ using the `ggplot2` package [@R-ggplot2] -Time charts?
 ```{r data visualization, echo=TRUE}
 # R code for vizualisation of results:
 
+decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
+                                    vars = c("Interv_NPV", "NO_Interv_NPV"),
+                                    method = 'smooth_simple_overlay', 
+                                    base_size = 7)
+
+
+decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
+                                    vars = c("Interv_NPV",
+                                    "NO_Interv_NPV"),
+                                    method = 'boxplot')
+
+decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
+                                    vars = "NPV_decision_do",
+                                    method = 'boxplot_density')
+
+plot_cashflow(mcSimulation_object = mcSimulation_results, cashflow_var_name = "Cashflow_decision_do")
 ```
 
 ## Decision Recommendation
