@@ -213,6 +213,11 @@ ggplot(cost_shares, aes(x = "", y = share, fill = Portions)) +
 
 Figure X. Cost proportions of LLL.
 
+```{r data preparation, echo=TRUE}
+# data loading and sorting R code:
+cost_area
+```
+
 ## Yield Analysis
 
 Performing an analysis to determine the potential yield improvement
@@ -267,7 +272,7 @@ input_estimates_BAU
 
 ## Monte Carlo Simulation for business as usual scenario
 
-```{r}
+"""
 investment_LLL = TRUE
 n_years = 25
 establishment_cost_LLL = cost_area # assuming 1 hectar right now
@@ -277,22 +282,53 @@ Yield = 5400 # assuming 5.4 tons for testing
 Market_price = 0.439 * VND # 0.439 USD times VND exchange rate
 intervention_communication_cost = 200 * VND
 intervention_zoning_cost = 150 * VND
-
-LLL_model_function <- function(x, varnames){
-  
     # Estimate the income in a normal season
   income_norm <- Yield * Market_price
+"""
+
+```{r}
+LLL_model_function <- function(x, varnames){
   
+    # benefits of rice cultivation WITHOUT LLL:
+  precalc_ground_truth_normal_rice_production <-
+    vv(rice_area_ha, var_CV, n_years) *
+    vv(rice_yield_t_ha, var_CV, n_years) *
+    vv(rice_profit_USD_t, var_CV, n_years)
+  
+  # benefits of rice cultivation WITH LLL:
+  precalc_intervention_LLL <-
+    vv(intervention_rice_area_ha, var_CV, n_years) *
+    vv(intervention_rice_yield_t_ha, var_CV, n_years) *
+    vv(intervention_rice_profit_USD_t, var_CV, n_years)
+  
+  #  Intervention Preamble ####
+  
+  for (intervention_LLL in c(FALSE,TRUE))
+      {
+      
+  if (intervention_LLL)
+  {
+    intervention_LLL_cost <- TRUE
+    intervention_LLL_PlanningCost <- TRUE
+    normal_rice_prod <- FALSE
+  } else
+  {
+    intervention_LLL_cost <- FALSE
+    intervention_LLL_PlanningCost <- FALSE
+    normal_rice_prod <- TRUE
+  }
+  
+
   #  Intervention ####
   
   # summing up the investment costs if LLL is applied or not
-  if (investment_LLL) {
+  if (intervention_LLL_cost) {
     investment_cost_LLL <- establishment_cost_LLL
   } else
     investment_cost_LLL <- 0
   
   # calculating the planning costs
-  if (intervention_strips_PlanningCost) {
+  if (intervention_LLL_PlanningCost) {
     plan_cost_intervention_LLL <- intervention_communication_cost + 
                                   intervention_zoning_cost
   } else
@@ -306,14 +342,58 @@ LLL_model_function <- function(x, varnames){
     maintenance_cost <-
     maintenance_cost + 
     # add a variation of the variable over the years
-    decisionSupport::vv(maintenance_intervention_strips, var_CV, n_years)
+    decisionSupport::vv(maintenance_cost, var_CV, n_years)
   
-  intervention_cost <- maintenance_cost
-  intervention_cost[1] <- intervention_cost[1] + 
+  intervention_cost <- maintenance_cost + 
     investment_cost_LLL + 
     plan_cost_intervention_LLL
+  
+  
+  
+  
+  
+    # Benefits from  cultivation in the intervention strips ####
+  
+  # Benefits of intervention LLL:
+  intervention_LLL_benefits <-
+    as.numeric(intervention_LLL) * precalc_intervention_LLL
+  
+  # Benefits of normal rice production (ground truth):
+  rice_normal_benefits <-
+    as.numeric(normal_rice_prod) *   precalc_ground_truth_normal_rice_production
 
+  
+  # Total benefits from crop production (agricultural development and riparian zone) ####
+#  rice_production <-
+#    intervention_LLL_benefits 
+  
+  
+  if (investment_LLL){
+    net_benefits <- intervention_LLL_benefits- intervention_cost
+    result_interv <- net_benefits}
+  
+  
+  if (!investment_LLL){
+    net_benefits <- rice_normal_benefits
+    result_n_interv <- net_benefits}
+  
+  
 } #close intervention loop bracket
+  
+  NPV_interv <-
+  discount(result_interv, discount_rate, calculate_NPV = TRUE)
+
+  NPV_n_interv <-
+  discount(result_n_interv, discount_rate, calculate_NPV = TRUE)
+
+# Beware, if you do not name your outputs (left-hand side of the equal sign) in the return section, 
+# the variables will be called output_1, _2, etc.
+
+return(list(Interv_NPV = NPV_interv,
+            NO_Interv_NPV = NPV_n_interv,
+            NPV_decision_do = NPV_interv - NPV_n_interv,
+            Cashflow_decision_do = result_interv - result_n_interv))
+}
 
 
 #   # Estimate the final results from the model
@@ -345,7 +425,7 @@ metrics or charts that provide insights into the decision-making process
 ```{r monte-carlo-results, echo=TRUE}
 # Monte Carlo simulation results R code:
 mcSimulation_results <- decisionSupport::mcSimulation(
-  estimate = decisionSupport::estimate_read_csv("example_input_table.csv"),
+  estimate = decisionSupport::estimate_read_csv("Test_Input.csv"),
   model_function = LLL_model_function,
   numberOfModelRuns = 1e3, #run 1,000 times
   functionSyntax = "plainNames"
