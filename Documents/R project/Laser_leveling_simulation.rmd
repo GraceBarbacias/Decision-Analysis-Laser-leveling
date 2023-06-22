@@ -48,7 +48,7 @@ Vietnam
 library(decisionSupport)
 library(dplyr)
 library(ggplot2)
-```
+library(readr)
 
 ```{r, warning=FALSE, include = FALSE}
 #Automatically write R package citation entries to a .bib file
@@ -289,96 +289,123 @@ intervention_zoning_cost = 150 * VND
 ```{r}
 LLL_model_function <- function(x, varnames){
   
-    # benefits of rice cultivation WITHOUT LLL:
-  precalc_ground_truth_normal_rice_production <-
-    vv(rice_area_ha, var_CV, n_years) *
-    vv(rice_yield_t_ha, var_CV, n_years) *
-    vv(rice_profit_USD_t, var_CV, n_years)
+    # calculate ex-ante risks: impact the implementation of interventions ####
+  #
+    intervention_NonColabInvolvEvent <-
+    chance_event(intervention_NonPColabInvolv, 1, 0, n = 1)
+  # chance_event chooses with probability "intervention_NonColabInvolv" the first scenario (1 in this case), otherwise 0 (no involvement)
   
   # benefits of rice cultivation WITH LLL:
   precalc_intervention_LLL <-
-    vv(intervention_rice_area_ha, var_CV, n_years) *
     vv(intervention_rice_yield_t_ha, var_CV, n_years) *
-    vv(intervention_rice_profit_USD_t, var_CV, n_years)
+    vv(intervention_rice_area_ha, var_CV, n_years) *
+    vv(rice_price_USD_t, var_CV, n_years)    
+    
+    # benefits of rice cultivation WITHOUT LLL:
+  precalc_ground_truth_normal_rice_production <-
+    vv(rice_yield_t_ha, var_CV, n_years) *
+    vv(rice_area_ha, var_CV, n_years) *
+    vv(rice_price_USD_t, var_CV, n_years)
   
   #  Intervention Preamble ####
   
+  # Run a simulation for both the application of LLL and the normal scenario without it:
   for (intervention_LLL in c(FALSE,TRUE))
       {
-      
+  
+  # Set the preambles for the case if LLL application:    
   if (intervention_LLL)
   {
-    intervention_LLL_cost <- TRUE
-    intervention_LLL_PlanningCost <- TRUE
-    normal_rice_prod <- FALSE
+    event_LLL <- TRUE
+    event_LLL_cost <- TRUE
+    event_LLL_PlanningCost <- TRUE
+    event_normal_rice_prod <- FALSE
+  # Set the preambles for the normal rice production scenario
   } else
   {
-    intervention_LLL_cost <- FALSE
-    intervention_LLL_PlanningCost <- FALSE
-    normal_rice_prod <- TRUE
+    event_LLL <- FALSE
+    event_LLL_cost <- FALSE
+    event_LLL_PlanningCost <- FALSE
+    event_normal_rice_prod <- TRUE
   }
   
-
+  if (intervention_NonColabInvolvEvent) {
+    # only relevant if selected by chance and = TRUE
+    # if this condition is TRUE the implementation of LLL will be planned but not executed
+    event_LLL <- FALSE # no LLL applied
+    event_LLL_cost <- FALSE # no establishment costs are created (planning costs however may occur)
+    event_normal_rice_prod <- TRUE # the normal scenario takes place
+}
+    
   #  Intervention ####
   
   # summing up the investment costs if LLL is applied or not
-  if (intervention_LLL_cost) {
+  if (event_LLL_cost) {
     investment_cost_LLL <- establishment_cost_LLL
   } else
     investment_cost_LLL <- 0
   
   # calculating the planning costs
-  if (intervention_LLL_PlanningCost) {
+  if (event_LLL_PlanningCost) {
     plan_cost_intervention_LLL <- intervention_communication_cost + 
                                   intervention_zoning_cost
   } else
     plan_cost_intervention_LLL <- 0
   
-  # calculating the maintenance costs
-  maintenance_cost <- rep(4, n_years) 
-  # calculation the mainentance cost only after the first 5 years
+  # calculating the maintenance costs, initializing the array with 0 costs for the first year:
+  maintenance_cost <- rep(0, n_years) 
   
-  if (intervention_LLL)
+  # Cost of the application of LLL per year 
+  if (event_LLL_cost)
     maintenance_cost <-
     maintenance_cost + 
     # add a variation of the variable over the years
     decisionSupport::vv(maintenance_cost, var_CV, n_years)
   
-  intervention_cost <- maintenance_cost + 
+  # First, all maintenance costs are stored in the variable:
+  intervention_cost <- maintenance_cost
+    # in the first year the establishment costs and planning costs are added:
+  intervention_cost[1] <-
+    intervention_cost[1] + 
     investment_cost_LLL + 
     plan_cost_intervention_LLL
   
   
+   #### Benefits from  cultivation in the intervention strips ####
   
-  
-  
-    # Benefits from  cultivation in the intervention strips ####
+  # Now all benefits of the intervention will be calculated
+  # event_LLL is 0 if the introduction of LLL does not take place, thereby the gains would be multiplied by 0 = become 0
   
   # Benefits of intervention LLL:
   intervention_LLL_benefits <-
-    as.numeric(intervention_LLL) * precalc_intervention_LLL
+    as.numeric(event_LLL) * precalc_intervention_LLL
   
   # Benefits of normal rice production (ground truth):
   rice_normal_benefits <-
-    as.numeric(normal_rice_prod) *   precalc_ground_truth_normal_rice_production
+    as.numeric(event_normal_rice_prod) *   precalc_ground_truth_normal_rice_production
 
   
+  
   # Total benefits from crop production (agricultural development and riparian zone) ####
-#  rice_production <-
-#    intervention_LLL_benefits 
+  # combined benefits (in reality: intervention_LLL_benefits + 0 OR rice_normal_benefits + 0)
+  #rice_production <- intervention_LLL_benefits + rice_normal_benefits #not needed since we separate the cases in the next part
   
   
-  if (investment_LLL){
-    net_benefits <- intervention_LLL_benefits- intervention_cost
+  # if the decision was to implement LLL:
+  if (intervention_LLL){
+    net_benefits <- intervention_LLL_benefits - intervention_cost
+    # save result in result_interv (result intervention):
     result_interv <- net_benefits}
   
   
-  if (!investment_LLL){
-    net_benefits <- rice_normal_benefits
+  # if the decision was to NOT implement LLL:
+  if (!intervention_LLL){
+    net_benefits <- rice_normal_benefits - intervention_cost  # intervention-cost should not change anything here
+    # save result in result_n_interv (result NO intervention):
     result_n_interv <- net_benefits}
   
   
-} #close intervention loop bracket
+    } #close intervention loop bracket
   
   NPV_interv <-
   discount(result_interv, discount_rate, calculate_NPV = TRUE)
@@ -389,10 +416,10 @@ LLL_model_function <- function(x, varnames){
 # Beware, if you do not name your outputs (left-hand side of the equal sign) in the return section, 
 # the variables will be called output_1, _2, etc.
 
-return(list(Interv_NPV = NPV_interv,
-            NO_Interv_NPV = NPV_n_interv,
-            NPV_decision_do = NPV_interv - NPV_n_interv,
-            Cashflow_decision_do = result_interv - result_n_interv))
+return(list(LLL_NPV = NPV_interv,
+            NO_LLL_NPV = NPV_n_interv,
+            NPV_LLL_added_value = NPV_interv - NPV_n_interv,
+            Cashflow_LLL_added_value = result_interv - result_n_interv))
 }
 
 
@@ -422,10 +449,24 @@ return(list(Interv_NPV = NPV_interv,
 Include: -probability distributions -sensitivity analyses -relevant
 metrics or charts that provide insights into the decision-making process
 
+#loading the data here for now:
+Test_Input <- read_delim("Test_Input.csv", 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE, header = TRUE)
+View(Test_Input)
+
+
 ```{r monte-carlo-results, echo=TRUE}
+# Generate a random seed
+random_seed <- as.integer(Sys.time())  # Get the current time in seconds and convert it to an integer
+# Set the random seed
+set.seed(random_seed)
+# Print the random seed
+print(random_seed)
+
+
 # Monte Carlo simulation results R code:
 mcSimulation_results <- decisionSupport::mcSimulation(
-  estimate = decisionSupport::estimate_read_csv("Test_Input.csv"),
+  estimate = decisionSupport::estimate_read_csv("Test_Input.csv", sep = ';', strip.white = TRUE),
   model_function = LLL_model_function,
   numberOfModelRuns = 1e3, #run 1,000 times
   functionSyntax = "plainNames"
@@ -442,21 +483,32 @@ using the `ggplot2` package [@R-ggplot2] -Time charts?
 # R code for vizualisation of results:
 
 decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
-                                    vars = c("Interv_NPV", "NO_Interv_NPV"),
+                                    vars = c("LLL_NPV", "NO_LLL_NPV"),
                                     method = 'smooth_simple_overlay', 
-                                    base_size = 7)
-
-
-decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
-                                    vars = c("Interv_NPV",
-                                    "NO_Interv_NPV"),
-                                    method = 'boxplot')
+                                    base_size = 12,
+                                    colors = c("#FFC300", "#9f3ee2"))
 
 decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
-                                    vars = "NPV_decision_do",
-                                    method = 'boxplot_density')
+                                    vars = c("LLL_NPV", "NO_LLL_NPV"),
+                                    method = 'hist_simple_overlay', 
+                                    base_size = 12,
+                                    colors = c("#FFC300", "#9f3ee2"))
 
-plot_cashflow(mcSimulation_object = mcSimulation_results, cashflow_var_name = "Cashflow_decision_do")
+NPV_names = c("Rice Production with Laser Leveling NPV", "Conventional Rice Production NPV")
+decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
+                                    vars = c("LLL_NPV", "NO_LLL_NPV"),
+                                    method = 'boxplot',
+                                    new_names = "NPV_names",
+                                    base_size = 12,
+                                    colors = c("#FFC300", "#9f3ee2"))
+
+decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
+                                    vars = "NPV_LLL_added_value",
+                                    method = 'boxplot_density',
+                                    base_size = 12,
+                                    colors = "#FFC300")
+
+plot_cashflow(mcSimulation_object = mcSimulation_results, cashflow_var_name = "Cashflow_LLL_added_value")
 ```
 
 ## Decision Recommendation

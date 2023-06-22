@@ -7,8 +7,8 @@ maintenance_cost,"1,8",,9,,Maintenace costs per year after 1st year
 "rice_yield_t_ha,",4,"5,41","6,5",,Rice yield normal in [tons/hectar]
 intervention_rice_yield_t_ha,"4,66","6,30265","7,5725",,Rice yield with LLL in [tons/hectar]
 rice_profit_USD_t,1756,,"2853,5",,Profit per ton of rice in USD for normal cultivation yields
-intervention_rice_profit_USD_t,"2045,74",,"3324,3275",,Profit per ton of rice in USD for cultivation with LLL
+LLL_rice_profit_USD_t,"2045,74",,"3324,3275",,Profit per ton of rice in USD for cultivation with LLL
 rice_area_ha,1,,1,,
 intervention_rice_area_ha,1,,1,,Size of the rice fields in hectar
 discount_rate,10,,30,posnorm,Discount rate for reducing future cost and benefit to their present values (%)
-rice_price,439,,439,,The price of the rice [USD per tons]
+rice_price_USD_t,439,,439,,The price of the rice [USD per tons]
