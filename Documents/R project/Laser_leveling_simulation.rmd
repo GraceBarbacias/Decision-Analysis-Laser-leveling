@@ -50,7 +50,6 @@ library(dplyr)
 library(ggplot2)
 library(readr)
 
-```{r, warning=FALSE, include = FALSE}
 #Automatically write R package citation entries to a .bib file
 knitr::write_bib(c(.packages(),
                    'decisionSupport',
@@ -272,21 +271,16 @@ input_estimates_BAU
 
 ## Monte Carlo Simulation for business as usual scenario
 
-"""
-investment_LLL = TRUE
-n_years = 25
-establishment_cost_LLL = cost_area # assuming 1 hectar right now
-maintenance_cost = (establishment_cost_LLL * 0.8)/5 
-# fictive assumtion that maintenance costs are 80% of initial investment costs each 5 years
-Yield = 5400 # assuming 5.4 tons for testing
-Market_price = 0.439 * VND # 0.439 USD times VND exchange rate
-intervention_communication_cost = 200 * VND
-intervention_zoning_cost = 150 * VND
-    # Estimate the income in a normal season
-  income_norm <- Yield * Market_price
-"""
+""" investment_LLL = TRUE n_years = 25 establishment_cost_LLL =
+cost_area \# assuming 1 hectar right now maintenance_cost =
+(establishment_cost_LLL \* 0.8)/5 \# fictive assumtion that maintenance
+costs are 80% of initial investment costs each 5 years Yield = 5400 \#
+assuming 5.4 tons for testing Market_price = 0.439 \* VND \# 0.439 USD
+times VND exchange rate intervention_communication_cost = 200 \* VND
+intervention_zoning_cost = 150 \* VND \# Estimate the income in a normal
+season income_norm \<- Yield \* Market_price """
 
-```{r}
+```{r, echo=TRUE}
 LLL_model_function <- function(x, varnames){
   
     # calculate ex-ante risks: impact the implementation of interventions ####
@@ -449,11 +443,9 @@ return(list(LLL_NPV = NPV_interv,
 Include: -probability distributions -sensitivity analyses -relevant
 metrics or charts that provide insights into the decision-making process
 
-#loading the data here for now:
-Test_Input <- read_delim("Test_Input.csv", 
-    delim = ";", escape_double = FALSE, trim_ws = TRUE, header = TRUE)
-View(Test_Input)
-
+#loading the data here for now: Test_Input \<-
+read_delim("Test_Input.csv", delim = ";", escape_double = FALSE, trim_ws
+= TRUE, header = TRUE) View(Test_Input)
 
 ```{r monte-carlo-results, echo=TRUE}
 # Generate a random seed
@@ -509,6 +501,114 @@ decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results,
                                     colors = "#FFC300")
 
 plot_cashflow(mcSimulation_object = mcSimulation_results, cashflow_var_name = "Cashflow_LLL_added_value")
+```
+
+## Forecasts
+
+```{r, echo=TRUE}
+
+hail_path <- graph.formula(HailNet -+ Yield, 
+                          HailNet -+ Cost, 
+                          HailEvent -+ Yield,
+                          Yield -+ MarketPrice, 
+                          MarketPrice -+ NPV,
+                          Cost -+ NPV)
+
+plot(hail_path)
+
+hail_estimates <- data.frame(variable = c("yield", 
+                                           "var_CV", 
+                                           "initial_investment", 
+                                           "price"),
+                    lower = c(6000, 20, 500, 5),
+                    median = NA,
+                    upper = c(14000, 20, 1000, 80),
+                    distribution = c("posnorm", 
+                                     "const", 
+                                     "posnorm", 
+                                     "posnorm"),
+                    label = c("Yield (kg/ha)", 
+                              "Coefficient of variation", 
+                              "Investment cost (USD)", 
+                              "Market price (EUR/kg)"),
+                    Description = c("Yield under normal conditions",
+                                    "Coefficient of variation (measure of relative variability)",
+                                    "Investment cost", 
+                                    "Market price achieved for yields (EUR/kg)"))
+
+hail_estimates
+
+hail_function <- function(){
+  
+# use vv() to add variability to the 
+# random draws of yield and of  price 
+# over a 20 year simulation 
+yields <- vv(var_mean = yield, 
+             var_CV = var_CV, 
+             n = 20)
+
+prices <- vv(var_mean = price, 
+             var_CV = var_CV, 
+             n = 20)
+
+# use rep() to simulate the initial_investment 
+# only in the first year (assuming the net lasts 20 years)
+invest_costs <- c(initial_investment, rep(0, 19))
+
+# use p_hail in the chance_event() 
+# to adjust yield for probability of hail
+# assuming no yield at all in the event of hail
+hail_adjusted_yield <- chance_event(chance = p_hail, 
+                                    value_if = 0,
+                                    value_if_not = yield,
+                                    n = 20)
+
+# calculate profit without net
+profit_no_net <- hail_adjusted_yield*prices
+
+# calculate profit with the net
+profit_with_net <- (yields*prices)-invest_costs
+
+# use 'discount' to calculate net present value 
+# 'discount_rate' is expressed in percent
+NPV_no_net <- discount(profit_no_net, discount_rate = 5, calculate_NPV = TRUE)
+NPV_net <- discount(profit_with_net, discount_rate = 5, calculate_NPV = TRUE)
+
+# calculate the overall NPV of the decision (do - don't do)
+NPV_decision <- NPV_net-NPV_no_net
+
+return(list(NPV_no_net =  NPV_no_net,
+            NPV_net =  NPV_net, 
+            NPV_decision = NPV_decision))
+}
+
+# Run the Monte Carlo simulation using the model function
+hail_mc_simulation <- mcSimulation(estimate = as.estimate(hail_estimates),
+                              model_function = hail_function,
+                              numberOfModelRuns = 200,
+                              functionSyntax = "plainNames")
+
+hail_mc_simulation
+
+plot_distributions(mcSimulation_object = hail_mc_simulation, 
+                      vars = c("NPV_no_net", "NPV_net"),
+                      method = 'smooth_simple_overlay', 
+                      base_size = 7)
+
+
+##Value of Information Analysis
+# subset the outputs from the mcSimulation function (y) 
+# to run the multi_EVPI only on the variables that the we want 
+# (i.e. the NPV_decision)
+mcSimulation_table_hail <- data.frame(hail_mc_simulation$x, 
+                                 hail_mc_simulation$y[3])
+
+evpi_hail <- multi_EVPI(mc = mcSimulation_table_hail, 
+                   first_out_var = "NPV_decision")
+
+
+plot_evpi(evpi_hail, decision_vars = "NPV_decision")
+
 ```
 
 ## Decision Recommendation
