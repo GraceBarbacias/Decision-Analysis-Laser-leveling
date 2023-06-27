@@ -208,8 +208,6 @@ ggplot(cost_shares, aes(x = "", y = share, fill = Portions)) +
   theme_void()
 ```
 
-![](images/Cost_portions.png)
-
 Figure X. Cost proportions of LLL.
 
 ```{r data preparation, echo=TRUE}
@@ -512,7 +510,6 @@ Application of post-hoc analysis to `mcSimulation()` outputs
 ```{r, echo=TRUE}
 library(decisionSupport)
 
-
 #select the 3rd outcome variable "NPV_LLL_added_value" from the mcSimulation results and run PLS simulation
 pls_result <- plsr.mcSimulation(object = mcSimulation_results,
                   resultName = names(mcSimulation_results$y)[3], ncomp = 1)
@@ -537,7 +534,7 @@ evpi <- multi_EVPI(mc = mcSimulation_table, first_out_var = "LLL_NPV")
 #> [1] "Output variable 2 (NO_LLL_NPV) completed."
 #> [1] "Output variable 3 (NPV_LLL_added_value) completed."
 
-#> plot_evpi(evpi, decision_vars = "NPV_decision_do")
+plot_evpi(evpi, decision_vars = "LLL_NPV")
 #> Warning: There are no variables with a positive EVPI. You probably do not need a
 #> plot for that.
 #> 
