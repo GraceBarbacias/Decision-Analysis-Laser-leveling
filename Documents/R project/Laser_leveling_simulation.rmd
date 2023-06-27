@@ -250,6 +250,9 @@ adopt laser leveling?
 
 ## Input data for the Model for a Business as usual scenario
 
+source for data used in BAU scenario:
+<https://link.springer.com/article/10.1007/s11119-022-09900-8/tables/1>
+
 ```{r}
 #Input data for Business as usual (BAU) scenario 
 #Production cost consisted of: (1) land use; (2) service costs of mechanized operations such as land preparation, mechanical transplanting, fertilizer and pesticide applications and combine harvesting; (3) agronomic inputs including seeds, fertilizer and pesticide; and, (4) labor.
@@ -265,6 +268,8 @@ input_estimates_BAU<- data.frame(variable = c("Yield", "Market_price", "Producti
                                     "Production costs in a normal season"))
 
 input_estimates_BAU
+
+
 ```
 
 ## Monte Carlo Simulation for business as usual scenario
@@ -287,11 +292,47 @@ LLL_model_function <- function(x, varnames){
     chance_event(intervention_NonPColabInvolv, 1, 0, n = 1)
   # chance_event chooses with probability "intervention_NonColabInvolv" the first scenario (1 in this case), otherwise 0 (no involvement)
   
-  # benefits of rice cultivation WITH LLL:
-  precalc_intervention_LLL <-
-    vv(intervention_rice_yield_t_ha, var_CV, n_years) *
+  #precalculation of ommon random draws for all intervention model runs
+  # benefits of rice cultivation WITH LLL:            
+
+            # ##reference for the units used in precalculations, these are values per season, and there are 2 seasons per year:
+            # seed_rate<-40 #kg/ha
+            # yield<-5500 #at 14% MC, kg/ha
+            # N_fert<-70 #kg/ha
+            # P_fert<-10 #kg/ha
+            # K_fert<-12 #kg/ha
+            # land_use<-200*23487 #benefit in VND/ha/year
+            # seed<-0.6*23487 #benefit in VND/kg
+            # paddy<-0.2*23487 #benefit in VND/kg
+            # fertilizer<-170*23487 #benefit in VND/ha
+            # season_profit<- ((land_use)/2)+(seed*seed_rate)+ (paddy*seed_rate) + (fertilizer)#profit from season's yields and savings after LLL in VND/ha
+            # Output_farmer<- season_profit *10 #VND/ha for 10 cropping seasons
+            # print(Output_farmer)
+    
+  precalc_intervention_land_use <-
+    vv(intervention_land_USD_ha_year, var_CV, n_years) *
+    vv(intervention_land_area_ha, var_CV, n_years) 
+  
+  precalc_intervention_water_savings <-
+    vv(intervention_water_cum_ha, var_CV, n_years) * 
+    vv(intervention_water_cost_USD_m3, var_CV, n_years)
+  
+  precalc_intervention_fert_savings <-
+    vv(intervention_fert_USD_ha, var_CV, n_years) *
+    vv(intervention_fert_area_ha, var_CV, n_years)
+  
+  precalc_intervention_seed_savings <-
+    vv(intervention_seed_kg_ha, var_CV, n_years) *
+    vv(intervention_seed_USD_kg, var_CV, n_years)
+  
+  precalc_intervention_yield <-
+      vv(intervention_rice_yield_t_ha, var_CV, n_years) *
     vv(intervention_rice_area_ha, var_CV, n_years) *
-    vv(rice_price_USD_t, var_CV, n_years)    
+    vv(rice_price_USD_t, var_CV, n_years)
+  
+  precalc_intervention_LLL <-
+    precalc_intervention_fert_savings + precalc_intervention_yield +   precalc_intervention_seed_savings + precalc_intervention_land_use +
+    precalc_intervention_water_savings
     
     # benefits of rice cultivation WITHOUT LLL:
   precalc_ground_truth_normal_rice_production <-
@@ -461,7 +502,6 @@ mcSimulation_results <- decisionSupport::mcSimulation(
   numberOfModelRuns = 1e3, #run 1,000 times
   functionSyntax = "plainNames"
 )
-
 ```
 
 ## Data Visualization
@@ -518,10 +558,11 @@ input_table <- read.csv("Test_Input.csv")
 
 plot_pls(pls_result, input_table = input_table, threshold = 0)
 
-
 ```
 
 ## Value of Information Analysis
+
+Value of Information Analysis conducted using EVPI.
 
 ```{r, echo=TRUE}
 #here we subset the outputs from the mcSimulation function (y) by selecting the correct variables
@@ -546,7 +587,7 @@ compound_figure(mcSimulation_object = mcSimulation_results, input_table = input_
 
 -based on the analysis and simulation results of whether or not to
 implement laser leveling considering: -decision criteria -cost-benefit
-analysispotential risks and uncertainties.
+analysis potential risks and uncertainties.
 
 # Conclusion
 
