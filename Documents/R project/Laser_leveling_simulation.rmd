@@ -21,27 +21,30 @@ emerged as major challenges in agricultural development worldwide. With
 the increasing impacts of climate change, ensuring sustainable food
 production has become a pressing concern. Irrigated rice cultivation
 plays a vital role in ensuring global food security, providing a
-substantial portion of the world's population with a staple crop. Rice
-is a primary dietary staple for billions of people, particularly in
-Asia, where it serves as a crucial source of calories and nutrition.
-Rice consumption has increased globally over the last decade. Statista
-data shows that, in the cropping year 2020/2021, the world population
-consumed about 504.3 million metric tons of rice, increasing from 437.18
-million metric tons in 2008/2009. To meet the growing demand for rice
-and ensure stable food supplies, efficient water management is
+substantial portion of the world's population with a staple crop
+**(Bouman et al., 2007)**. Rice is a primary dietary staple for billions
+of people, particularly in Asia, where it serves as a crucial source of
+calories and nutrition **(Seck et al., 2012)**. Rice consumption has
+increased globally over the last decade. Statista data shows that, in
+the cropping year 2020/2021, the world population consumed about 504.3
+million metric tons of rice, increasing from 437.18 million metric tons
+in 2008/2009 **(Cuaton et al., 2022)**. To meet the growing demand for
+rice and ensure stable food supplies, efficient water management is
 essential. However, irrigated rice farming requires significant water
 resources, accounting for a substantial portion of global freshwater
-consumption. As water scarcity becomes an increasing concern, optimizing
-water use in irrigated rice fields is crutial.
+consumption **(FAO, 2020; Yang et al., 2006)**. As water scarcity
+becomes an increasing concern, optimizing water use in irrigated rice
+fields is crutial **(Molden et al., 2010).**
 
 Irrigated rice fields play a crucial role in Vietnam's agricultural
 landscape, providing sustenance for its population and contributing
-significantly to the national economy. However, traditional manual
-leveling methods used in rice cultivation are time-consuming,
-labor-intensive, and often result in uneven water distribution, leading
-to suboptimal crop growth and reduced yield. To address these
-challenges, laser leveling techniques have emerged as a promising
-solution for irrigated rice fields.
+significantly to the national economy **(Ngoc et al., 2012)**. However,
+traditional manual leveling methods used in rice cultivation are
+time-consuming, labor-intensive, and often result in uneven water
+distribution, leading to suboptimal crop growth and reduced yield
+**(Tuan et al., 2014)**. To address these challenges, laser leveling
+techniques have emerged as a promising solution for irrigated rice
+fields.
 Here we enumerate some of the benefits of laser leveling, its potential
 impact on agricultural productivity, and its suitability for the
 Vietnamese context.
@@ -50,15 +53,17 @@ Vietnamese context.
     Laser leveling technology ensures precise land grading, creating a
     uniform surface with minimal slope variations. This accuracy allows
     for efficient water management and enables uniform distribution
-    across the rice fields. By achieving a consistent water depth, laser
-    leveling reduces water wastage, enhances irrigation efficiency, and
-    minimizes the risk of both waterlogging and drought stress.
+    across the rice fields **(Nguyen & Thang, 2019)**. By achieving a
+    consistent water depth, laser leveling reduces water wastage,
+    enhances irrigation efficiency, and minimizes the risk of both
+    waterlogging and drought stress **(Ngoc et al., 2012)**.
 2.  Increased Productivity and Yield:
     Uneven land surfaces can hinder crop growth, leading to uneven
     maturity and reduced overall yield. By providing a flat and
     consistent terrain, laser leveling promotes uniform plant growth,
     facilitates optimal nutrient absorption, and ensures a balanced
-    distribution of sunlight. These factors collectively contribute to
+    distribution of sunlight
+    (Tuan et al., 2014). These factors collectively contribute to
     increased crop productivity and improved rice grain quality.
 3.  Cost and Labor Savings:
     Traditional manual leveling methods are labor-intensive and
@@ -77,12 +82,12 @@ Vietnamese context.
     fertilizer and pesticide applications, thereby reducing chemical
     runoff and environmental pollution.
 
-Overview -potential benefits -relevance of the decision for farmers
+verview -potential benefits -relevance of the decision for farmers
 
 ## Objective
 
--Determine whether laser leveling should be applied by a small farmer
-cooperative in Vietnam
+The aim of this project is to determine whether laser leveling should be
+applied by a small farmer rice cooperative in Vietnam or not.
 
 # Methodology
 
