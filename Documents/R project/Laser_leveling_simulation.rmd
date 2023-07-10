@@ -57,32 +57,34 @@ Vietnamese context.
     consistent water depth, laser leveling reduces water wastage,
     enhances irrigation efficiency, and minimizes the risk of both
     waterlogging and drought stress **(Ngoc et al., 2012)**.
+
 2.  Increased Productivity and Yield:
     Uneven land surfaces can hinder crop growth, leading to uneven
     maturity and reduced overall yield. By providing a flat and
     consistent terrain, laser leveling promotes uniform plant growth,
     facilitates optimal nutrient absorption, and ensures a balanced
     distribution of sunlight
-    (Tuan et al., 2014). These factors collectively contribute to
+    **(Tuan et al., 2014)**. These factors collectively contribute to
     increased crop productivity and improved rice grain quality.
+
 3.  Cost and Labor Savings:
     Traditional manual leveling methods are labor-intensive and
     time-consuming. In contrast, laser leveling technology automates the
     land grading process, significantly reducing the need for manual
-    labor. This not only saves costs associated with hiring and managing
-    labor but also expedites the cultivation process, allowing for
-    timely crop rotations and potentially increasing the number of
-    planting cycles per year.
+    labor **(Nguyen et al., 2021)**. This not only saves costs
+    associated with hiring and managing labor but also expedites the
+    cultivation process, allowing for timely crop rotations and
+    potentially increasing the number of planting cycles per year
+    **(Hoang & Vien, 2018)**.
+
 4.  Environmental Sustainability:
     Laser leveling helps mitigate negative environmental impacts
     associated with traditional cultivation practices. By optimizing
     water distribution, it reduces water consumption and minimizes
-    runoff, preserving this valuable resource. Additionally, by
-    promoting uniform crop growth, it minimizes the need for excessive
-    fertilizer and pesticide applications, thereby reducing chemical
-    runoff and environmental pollution.
-
-verview -potential benefits -relevance of the decision for farmers
+    runoff, preserving this valuable resource **(Ngoc et al., 2012)**.
+    Additionally, by promoting uniform crop growth, it minimizes the
+    need for excessive fertilizer and pesticide applications, thereby
+    reducing chemical runoff and environmental pollution.
 
 ## Objective
 
@@ -93,6 +95,61 @@ applied by a small farmer rice cooperative in Vietnam or not.
 
 -Methods we use -Decision analysis theory and decisionSupport package by
 Luedeling et al
+
+The decisionSuppoty package developed by Eike Luedeling et al, provides
+a systematic framework for making informed decisions based on a
+combination of data, models, and stakeholder preferences. Decision
+analysis is a quantitative approach that aims to support decision-making
+processes by explicitly considering uncertainties, trade-offs, and
+potential consequences.
+
+The "decisionSupport" R package incorporates decision analysis
+techniques into a user-friendly software tool, allowing decision-makers
+to analyze complex problems and evaluate alternative courses of action.
+The methodology typically involves the following steps:
+
+1.  Problem Definition: Clearly defining the decision problem and
+    identifying the objectives, constraints, and stakeholders involved.
+    This step helps establish a clear understanding of the decision
+    context.
+
+2.  Data Collection: Gathering relevant data and information related to
+    the decision problem. This may include historical data, expert
+    opinions, stakeholder preferences, and other sources of information
+    required for the analysis.
+
+3.  Model Development: Developing mathematical or statistical models to
+    represent the relationships between different variables and assess
+    the potential outcomes of different decisions. The R package
+    provides a range of modeling tools and techniques for decision
+    analysis.
+
+4.  Uncertainty Assessment: Quantifying uncertainties associated with
+    key variables or parameters in the decision problem. This may
+    involve statistical analysis, sensitivity analysis, or the use of
+    probabilistic modeling approaches to estimate the range of possible
+    outcomes.
+
+5.  Decision Evaluation: Integrating the models, data and uncertainties
+    to evaluate different decision alternatives. This involves comparing
+    and ranking the alternatives based on multiple criteria, considering
+    trade-offs and uncertainties.
+
+6.  Sensitivity Analysis: Assessing the robustness of the decision
+    results by examining the impact of changes in assumptions, input
+    data, or models on the recommended decision.
+
+7.  Communication and Implementation: Communicating the decision
+    analysis results effectively to stakeholders and facilitating their
+    understanding of the implications and trade-offs. This step helps in
+    gaining consensus and support for the recommended decision and
+    facilitating its implementation.
+
+The desicionSupport R package provides a comprehensive set of functions
+and tools to support decision analysis using the R programming language.
+It offers a flexible and customizable platform for implementing decision
+support methodologies, enabling users to perform sophisticated decision
+analysis tasks efficiently.
 
 ## Decision Criteria (maybe with Data Sources?)
 
