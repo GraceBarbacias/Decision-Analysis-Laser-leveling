@@ -20,12 +20,13 @@ editor_options:
 
 ## Objective
 
--Determine whether laser leveling should be applied by a small farmer in
-Vietnam
+-Determine whether laser leveling should be applied by a small farmer
+cooperative in Vietnam
 
 # Methodology
 
--Methods we use -Decision analysis theory
+-Methods we use -Decision analysis theory and decisionSupport package by
+Luedeling et al
 
 ## Decision Criteria (maybe with Data Sources?)
 
@@ -61,7 +62,7 @@ knitr::write_bib(c(.packages(),
 
 ## Loading and organizing existing data and assumptions made
 
-```{r data preparation, echo=TRUE}
+```{r data preparationn, echo=TRUE}
 # data loading and sorting R code:
 
 ```
@@ -85,15 +86,15 @@ assumptions below.
 
 ![](images/Screenshot%202023-06-12%20at%209.42.22%20PM.png)
 
-Source: (Nguyen-Van-Hung et al., 2022)
+Source: @nguyen-van-hung_precision_2022
 
 ![](images/Screenshot%202023-06-12%20at%2010.52.03%20PM.png)
 
-Source: (Nguyen-Van-Hung et al., 2022)
+Source: @nguyen-van-hung_precision_2022
 
 ![](images/Screenshot%202023-06-16%20at%2012.29.18%20PM.png)
 
-Source: (Nguyen-Van-Hung et al., 2022)
+Source: @nguyen-van-hung_precision_2022
 
 20000 VND-\> minimum wage in Region II Vietnam (Dat, 2023)
 
@@ -224,7 +225,7 @@ laser leveling could offer in comparison to tradtional farming.
 
 ![](images/Screenshot%202023-06-12%20at%209.38.09%20PM.png)
 
-Source: (Nguyen-Van-Hung et al., 2022)
+Source: @nguyen-van-hung_precision_2022
 
 ```{r yield-analysis, echo=TRUE}
 # yield analysis R:
@@ -292,7 +293,7 @@ LLL_model_function <- function(x, varnames){
     chance_event(intervention_NonPColabInvolv, 1, 0, n = 1)
   # chance_event chooses with probability "intervention_NonColabInvolv" the first scenario (1 in this case), otherwise 0 (no involvement)
   
-  #precalculation of ommon random draws for all intervention model runs
+  #precalculation of common random draws for all intervention model runs
   # benefits of rice cultivation WITH LLL:            
 
             # ##reference for the units used in precalculations, these are values per season, and there are 2 seasons per year:
@@ -306,8 +307,7 @@ LLL_model_function <- function(x, varnames){
             # paddy<-0.2*23487 #benefit in VND/kg
             # fertilizer<-170*23487 #benefit in VND/ha
             # season_profit<- ((land_use)/2)+(seed*seed_rate)+ (paddy*seed_rate) + (fertilizer)#profit from season's yields and savings after LLL in VND/ha
-            # Output_farmer<- season_profit *10 #VND/ha for 10 cropping seasons
-            # print(Output_farmer)
+            # Output_farmer<- season_profit *10 #VND/ha for 10 cropping seasons                                      
     
   precalc_intervention_land_use <-
     vv(intervention_land_USD_ha_year, var_CV, n_years) *
@@ -596,14 +596,17 @@ for future research or consideration
 
 # References
 
+```{r add_R_bib}
+
+library(knitr)
+library(decisionSupport)
+
+knitr::write_bib(c(.packages(),'knitr','decisionSupport'),'bib/project_packages.bib')
+```
+
 Dat, L. T. Q. (2023). What are monthly and hourly statutory minimum
 wages in Vietnam? Retrieved from
 <https://lawnet.vn/thong-tin-phap-luat/en/tu-van-luat/what-are-monthly-and-hourly-statutory-minimum-wages-in-vietnam-116511.html>
-
-Nguyen-Van-Hung, Balingbing, C., Sandro, J. *et al.* Precision land
-leveling for sustainable rice production: case studies in Cambodia,
-Thailand, Philippines, Vietnam, and India. *Precision Agric* **23**,
-1633--1652 (2022). <https://doi.org/10.1007/s11119-022-09900-8>
 
 World Bank. (2021). Retrieved from
 <https://data.worldbank.org/indicator/FR.INR.LEND?locations=VN>
