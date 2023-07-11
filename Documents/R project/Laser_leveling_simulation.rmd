@@ -44,47 +44,44 @@ time-consuming, labor-intensive, and often result in uneven water
 distribution, leading to suboptimal crop growth and reduced yield
 **(Tuan et al., 2014)**. To address these challenges, laser leveling
 techniques have emerged as a promising solution for irrigated rice
-fields.
-Here we enumerate some of the benefits of laser leveling, its potential
-impact on agricultural productivity, and its suitability for the
-Vietnamese context.
+fields. Here we enumerate some of the benefits of laser leveling, its
+potential impact on agricultural productivity, and its suitability for
+the Vietnamese context.
 
-1.  Improved Water Management:
-    Laser leveling technology ensures precise land grading, creating a
-    uniform surface with minimal slope variations. This accuracy allows
-    for efficient water management and enables uniform distribution
-    across the rice fields **(Nguyen & Thang, 2019)**. By achieving a
-    consistent water depth, laser leveling reduces water wastage,
-    enhances irrigation efficiency, and minimizes the risk of both
-    waterlogging and drought stress **(Ngoc et al., 2012)**.
+1.  Improved Water Management: Laser leveling technology ensures precise
+    land grading, creating a uniform surface with minimal slope
+    variations. This accuracy allows for efficient water management and
+    enables uniform distribution across the rice fields **(Nguyen &
+    Thang, 2019)**. By achieving a consistent water depth, laser
+    leveling reduces water wastage, enhances irrigation efficiency, and
+    minimizes the risk of both waterlogging and drought stress **(Ngoc
+    et al., 2012)**.
 
-2.  Increased Productivity and Yield:
-    Uneven land surfaces can hinder crop growth, leading to uneven
-    maturity and reduced overall yield. By providing a flat and
-    consistent terrain, laser leveling promotes uniform plant growth,
-    facilitates optimal nutrient absorption, and ensures a balanced
-    distribution of sunlight
-    **(Tuan et al., 2014)**. These factors collectively contribute to
-    increased crop productivity and improved rice grain quality.
+2.  Increased Productivity and Yield: Uneven land surfaces can hinder
+    crop growth, leading to uneven maturity and reduced overall yield.
+    By providing a flat and consistent terrain, laser leveling promotes
+    uniform plant growth, facilitates optimal nutrient absorption, and
+    ensures a balanced distribution of sunlight **(Tuan et al., 2014)**.
+    These factors collectively contribute to increased crop productivity
+    and improved rice grain quality.
 
-3.  Cost and Labor Savings:
-    Traditional manual leveling methods are labor-intensive and
-    time-consuming. In contrast, laser leveling technology automates the
-    land grading process, significantly reducing the need for manual
-    labor **(Nguyen et al., 2021)**. This not only saves costs
-    associated with hiring and managing labor but also expedites the
-    cultivation process, allowing for timely crop rotations and
-    potentially increasing the number of planting cycles per year
-    **(Hoang & Vien, 2018)**.
+3.  Cost and Labor Savings: Traditional manual leveling methods are
+    labor-intensive and time-consuming. In contrast, laser leveling
+    technology automates the land grading process, significantly
+    reducing the need for manual labor **(Nguyen et al., 2021)**. This
+    not only saves costs associated with hiring and managing labor but
+    also expedites the cultivation process, allowing for timely crop
+    rotations and potentially increasing the number of planting cycles
+    per year **(Hoang & Vien, 2018)**.
 
-4.  Environmental Sustainability:
-    Laser leveling helps mitigate negative environmental impacts
-    associated with traditional cultivation practices. By optimizing
-    water distribution, it reduces water consumption and minimizes
-    runoff, preserving this valuable resource **(Ngoc et al., 2012)**.
-    Additionally, by promoting uniform crop growth, it minimizes the
-    need for excessive fertilizer and pesticide applications, thereby
-    reducing chemical runoff and environmental pollution.
+4.  Environmental Sustainability: Laser leveling helps mitigate negative
+    environmental impacts associated with traditional cultivation
+    practices. By optimizing water distribution, it reduces water
+    consumption and minimizes runoff, preserving this valuable resource
+    **(Ngoc et al., 2012)**. Additionally, by promoting uniform crop
+    growth, it minimizes the need for excessive fertilizer and pesticide
+    applications, thereby reducing chemical runoff and environmental
+    pollution.
 
 ## Objective
 
@@ -156,13 +153,31 @@ analysis tasks efficiently.
 
 ## Decision Criteria (maybe with Data Sources?)
 
--features of our input table explained and sorted by overlying category
-(eg. Economical, Ecological etc.)
+Because our main objective is to determine whether laser leveling could
+be applied by a small farmer rice cooperative in Vietnam or not, first
+we decided to focus on the Economic Criteria and Ecological Criteria of
+laser leveling, as recommended by **(Oertlé et al., 2019)** where they
+explain the importance of introducing the topic, since it is currently
+not that known in Vietnam. They remark that is also important to
+demonstrate that the technology (laser leveling in this case) could have
+an economic an environmental potential for cooperative farmers. We know
+that we can implement this technology in Vietnam because the goverment
+has runned a program of "5 for 1 program" in Vietnam, to promote
+sustainable rice production, which includes laser leveling as an
+strategy. The following steps after this project will be to to hold a
+stakeholder dialogue to identify barriers and drivers for future
+implementation.
 
-**Economical Criteria** cost-effectiveness potential yield improvement
+For the model building process we determined first all the possible
+variables for the economic and environmental components in our model and
+design an input table, that is stored locally as XXXXX.csv, this table
+contains all the input variables and each basic values used in the
+model.
+
+Economical Criteria cost-effectiveness potential yield improvement
 (fertilizer savings, yield increase, seed savings)
 
-**Ecological** (Water use savings, GHGE, soil conservation)
+Ecological (Water use savings, GHGE, soil conservation)
 
 ## Package Management Section
 
