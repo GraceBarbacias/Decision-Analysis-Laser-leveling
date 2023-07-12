@@ -32,8 +32,8 @@ tons of rice, increasing from 437.18 million metric tons in 2008/2009
 food supplies, efficient water management is essential. However,
 irrigated rice farming requires significant water resources, accounting
 for a substantial portion of global freshwater consumption
-@food__agriculture_organization_future_2018 **@yang_water_2006**. As
-water scarcity becomes an increasing concern, optimizing water use in
+@food__agriculture_organization_future_2018 @yang_water_2006. As water
+scarcity becomes an increasing concern, optimizing water use in
 irrigated rice fields is crutial @molden_improving_2010.
 
 Irrigated rice fields play a crucial role in Vietnam's agricultural
@@ -51,9 +51,9 @@ the Vietnamese context.
 1.  Improved Water Management: Laser leveling technology ensures precise
     land grading, creating a uniform surface with minimal slope
     variations. This accuracy allows for efficient water management and
-    enables uniform distribution across the rice
-    fields @nguyen_application_2019. By achieving a consistent water
-    depth, laser leveling reduces water wastage, enhances irrigation
+    enables uniform distribution across the rice fields
+    @nguyen_application_2019. By achieving a consistent water depth,
+    laser leveling reduces water wastage, enhances irrigation
     efficiency, and minimizes the risk of both waterlogging and drought
     stress @ngoc_benefits_2012.
 
@@ -77,11 +77,11 @@ the Vietnamese context.
 4.  Environmental Sustainability: Laser leveling helps mitigate negative
     environmental impacts associated with traditional cultivation
     practices. By optimizing water distribution, it reduces water
-    consumption and minimizes runoff, preserving this valuable
-    resource @ngoc_benefits_2012. Additionally, by promoting uniform
-    crop growth, it minimizes the need for excessive fertilizer and
-    pesticide applications, thereby reducing chemical runoff and
-    environmental pollution.
+    consumption and minimizes runoff, preserving this valuable resource
+    @ngoc_benefits_2012. Additionally, by promoting uniform crop growth,
+    it minimizes the need for excessive fertilizer and pesticide
+    applications, thereby reducing chemical runoff and environmental
+    pollution.
 
 ## Objective
 
@@ -144,22 +144,22 @@ following steps:
 
 The desicionSupport R package provides a comprehensive set of functions
 and tools to support decision analysis using the R programming language.
-It offers a flexible and customizable platform for implementing decision
-support methodologies, enabling users to perform sophisticated decision
-analysis tasks efficiently.
+It offers a flexible and customization platform for implementing
+decision support methodologies, enabling users to perform sophisticated
+decision analysis tasks efficiently.
 
-## Decision Criteria (maybe with Data Sources?)
+## Decision Criteria
 
 Because our main objective is to determine whether laser leveling could
 be applied by a small farmer rice cooperative in Vietnam or not, first
 we decided to focus on the Economic Criteria and Ecological Criteria of
-laser leveling, as recommended by **(Oertlé et al., 2019)** where they
+laser leveling, as recommended by @oertle_potential_2019 where they
 explain the importance of introducing the topic, since it is currently
 not that known in Vietnam. They remark that is also important to
 demonstrate that the technology (laser leveling in this case) could have
 an economic an environmental potential for cooperative farmers. We know
-that we can implement this technology in Vietnam because the goverment
-has runned a program of "5 for 1 program" in Vietnam, to promote
+that we can implement this technology in Vietnam because the government
+has run a program of "5 for 1 program" in Vietnam, to promote
 sustainable rice production, which includes laser leveling as an
 strategy. The following steps after this project will be to to hold a
 stakeholder dialogue to identify barriers and drivers for future
@@ -167,9 +167,9 @@ implementation.
 
 For the model building process we determined first all the possible
 variables for the economic and environmental components in our model and
-design an input table, that is stored locally as **XXXXX.csv**, this
-table contains all the input variables and each basic values used in the
-model.
+design an input table, that is stored locally as **Test_Input.csv**,
+this table contains all the input variables and each basic values used
+in the model.
 
 Economical Criteria cost-effectiveness potential yield improvement
 (fertilizer savings, yield increase, seed savings)
