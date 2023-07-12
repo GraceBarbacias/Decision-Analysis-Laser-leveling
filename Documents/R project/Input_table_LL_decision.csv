@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 variable;lower;median;upper;distribution;label
 n_years;25;;25;const;Number of years for simulation
 farm_area;0.7;;2;posnorm;Rice area per farmer [ha]
@@ -27,33 +26,3 @@ LL_land_USD_ha_year;200;;300;posnorm;Land use savings (USD/ha/year)
 LL_water_saving;3045;;8460;posnorm;Water savings (m3/ha)
 LL_water_cost;0.22;;0.54;posnorm;Irrigation price (USD/m3)
 var_CV;5;;20;posnorm; coeff. Variation: ratio of the standard deviation to the mean (a measure of relative variability).
-=======
-Description;label;variable;distribution;lower;median;upper
-Number of years for simulation;Number of years for simulation;n_years;const;25;;25
-Rice area per farmer;Rice area per farmer;farm_area;posnorm;0.7;;2
-Chance that not all farmers agree to a final LLL application;Chance that not all farmers agree to a final LLL application;chance_noLL;tnorm_0_1;0.05;;0.15
-Discount rate for reducing future cost and benefit to their present values (%);Discount rate for reducing future cost and benefit to their present values (%);discount_rate;posnorm;0.1;;0.3
-The price of the rice [USD per tons];The price of the rice [USD per tons];rice_price;posnorm;197.5;;513
-Planning costs;Planning costs;planning_cost_LL;posnorm;5;;30
-Part of planning costs - measurements of the field etc.;Part of planning costs - measurements of the field etc.;zoning_cost_LL;posnorm;7;;18
-Cost for the initial investment in laser leveling [USD/ha];Cost for the initial investment in laser leveling [USD/ha];establishment_cost_LL;posnorm;46;;186
-Maintenace costs per year after 1st year;Maintenance costs per year after 1st year;maintenance_cost_LL;posnorm;7.36;;29.76
-Rice yield conventional farming in [tons/hectar];Maintenace costs per year after 1st year;yield_noLL;posnorm;4;;6.5
-Rice yield with Laser Leveling in [tons/hectar];Rice yield with Laser Leveling in [tons/hectar];yield_LL;posnorm;4.66;;7.16
-Seed cost LL (USD/ha);Seed cost LL (USD/ha);seed_cost_LL;posnorm;55.56;;68.88
-Fertilizer cost LL (USD/ha);Fertilizer cost LL (USD/ha);fertilizer_cost_LL;posnorm;97.17;;134.25
-Pesticide cost LL (USD/ha);Pesticide cost LL (USD/ha);pesticide_cost_LL;posnorm;57.97;;78.35
-Water pumping fuel cost LL (USD/ha);Water pumping fuel cost LL (USD/ha);water_pumping_fuel_cost_LL;posnorm;33.49;;57.81
-Labor cost LL (USD/ha);Labor cost LL (USD/ha);labor_cost_LL;posnorm;565.73;;670.31
-Laser land leveling fees (with/without subsidies);Laser land leveling fees (with/without subsidies);service_fee_LL;posnorm;69.6;;185.6
-Seed cost without LL (USD/ha);Seed cost without LL (USD/ha);seed_cost_noLL;posnorm;116.03;;170.57
-Fertilizer cost without LL (USD/ha);Fertilizer cost without LL (USD/ha);fertilizer_cost_noLL;posnorm;175.25;;267.47
-Pesticide cost without LL (USD/ha);Pesticide cost without LL (USD/ha);pesticide_cost_noLL;posnorm;124.51;;186.17
-Water pumping fuel cost without LL (USD/ha);Water pumping fuel cost without LL (USD/ha);water_pumping_fuel_cost_noLL;posnorm;37.64;;74.48
-Labor_cost_noLL (USD/ha);Labor_cost_noLL (USD/ha);labor_cost_noLL;posnorm;563.09;;756.05
-Service fees for mechanical plowing and returning straw;Service fees for mechanical plowing and returning straw;service_fee_noLL;posnorm;100;;185.6
-Land use savings (USD/ha/year);Land use savings (USD/ha/year);LL_land_USD_ha_year;posnorm;200;;300
-Water savings (m3/ha);Water savings (m3/ha);LL_water_saving;posnorm;3045;;8460
-Irrigation price (USD/m3);Irrigation price (USD/m3);LL_water_cost;posnorm;0.22;;0.54
-coeff. Variation: ratio of the standard deviation to the mean (a measure of relative variability).;coeff. Variation: ratio of the standard deviation to the mean (a measure of relative variability).;var_CV;posnorm;5;;20
->>>>>>> Stashed changes
