@@ -1,12 +1,15 @@
 ---
 title: "Decision Analysis for Laser Leveling Application"
-subtitle: "Creating a decision support model for smale scale farmers in Vietnam using the decisionSupport R package by Lüdeling et al."
 author: "Marina, Sara, Kent, Frederic, Grace"
-output: pdf_document
 date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+subtitle: Creating a decision support model for smale scale farmers in Vietnam using
+  the decisionSupport R package by Lüdeling et al.
 bibliography: project_packages.bib
-editor_options: 
-  markdown: 
+editor_options:
+  markdown:
     wrap: 72
 ---
 
@@ -684,8 +687,8 @@ library(decisionSupport)
 pls_result <- plsr.mcSimulation(object = mcSimulation_results,
                   resultName = names(mcSimulation_results$y)[3], ncomp = 1)
 
-input_table <- read.csv("Input_table_LL_decision.csv")
-
+input_table <- read.csv("Input_table_LL_decision.csv", sep = ";")
+                        
 plot_pls(pls_result, input_table = input_table, threshold = 0)
 
 ```
