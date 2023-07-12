@@ -17,16 +17,14 @@ editor_options:
 
 # Introduction
 
-## 
-
 Water scarcity and the efficient management of water resources have
 emerged as major challenges in agricultural development worldwide. With
 the increasing impacts of climate change, ensuring sustainable food
 production has become a pressing concern. Irrigated rice cultivation
 plays a vital role in ensuring global food security, providing a
 substantial portion of the world's population with a staple crop
-**(Bouman et al., 2007)**. Rice is a primary dietary staple for billions
-of people, particularly in Asia, where it serves as a crucial source of
+[@bouman_rice_2007]. Rice is a primary dietary staple for billions of
+people, particularly in Asia, where it serves as a crucial source of
 calories and nutrition **(Seck et al., 2012)**. Rice consumption has
 increased globally over the last decade. Statista data shows that, in
 the cropping year 2020/2021, the world population consumed about 504.3
