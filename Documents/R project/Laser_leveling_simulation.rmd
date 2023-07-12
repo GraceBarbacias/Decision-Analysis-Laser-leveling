@@ -91,8 +91,6 @@ applied by a small farmer rice cooperative in Vietnam or not.
 
 # Methodology
 
-#### *Decision analysis theory and decisionSupport package by Luedeling et al.*
-
 Decision analysis is a systematic approach for making decisions under
 uncertainty, incorporating mathematical and analytical techniques to
 evaluate alternative courses of action and their potential outcomes. It
@@ -100,8 +98,8 @@ is a quantitative approach that aims to support decision-making
 processes by explicitly considering uncertainties, trade-offs, and
 potential consequences.
 
-The decisionSuppoty package developed by Eike Luedeling et al, provides
-a systematic framework for making informed decisions based on a
+The decisionSuppoty package developed by @R-decisionSupport, provides a
+systematic framework for making informed decisions based on a
 combination of data, models, and stakeholder preferences. This R package
 incorporates decision analysis techniques into a user-friendly software
 tool, allowing decision-makers to analyze complex problems and evaluate
@@ -732,7 +730,7 @@ for future research or consideration
 library(knitr)
 library(decisionSupport)
 
-knitr::write_bib(c(.packages(),'knitr','decisionSupport'),'bib/project_packages.bib')
+knitr::write_bib(c(.packages(),'knitr','decisionSupport'),'project_packages.bib')
 ```
 
 Dat, L. T. Q. (2023). What are monthly and hourly statutory minimum
