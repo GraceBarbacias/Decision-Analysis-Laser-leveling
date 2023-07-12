@@ -395,23 +395,7 @@ adopt laser leveling?
 source for data used in BAU scenario:
 <https://link.springer.com/article/10.1007/s11119-022-09900-8/tables/1>
 
-```{r}
-#Input data for Business as usual (BAU) scenario 
-#Production cost consisted of: (1) land use; (2) service costs of mechanized operations such as land preparation, mechanical transplanting, fertilizer and pesticide applications and combine harvesting; (3) agronomic inputs including seeds, fertilizer and pesticide; and, (4) labor.
-
-input_estimates_BAU<- data.frame(variable = c("Yield", "Market_price", "Production_cost"),
-                    lower = c(4, 350, 2300),
-                    median = NA,
-                    upper = c(7, 450, 3300),
-                    distribution = c("posnorm", "posnorm", "posnorm"),
-                    label = c("Yield (tonne/ha)", "Price (USD/tonne)", "Production cost (USD/ha)"),
-                    Description = c("Yield in a rice field without LL",
-                                    "Price of rice in a normal season",
-                                    "Production costs in a normal season"))
-
-input_estimates_BAU
-
-
+```{}
 ```
 
 ## Monte Carlo Simulation for business as usual scenario
@@ -426,12 +410,11 @@ intervention_zoning_cost = 150 \* VND \# Estimate the income in a normal
 season income_norm \<- Yield \* Market_price """
 
 ```{r, echo=TRUE}
-LLL_model_function <- function(x, varnames){
+LL_model_function <- function(x, varnames){
   
     # calculate ex-ante risks: impact the implementation of interventions ####
   #
-    intervention_NonColabInvolvEvent <-
-    chance_event(intervention_NonPColabInvolv, 1, 0, n = 1)
+    intervention_No_coop_Event <- chance_event(chance_noLL, 1, 0, n = 1)
   # chance_event chooses with probability "intervention_NonColabInvolv" the first scenario (1 in this case), otherwise 0 (no involvement)
   
   #precalculation of common random draws for all intervention model runs
@@ -449,134 +432,173 @@ LLL_model_function <- function(x, varnames){
             # fertilizer<-170*23487 #benefit in VND/ha
             # season_profit<- ((land_use)/2)+(seed*seed_rate)+ (paddy*seed_rate) + (fertilizer)#profit from season's yields and savings after LLL in VND/ha
             # Output_farmer<- season_profit *10 #VND/ha for 10 cropping seasons                                      
+  # Precalculationn for the change in yield with the intervention of Laser Leveling
+  precalc_LL_yield <-
+    vv(yield_LL, var_CV, n_years) * # yield [t/ha]
+    vv(farm_area, var_CV, n_years) * # area of the field per farmer [ha]
+    vv(rice_price, var_CV, n_years) # rice price [USD/t]
+  
+  # Precalculationn for the water savings with the intervention of Laser Leveling
+  precalc_LL_water_savings <-
+    vv(LL_water_saving, var_CV, n_years) * # water savings in [m^3/ha]
+    vv(LL_water_cost, var_CV, n_years) # cost of irrigation water [USD/m^3]
+  
+  # Precalculationn for the fertilizer savings with the intervention of Laser Leveling
+  precalc_LL_fert_savings <-
+    (vv(Fertilizer_cost_noLL, var_CV, n_years) - # fertilizer cost w/o LL [USD/ha]
+    vv(Fertilizer_cost_LL, var_CV, n_years)) * # fertilizer cost with LL [USD/ha]
+    vv(farm_area, var_CV, n_years) # area of the field per farmer [ha]
+  
+  # Precalculationn for the pesticide savings with the intervention of Laser Leveling
+  precalc_LL_pest_savings <-
+    (vv(Pesticide_cost_noLL, var_CV, n_years) - # pesticide cost w/o LL [USD/ha]
+    vv(Pesticide_cost_LL, var_CV, n_years)) * # pesticide cost with LL [USD/ha]
+    vv(farm_area, var_CV, n_years) # area of the field per farmer [ha]
+  
+  # Precalculationn for the seed savings with the intervention of Laser Leveling
+  precalc_LL_seed_savings <-
+    (vv(Seed_cost_noLL, var_CV, n_years) - # seed cost w/o LL [USD/ha]
+    vv(Seed_cost_LL , var_CV, n_years)) * # seed cost with LL [USD/ha]
+    vv(farm_area, var_CV, n_years) # area of the field per farmer [ha]
+  
+  # Precalculationn for the fuel savings with the intervention of Laser Leveling
+  precalc_LL_fuel_savings <-
+    (vv(Water_pumping_fuel_cost_noLL, var_CV, n_years) - # fuel w/o LL [USD/ha]
+    vv(Water_pumping_fuel_cost_LL, var_CV, n_years)) * # fuel cost with LL [USD/ha]
+    vv(farm_area, var_CV, n_years) # area of the field per farmer [ha]
+  
+  # Precalculationn for the labor cost savings with the intervention of Laser Leveling
+  precalc_LL_labor_savings <-
+    (vv(Labor_cost_noLL, var_CV, n_years) - # labor w/o LL [USD/ha]
+    vv(Labor_cost_LL , var_CV, n_years)) * # labor cost with LL [USD/ha]
+    vv(farm_area, var_CV, n_years) # area of the field per farmer [ha]
+  
+  # ASK GRACE -please explain
+  # Precalculationn for the change in land use with the intervention of Laser Leveling
+   precalc_LL_land_use <-
+    vv(LL_land_USD_ha_year, var_CV, n_years) *
+    vv(LL_land_area_ha, var_CV, n_years) 
+  
+  
+  precalc_LL <-
+    precalc_LL_yield + 
+    precalc_LL_water_savings +
+    precalc_LL_fert_savings + 
+    precalc_LL_pest_savings + 
+    precalc_LL_seed_savings +
+    precalc_LL_labor_savings +
+    precalc_LL_fuel_savings + 
+    precalc_LL_land_use
     
-  precalc_intervention_land_use <-
-    vv(intervention_land_USD_ha_year, var_CV, n_years) *
-    vv(intervention_land_area_ha, var_CV, n_years) 
-  
-  precalc_intervention_water_savings <-
-    vv(intervention_water_cum_ha, var_CV, n_years) * 
-    vv(intervention_water_cost_USD_m3, var_CV, n_years)
-  
-  precalc_intervention_fert_savings <-
-    vv(intervention_fert_USD_ha, var_CV, n_years) *
-    vv(intervention_fert_area_ha, var_CV, n_years)
-  
-  precalc_intervention_seed_savings <-
-    vv(intervention_seed_kg_ha, var_CV, n_years) *
-    vv(intervention_seed_USD_kg, var_CV, n_years)
-  
-  precalc_intervention_yield <-
-      vv(intervention_rice_yield_t_ha, var_CV, n_years) *
-    vv(intervention_rice_area_ha, var_CV, n_years) *
-    vv(rice_price_USD_t, var_CV, n_years)
-  
-  precalc_intervention_LLL <-
-    precalc_intervention_fert_savings + precalc_intervention_yield +   precalc_intervention_seed_savings + precalc_intervention_land_use +
-    precalc_intervention_water_savings
     
-    # benefits of rice cultivation WITHOUT LLL:
-  precalc_ground_truth_normal_rice_production <-
-    vv(rice_yield_t_ha, var_CV, n_years) *
-    vv(rice_area_ha, var_CV, n_years) *
-    vv(rice_price_USD_t, var_CV, n_years)
+    # benefits of rice cultivation WITHOUT LL:
+  precalc_conv_prod <-
+    vv(yield_noLL, var_CV, n_years) * # yield [t/ha]
+    vv(farm_area, var_CV, n_years) * # area of the field per farmer [ha]
+    vv(rice_price, var_CV, n_years) # rice price [USD/t]
   
-  #  Intervention Preamble ####
   
-  # Run a simulation for both the application of LLL and the normal scenario without it:
-  for (intervention_LLL in c(FALSE,TRUE))
+  ####  Intervention Preamble ####
+  
+  # Run a simulation for both the application of LL and the conventional scenario without it:
+  for (intervention_LL in c(FALSE,TRUE))
       {
   
   # Set the preambles for the case if LLL application:    
-  if (intervention_LLL)
+  if (intervention_LL)
   {
-    event_LLL <- TRUE
-    event_LLL_cost <- TRUE
-    event_LLL_PlanningCost <- TRUE
-    event_normal_rice_prod <- FALSE
+    event_LL <- TRUE
+    event_LL_cost <- TRUE
+    event_LL_PlanningCost <- TRUE
+    event_conv_rice_prod <- FALSE
   # Set the preambles for the normal rice production scenario
   } else
   {
-    event_LLL <- FALSE
-    event_LLL_cost <- FALSE
-    event_LLL_PlanningCost <- FALSE
-    event_normal_rice_prod <- TRUE
+    event_LL <- FALSE
+    event_LL_cost <- FALSE
+    event_LL_PlanningCost <- FALSE
+    event_conv_rice_prod <- TRUE
   }
   
-  if (intervention_NonColabInvolvEvent) {
+  if (intervention_No_coop_Event) {
     # only relevant if selected by chance and = TRUE
     # if this condition is TRUE the implementation of LLL will be planned but not executed
-    event_LLL <- FALSE # no LLL applied
-    event_LLL_cost <- FALSE # no establishment costs are created (planning costs however may occur)
-    event_normal_rice_prod <- TRUE # the normal scenario takes place
+    event_LL <- FALSE # no LLL applied
+    event_LL_cost <- FALSE # no establishment costs are created (planning costs however may occur)
+    event_LL_PlanningCost <- TRUE
+    event_conv_rice_prod <- TRUE # the normal scenario takes place
 }
     
-  #  Intervention ####
+  ####  Intervention ####
   
   # summing up the investment costs if LLL is applied or not
-  if (event_LLL_cost) {
-    investment_cost_LLL <- establishment_cost_LLL
+  if (event_LL_cost) {
+    investment_cost_LL <- establishment_cost_LL
   } else
-    investment_cost_LLL <- 0
+    investment_cost_LL <- 0
   
-  # calculating the planning costs
-  if (event_LLL_PlanningCost) {
-    plan_cost_intervention_LLL <- intervention_communication_cost + 
-                                  intervention_zoning_cost
+  # calculating the planning costs ########MAYBE DONT USE########
+  if (event_LL_PlanningCost) {
+    plan_cost_intervention_LL <- planning_cost_LL + 
+                                  zoning_cost_LL
   } else
-    plan_cost_intervention_LLL <- 0
+    plan_cost_intervention_LL <- 0
   
   # calculating the maintenance costs, initializing the array with 0 costs for the first year:
   maintenance_cost <- rep(0, n_years) 
   
   # Cost of the application of LLL per year 
-  if (event_LLL_cost)
+  if (event_LL_cost)
     maintenance_cost <-
     maintenance_cost + 
     # add a variation of the variable over the years
-    decisionSupport::vv(maintenance_cost, var_CV, n_years)
+    decisionSupport::vv(maintenance_cost_LL, var_CV, n_years)
   
   # First, all maintenance costs are stored in the variable:
   intervention_cost <- maintenance_cost
+  
     # in the first year the establishment costs and planning costs are added:
   intervention_cost[1] <-
-    intervention_cost[1] + 
-    investment_cost_LLL + 
-    plan_cost_intervention_LLL
+    intervention_cost[1] +  # equal to maintenance_cost [1]
+    investment_cost_LL +    # equal to establishment costs
+    plan_cost_intervention_LL
   
   
    #### Benefits from  cultivation in the intervention strips ####
   
   # Now all benefits of the intervention will be calculated
-  # event_LLL is 0 if the introduction of LLL does not take place, thereby the gains would be multiplied by 0 = become 0
+  # event_LL is 0 if the introduction of LL does not take place, thereby the gains would be multiplied by 0 = become 0
   
   # Benefits of intervention LLL:
-  intervention_LLL_benefits <-
-    as.numeric(event_LLL) * precalc_intervention_LLL
+  intervention_LL_benefits <-
+    as.numeric(event_LL) * precalc_LL
   
-  # Benefits of normal rice production (ground truth):
-  rice_normal_benefits <-
-    as.numeric(event_normal_rice_prod) *   precalc_ground_truth_normal_rice_production
+  # Benefits of conventional rice production (ground truth):
+  no_LL_benefits <-
+    as.numeric(event_conv_rice_prod) *   precalc_conv_prod
 
   
   
-  # Total benefits from crop production                       ####
-  # combined benefits (in reality: intervention_LLL_benefits + 0 OR rice_normal_benefits + 0)
-  #rice_production <- intervention_LLL_benefits + rice_normal_benefits #not needed since we separate the cases in the next part
+  #### Total benefits from rice production ####
+  
+  # combined benefits (in reality: intervention_LL_benefits + 0 OR no_LL_benefits + 0)
+  #rice_production <- intervention_LL_benefits + no_LL_benefits #not needed since we separate the cases in the next part
   
   
-  # if the decision was to implement LLL:
-  if (intervention_LLL){
-    net_benefits <- intervention_LLL_benefits - intervention_cost
+  # if the decision was to implement LL:
+  if (intervention_LL){
+    net_benefits <- intervention_LL_benefits - intervention_cost
     # save result in result_interv (result intervention):
     result_interv <- net_benefits}
   
   
-  # if the decision was to NOT implement LLL:
-  if (!intervention_LLL){
-    net_benefits <- rice_normal_benefits - intervention_cost  # intervention-cost should not change anything here
+  # if the decision was to NOT implement LL:
+  if (!intervention_LL){
+    net_benefits <- no_LL_benefits - intervention_cost  
+    # intervention-cost should be equal to planning costs (intervention_cost = planning costs IF no cooperation event takes place)
+    
     # save result in result_n_interv (result NO intervention):
-    result_n_interv <- net_benefits}
+    result_no_interv <- net_benefits}
   
   
     } #close intervention loop bracket
@@ -584,40 +606,15 @@ LLL_model_function <- function(x, varnames){
   NPV_interv <-
   discount(result_interv, discount_rate, calculate_NPV = TRUE)
 
-  NPV_n_interv <-
-  discount(result_n_interv, discount_rate, calculate_NPV = TRUE)
+  NPV_no_interv <-
+  discount(result_no_interv, discount_rate, calculate_NPV = TRUE)
 
-# Beware, if you do not name your outputs (left-hand side of the equal sign) in the return section, 
-# the variables will be called output_1, _2, etc.
-
-return(list(LLL_NPV = NPV_interv,
-            NO_LLL_NPV = NPV_n_interv,
-            NPV_LLL_added_value = NPV_interv - NPV_n_interv,
-            Cashflow_LLL_added_value = result_interv - result_n_interv))
+# return all the data we want as output
+return(list(LL_NPV = NPV_interv,
+            NO_LL_NPV = NPV_n_interv,
+            NPV_LL_added_value = NPV_interv - NPV_no_interv,
+            Cashflow_LL_added_value = result_interv - result_no_interv))
 }
-
-
-#   # Estimate the final results from the model
-#   final_result <- income - Production_cost
-#   
-#   # Generate the list of outputs from the Monte Carlo simulation
-#   return(list(final_result = final_result))
-# }
-# 
-# # Run the Monte Carlo simulation using the model function
-# example_mc_simulation_BAU <- mcSimulation(estimate = as.estimate(input_estimates_BAU),
-#                               model_function = LLL_model_function,
-#                               numberOfModelRuns = 800,
-#                               functionSyntax = "plainNames")
-# 
-# example_mc_simulation_BAU
-# 
-# plot_distributions(mcSimulation_object = example_mc_simulation_BAU,
-#                    vars = "final_result",
-#                    method = "boxplot_density",
-#                    old_names = "final_result",
-#                    new_names = "Outcome distribution for profits")
-
 ```
 
 Include: -probability distributions -sensitivity analyses -relevant
@@ -638,8 +635,8 @@ print(random_seed)
 
 # Monte Carlo simulation results R code:
 mcSimulation_results <- decisionSupport::mcSimulation(
-  estimate = decisionSupport::estimate_read_csv("Test_Input.csv", sep = ';', strip.white = TRUE),
-  model_function = LLL_model_function,
+  estimate = decisionSupport::estimate_read_csv("Input_table_LL_decision.csv", sep = ',', strip.white = TRUE),
+  model_function = LL_model_function,
   numberOfModelRuns = 1e3, #run 1,000 times
   functionSyntax = "plainNames"
 )
