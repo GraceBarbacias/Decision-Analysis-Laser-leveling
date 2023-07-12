@@ -391,6 +391,17 @@ adopt laser leveling?
 
 # Results
 
+<<<<<<< Updated upstream
+=======
+## Input data for the Model for a Business as usual scenario
+
+source for data used in BAU scenario:
+<https://link.springer.com/article/10.1007/s11119-022-09900-8/tables/1>
+
+```         
+```
+
+>>>>>>> Stashed changes
 ## Monte Carlo Simulation for business as usual scenario
 
 """ investment_LL = TRUE n_years = 25 establishment_cost_LL = cost_area
@@ -440,32 +451,32 @@ LL_model_function <- function(x, varnames){
   
   # Precalculationn for the fertilizer savings with the intervention of Laser Leveling
   precalc_LL_fert_savings <-
-    (vv(Fertilizer_cost_noLL, var_CV, n_years) - # fertilizer cost w/o LL [USD/ha]
-    vv(Fertilizer_cost_LL, var_CV, n_years)) * # fertilizer cost with LL [USD/ha]
+    (vv(fertilizer_cost_noLL, var_CV, n_years) - # fertilizer cost w/o LL [USD/ha]
+    vv(fertilizer_cost_LL, var_CV, n_years)) * # fertilizer cost with LL [USD/ha]
     vv(farm_area, var_CV, n_years) # area of the field per farmer [ha]
   
   # Precalculationn for the pesticide savings with the intervention of Laser Leveling
   precalc_LL_pest_savings <-
-    (vv(Pesticide_cost_noLL, var_CV, n_years) - # pesticide cost w/o LL [USD/ha]
-    vv(Pesticide_cost_LL, var_CV, n_years)) * # pesticide cost with LL [USD/ha]
+    (vv(pesticide_cost_noLL, var_CV, n_years) - # pesticide cost w/o LL [USD/ha]
+    vv(pesticide_cost_LL, var_CV, n_years)) * # pesticide cost with LL [USD/ha]
     vv(farm_area, var_CV, n_years) # area of the field per farmer [ha]
   
   # Precalculationn for the seed savings with the intervention of Laser Leveling
   precalc_LL_seed_savings <-
-    (vv(Seed_cost_noLL, var_CV, n_years) - # seed cost w/o LL [USD/ha]
-    vv(Seed_cost_LL , var_CV, n_years)) * # seed cost with LL [USD/ha]
+    (vv(seed_cost_noLL, var_CV, n_years) - # seed cost w/o LL [USD/ha]
+    vv(seed_cost_LL , var_CV, n_years)) * # seed cost with LL [USD/ha]
     vv(farm_area, var_CV, n_years) # area of the field per farmer [ha]
   
   # Precalculationn for the fuel savings with the intervention of Laser Leveling
   precalc_LL_fuel_savings <-
-    (vv(Water_pumping_fuel_cost_noLL, var_CV, n_years) - # fuel w/o LL [USD/ha]
-    vv(Water_pumping_fuel_cost_LL, var_CV, n_years)) * # fuel cost with LL [USD/ha]
+    (vv(water_pumping_fuel_cost_noLL, var_CV, n_years) - # fuel w/o LL [USD/ha]
+    vv(water_pumping_fuel_cost_LL, var_CV, n_years)) * # fuel cost with LL [USD/ha]
     vv(farm_area, var_CV, n_years) # area of the field per farmer [ha]
   
   # Precalculationn for the labor cost savings with the intervention of Laser Leveling
   precalc_LL_labor_savings <-
-    (vv(Labor_cost_noLL, var_CV, n_years) - # labor w/o LL [USD/ha]
-    vv(Labor_cost_LL , var_CV, n_years)) * # labor cost with LL [USD/ha]
+    (vv(labor_cost_noLL, var_CV, n_years) - # labor w/o LL [USD/ha]
+    vv(labor_cost_LL , var_CV, n_years)) * # labor cost with LL [USD/ha]
     vv(farm_area, var_CV, n_years) # area of the field per farmer [ha]
   
   # ASK GRACE -please explain
@@ -683,12 +694,18 @@ Application of post-hoc analysis to `mcSimulation()` outputs
 ```{r, echo=TRUE}
 library(decisionSupport)
 
+
 #select the 3rd outcome variable "NPV_LLL_added_value" from the mcSimulation results and run PLS simulation
 pls_result <- plsr.mcSimulation(object = mcSimulation_results,
                   resultName = names(mcSimulation_results$y)[3], ncomp = 1)
 
+<<<<<<< Updated upstream
 input_table <- read.csv("Input_table_LL_decision.csv", sep = ";")
                         
+=======
+input_table <- read.csv("Input_table_LL_decision.csv",sep = ';')
+
+>>>>>>> Stashed changes
 plot_pls(pls_result, input_table = input_table, threshold = 0)
 
 ```
