@@ -22,27 +22,27 @@ the increasing impacts of climate change, ensuring sustainable food
 production has become a pressing concern. Irrigated rice cultivation
 plays a vital role in ensuring global food security, providing a
 substantial portion of the world's population with a staple crop
-**(Bouman et al., 2007)**. Rice is a primary dietary staple for billions
-of people, particularly in Asia, where it serves as a crucial source of
-calories and nutrition **(Seck et al., 2012)**. Rice consumption has
-increased globally over the last decade. Statista data shows that, in
-the cropping year 2020/2021, the world population consumed about 504.3
-million metric tons of rice, increasing from 437.18 million metric tons
-in 2008/2009 **(Cuaton et al., 2022)**. To meet the growing demand for
-rice and ensure stable food supplies, efficient water management is
-essential. However, irrigated rice farming requires significant water
-resources, accounting for a substantial portion of global freshwater
-consumption **(FAO, 2020; Yang et al., 2006)**. As water scarcity
-becomes an increasing concern, optimizing water use in irrigated rice
-fields is crutial **(Molden et al., 2010).**
+@bouman_rice_2007. Rice is a primary dietary staple for billions of
+people, particularly in Asia, where it serves as a crucial source of
+calories and nutrition @seck_crops_2012. Rice consumption has increased
+globally over the last decade. Statista data shows that, in the cropping
+year 2020/2021, the world population consumed about 504.3 million metric
+tons of rice, increasing from 437.18 million metric tons in 2008/2009
+@cuaton_two_2022. To meet the growing demand for rice and ensure stable
+food supplies, efficient water management is essential. However,
+irrigated rice farming requires significant water resources, accounting
+for a substantial portion of global freshwater consumption
+@food__agriculture_organization_future_2018 **@yang_water_2006**. As
+water scarcity becomes an increasing concern, optimizing water use in
+irrigated rice fields is crutial @molden_improving_2010.
 
 Irrigated rice fields play a crucial role in Vietnam's agricultural
 landscape, providing sustenance for its population and contributing
-significantly to the national economy **(Ngoc et al., 2012)**. However,
+significantly to the national economy @ngoc_benefits_2012. However,
 traditional manual leveling methods used in rice cultivation are
 time-consuming, labor-intensive, and often result in uneven water
 distribution, leading to suboptimal crop growth and reduced yield
-**(Tuan et al., 2014)**. To address these challenges, laser leveling
+@tuan_effects_2014. To address these challenges, laser leveling
 techniques have emerged as a promising solution for irrigated rice
 fields. Here we enumerate some of the benefits of laser leveling, its
 potential impact on agricultural productivity, and its suitability for
@@ -51,37 +51,37 @@ the Vietnamese context.
 1.  Improved Water Management: Laser leveling technology ensures precise
     land grading, creating a uniform surface with minimal slope
     variations. This accuracy allows for efficient water management and
-    enables uniform distribution across the rice fields **(Nguyen &
-    Thang, 2019)**. By achieving a consistent water depth, laser
-    leveling reduces water wastage, enhances irrigation efficiency, and
-    minimizes the risk of both waterlogging and drought stress **(Ngoc
-    et al., 2012)**.
+    enables uniform distribution across the rice
+    fields @nguyen_application_2019. By achieving a consistent water
+    depth, laser leveling reduces water wastage, enhances irrigation
+    efficiency, and minimizes the risk of both waterlogging and drought
+    stress @ngoc_benefits_2012.
 
 2.  Increased Productivity and Yield: Uneven land surfaces can hinder
     crop growth, leading to uneven maturity and reduced overall yield.
     By providing a flat and consistent terrain, laser leveling promotes
     uniform plant growth, facilitates optimal nutrient absorption, and
-    ensures a balanced distribution of sunlight **(Tuan et al., 2014)**.
+    ensures a balanced distribution of sunlight @tuan_effects_2014.
     These factors collectively contribute to increased crop productivity
     and improved rice grain quality.
 
 3.  Cost and Labor Savings: Traditional manual leveling methods are
     labor-intensive and time-consuming. In contrast, laser leveling
     technology automates the land grading process, significantly
-    reducing the need for manual labor **(Nguyen et al., 2021)**. This
-    not only saves costs associated with hiring and managing labor but
-    also expedites the cultivation process, allowing for timely crop
+    reducing the need for manual labor @nguyen_evaluating_2021. This not
+    only saves costs associated with hiring and managing labor but also
+    expedites the cultivation process, allowing for timely crop
     rotations and potentially increasing the number of planting cycles
-    per year **(Hoang & Vien, 2018)**.
+    per year @hoang_benefits_2018.
 
 4.  Environmental Sustainability: Laser leveling helps mitigate negative
     environmental impacts associated with traditional cultivation
     practices. By optimizing water distribution, it reduces water
-    consumption and minimizes runoff, preserving this valuable resource
-    **(Ngoc et al., 2012)**. Additionally, by promoting uniform crop
-    growth, it minimizes the need for excessive fertilizer and pesticide
-    applications, thereby reducing chemical runoff and environmental
-    pollution.
+    consumption and minimizes runoff, preserving this valuable
+    resource @ngoc_benefits_2012. Additionally, by promoting uniform
+    crop growth, it minimizes the need for excessive fertilizer and
+    pesticide applications, thereby reducing chemical runoff and
+    environmental pollution.
 
 ## Objective
 
@@ -90,9 +90,6 @@ applied by a small farmer rice cooperative in Vietnam or not.
 
 # Methodology
 
--Methods we use -Decision analysis theory and decisionSupport package by
-Luedeling et al
-
 Decision analysis is a systematic approach for making decisions under
 uncertainty, incorporating mathematical and analytical techniques to
 evaluate alternative courses of action and their potential outcomes. It
@@ -100,8 +97,8 @@ is a quantitative approach that aims to support decision-making
 processes by explicitly considering uncertainties, trade-offs, and
 potential consequences.
 
-The decisionSuppoty package developed by Eike Luedeling et al, provides
-a systematic framework for making informed decisions based on a
+The decisionSupport package developed by @R-decisionSupport, provides a
+systematic framework for making informed decisions based on a
 combination of data, models, and stakeholder preferences. This R package
 incorporates decision analysis techniques into a user-friendly software
 tool, allowing decision-makers to analyze complex problems and evaluate
@@ -170,8 +167,8 @@ implementation.
 
 For the model building process we determined first all the possible
 variables for the economic and environmental components in our model and
-design an input table, that is stored locally as XXXXX.csv, this table
-contains all the input variables and each basic values used in the
+design an input table, that is stored locally as **XXXXX.csv**, this
+table contains all the input variables and each basic values used in the
 model.
 
 Economical Criteria cost-effectiveness potential yield improvement
@@ -744,10 +741,3 @@ library(decisionSupport)
 
 knitr::write_bib(c(.packages(),'knitr','decisionSupport'),'bib/project_packages.bib')
 ```
-
-Dat, L. T. Q. (2023). What are monthly and hourly statutory minimum
-wages in Vietnam? Retrieved from
-<https://lawnet.vn/thong-tin-phap-luat/en/tu-van-luat/what-are-monthly-and-hourly-statutory-minimum-wages-in-vietnam-116511.html>
-
-World Bank. (2021). Retrieved from
-<https://data.worldbank.org/indicator/FR.INR.LEND?locations=VN>
