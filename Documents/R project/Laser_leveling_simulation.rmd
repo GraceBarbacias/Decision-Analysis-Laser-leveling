@@ -1,6 +1,6 @@
 ---
 title: "Decision Analysis for Laser Leveling Application"
-author: "Marina, Sara, Kent, Frederic, Grace"
+author: "Arnaud, Barbacias, Bigerna, Florido, Schönbach"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -35,7 +35,7 @@ However, irrigated rice farming requires significant water resources,
 accounting for a substantial portion of global freshwater consumption
 [@food__agriculture_organization_future_2018, @yang_water_2006]. As
 water scarcity becomes an increasing concern, optimizing water use in
-irrigated rice fields is crutial **[@molden_improving_2010].**
+irrigated rice fields is crutial [@molden_improving_2010]**.**
 
 Irrigated rice fields play a crucial role in Vietnam's agricultural
 landscape, providing sustenance for its population and contributing
@@ -43,7 +43,7 @@ significantly to the national economy [@ngoc_benefits_2012]. However,
 traditional manual leveling methods used in rice cultivation are
 time-consuming, labor-intensive, and often result in uneven water
 distribution, leading to suboptimal crop growth and reduced yield
-**[@tuan_effects_2014]**. To address these challenges, laser leveling
+[@tuan_effects_2014]. To address these challenges, laser leveling
 techniques have emerged as a promising solution for irrigated rice
 fields. Here we enumerate some of the benefits of laser leveling, its
 potential impact on agricultural productivity, and its suitability for
@@ -56,7 +56,7 @@ the Vietnamese context.
     [@nguyen_application_2019]. By achieving a consistent water depth,
     laser leveling reduces water wastage, enhances irrigation
     efficiency, and minimizes the risk of both waterlogging and drought
-    stress **[@ngoc_benefits_2012]**.
+    stress [@ngoc_benefits_2012].
 
 2.  Increased Productivity and Yield: Uneven land surfaces can hinder
     crop growth, leading to uneven maturity and reduced overall yield.
@@ -73,7 +73,7 @@ the Vietnamese context.
     not only saves costs associated with hiring and managing labor but
     also expedites the cultivation process, allowing for timely crop
     rotations and potentially increasing the number of planting cycles
-    per year **[@hoang_benefits_2018]**.
+    per year [@hoang_benefits_2018].
 
 4.  Environmental Sustainability: Laser leveling helps mitigate negative
     environmental impacts associated with traditional cultivation
@@ -197,198 +197,13 @@ library(knitr)
 #                   'ggplot2'),'project_packages.bib')
 ```
 
-# Data Preparation
-
-## Loading and organizing existing data and assumptions made
-
-```{r data preparationn, echo=TRUE}
-# data loading and sorting R code:
-
-```
-
 ## Conceptual model
 
 ![](images/conceptual_model-01.png)
 
-# Analysis
-
-## Cost-benefit Analysis
-
-A cost-benefit analysis comparing the expenses associated with laser
-leveling to the potential benefits it may bring to the farmer
-cooperatives was conducted. The computations are done under the
-assumptions below.
-
-### Assumption sources for 4W tractor laser leveler:
-
-![](images/Screenshot%202023-06-19%20at%205.34.39%20PM-01.png)
-
-![](images/Screenshot%202023-06-12%20at%209.42.22%20PM.png)
-
-Source: @nguyen-van-hung_precision_2022
-
-![](images/Screenshot%202023-06-12%20at%2010.52.03%20PM.png)
-
-Source: @nguyen-van-hung_precision_2022
-
-![](images/Screenshot%202023-06-16%20at%2012.29.18%20PM.png)
-
-Source: @nguyen-van-hung_precision_2022
-
-20000 VND-\> minimum wage in Region II Vietnam (Dat, 2023)
-
-7.8% interest rate -\> current rate for short term loans in Vietnam
-(Worldbank, 2021)
-
-40-50 USD/hr-\> service fee for plowing
-
-10 cropping seasons-\>LLL will be done every 5 years, and rice
-production will be done every cropping season
-
-20% additional input cost per season for re-smoothing of field
-
-### **Formulas used**
-
-𝐼𝑛𝐶𝑜𝑠𝑡𝑓𝑎𝑟𝑚𝑒𝑟=𝐹𝑒𝑒𝑠𝑒𝑟𝑣𝑖𝑐𝑒(1+0.2∗9)
-
-𝑂𝑢𝑡𝑝𝑢𝑡𝑓𝑎𝑟𝑚𝑒𝑟=𝑃𝑟𝑜𝑓𝑖𝑡𝑠𝑒𝑎𝑠𝑜𝑛∗10
-
-𝐼𝑛𝐶𝑜𝑠𝑡𝑠𝑒𝑟𝑣𝑖𝑐𝑒=𝐶𝑜𝑠𝑡𝐷𝑒𝑝𝑟𝑒𝑐𝑖𝑎𝑡𝑖𝑜𝑛+𝐼𝑛𝑡𝑒𝑟𝑒𝑠𝑡+𝐿𝑎𝑏𝑜𝑟+𝐹𝑢𝑒𝑙+𝑇𝑟𝑎𝑐𝑡𝑜𝑟𝑟𝑒𝑛𝑡𝑎𝑙+𝑀𝑎𝑛𝑎𝑔𝑒𝑚𝑒𝑛𝑡
-
-𝑂𝑢𝑡𝑝𝑢𝑡𝑠𝑒𝑟𝑣𝑖𝑐𝑒=𝐹𝑒𝑒 𝑠𝑒𝑟𝑣𝑖𝑐𝑒
-
-### Code
-
-```{r cost-benefit-analysis, echo=TRUE}
-library("ggplot2")
-library(dplyr)
-# cost analysis for LLL service provider (to be paid by farmer)
-#declaration of user input variables:
-VND<-23487.50 #value of 1 USD to Vietnamese Dong (VND) as of date
-###operation (plowing, planting, harvest)
-area_covered<- 3 #in ha
-working_days<- 60 #in days
-hours_day<-8 #number of working hours per day
-hrs_area<-(area_covered/working_days/hours_day)*10000 #area to be covered in sq.m per hour
-
-###equipment sizing
-speed_op<-7.5 #speed of operation in km/hr
-field_ef<-40 #field efficiency in %
-LL_size<- 1.5 #commercially available size of drag bucket in m
-actual_area<- +(LL_size*speed_op)*(field_ef/100)*1000 #actual area covered in m2/hr
-
-###cost calculation
-tractor_price<-30000*VND #purchase price in Vietnamese Dong (VND)
-usage_tractor<-1200 #in hrs/yr
-LL_price<-12000*VND #purchase price of laser leveler in VND
-usage_LL<- +working_days*hours_day #usage of laser leveler in hours/year
-
-##operating costs
-engine_power<-37.285 #in kW
-
-fuel_use<-+engine_power/4.2 #in L
-fuel_cost<-22622.5 #in VND/L
-fuel_cost_hr<-+fuel_cost*fuel_use #fuel cost per hr
-repair_maintenance<-tractor_price/10/usage_tractor #VND/hr
-labor<-20000 #in VND/hr
-total_op_cost<-+repair_maintenance+fuel_cost_hr+labor #in VND/hr
-
-##fixed costs
-tractor_dep<-+tractor_price/10/usage_tractor #tractor depreciation in VND/hr
-LL_dep<-+LL_price/10/usage_LL #laser leveler depreciation in VND/hr
-inv_opp_cost<-7.8 #investment/opportunity cost, a.k.a. interest for borrowing money
-inv_cost<-+(tractor_price/usage_tractor)+((LL_price/usage_LL)*(inv_opp_cost/100)) #investment cost in VND/hr
-total_fixed_cost<-tractor_dep+LL_dep+inv_cost
-
-total_cost<-+total_op_cost+total_fixed_cost #total cost in VND/hr
-land_lvl<-2 #average soil variation in cm
-cost_area<-total_cost/(actual_area/10000)*land_lvl #cost/area in VND/ha
-
-###service provider
-return_mgt<- 10 #return to management for operating the business in %
-service_fee_LLL<-(cost_area*((100+return_mgt)/100))  #in VND/ha, assuming LLL operation of 60 days per year
-Input_cost_farmer<-service_fee_LLL*(1+0.2*9) #in VND/ha under the assumption of LL operation every 5 years and resmoothing per season valued at 20%
-print(Input_cost_farmer)
-
-
-#benefits for farmer
-seed_rate<-40 #kg/ha
-yield<-5500 #at 14% MC, kg/ha
-N_fert<-70 #kg/ha
-P_fert<-10 #kg/ha
-K_fert<-12 #kg/ha
-land_use<-200*23487 #benefit in VND/ha/year
-seed<-0.6*23487 #benefit in VND/kg
-paddy<-0.2*23487 #benefit in VND/kg
-fertilizer<-170*23487 #benefit in VND/ha
-season_profit<- ((land_use)/2)+(seed*seed_rate)+ (paddy*seed_rate) + (fertilizer)#profit from season's yields and savings after LLL in VND/ha
-Output_farmer<- season_profit *10 #VND/ha for 10 cropping seasons
-print(Output_farmer)
-
-
-#benefit-cost ratio
-BC_ratio<- Output_farmer/Input_cost_farmer
-print(BC_ratio)
-
-#data visualization
-cost_shares<-data.frame(Portions=c("Fuel consumption","Repair and maintenance","Labor cost", "Tractor depreciation","Laser leveler depreciation", "Investment cost"), share=c(fuel_cost_hr, repair_maintenance, labor, tractor_dep, LL_dep, inv_cost))
-
-
-cost_shares <- cost_shares %>%
-  arrange(desc(Portions)) %>%
-  mutate(lab.ypos = cumsum(share) - 0.5*share)
-
-mycols <- c("#0073C2FF", "#EFC000FF", "#868686FF", "#CD534CFF", "#00BA38","#A020F0")
-
-ggplot(cost_shares, aes(x = "", y = share, fill = Portions)) +
-  geom_bar(width = 1, stat = "identity", color = "white") +
-  coord_polar("y", start = 0)+
-  geom_text(aes(y = lab.ypos, label =" "), color = "white")+
-  scale_fill_manual(values = mycols) +
-  theme_void()
-```
-
-Figure X. Cost proportions of LLL.
-
-```{r data preparation, echo=TRUE}
-# data loading and sorting R code:
-cost_area
-```
-
-## Yield Analysis
-
-Performing an analysis to determine the potential yield improvement
-laser leveling could offer in comparison to tradtional farming.
-
-### Assumption sources:
-
-![](images/Screenshot%202023-06-12%20at%209.38.09%20PM.png)
-
-Source: @nguyen-van-hung_precision_2022
-
-```{r yield-analysis, echo=TRUE}
-# yield analysis R:
-
-yield_weight<- 0 #weight of yield (total grains harvested in field at 14% MC) in kg
-field_size<-0  #typical field size in Vietnam in ha
-GY<- yield_weight/field_size
-```
-
-## Sensitivity Analysis
-
-Conducting a sensitivity analysis to assess the impact of varying key
-parameters and assumptions on the decision outcome. Maybe explore
-different scenarios and evaluate their influence on the decision to
-adopt laser leveling?
-
-```{r sensitivity-analysis, echo=TRUE}
-# sensitivity analysis R code:
-
-```
-
 # Results
 
-## Monte Carlo Simulation for business as usual scenario
+## Monte Carlo Simulation
 
 """ investment_LL = TRUE n_years = 25 establishment_cost_LL = cost_area
 \# assuming 1 hectar right now maintenance_cost =
@@ -723,3 +538,5 @@ analysis potential risks and uncertainties.
 
 -summary of the key findings -implications of the recommendation -areas
 for future research or consideration
+
+# References
