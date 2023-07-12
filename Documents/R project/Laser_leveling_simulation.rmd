@@ -14,28 +14,170 @@ editor_options:
 
 # Introduction
 
-## Background
+## 
 
--Overview -potential benefits -relevance of the decision for farmers
+Water scarcity and the efficient management of water resources have
+emerged as major challenges in agricultural development worldwide. With
+the increasing impacts of climate change, ensuring sustainable food
+production has become a pressing concern. Irrigated rice cultivation
+plays a vital role in ensuring global food security, providing a
+substantial portion of the world's population with a staple crop
+**(Bouman et al., 2007)**. Rice is a primary dietary staple for billions
+of people, particularly in Asia, where it serves as a crucial source of
+calories and nutrition **(Seck et al., 2012)**. Rice consumption has
+increased globally over the last decade. Statista data shows that, in
+the cropping year 2020/2021, the world population consumed about 504.3
+million metric tons of rice, increasing from 437.18 million metric tons
+in 2008/2009 **(Cuaton et al., 2022)**. To meet the growing demand for
+rice and ensure stable food supplies, efficient water management is
+essential. However, irrigated rice farming requires significant water
+resources, accounting for a substantial portion of global freshwater
+consumption **(FAO, 2020; Yang et al., 2006)**. As water scarcity
+becomes an increasing concern, optimizing water use in irrigated rice
+fields is crutial **(Molden et al., 2010).**
+
+Irrigated rice fields play a crucial role in Vietnam's agricultural
+landscape, providing sustenance for its population and contributing
+significantly to the national economy **(Ngoc et al., 2012)**. However,
+traditional manual leveling methods used in rice cultivation are
+time-consuming, labor-intensive, and often result in uneven water
+distribution, leading to suboptimal crop growth and reduced yield
+**(Tuan et al., 2014)**. To address these challenges, laser leveling
+techniques have emerged as a promising solution for irrigated rice
+fields. Here we enumerate some of the benefits of laser leveling, its
+potential impact on agricultural productivity, and its suitability for
+the Vietnamese context.
+
+1.  Improved Water Management: Laser leveling technology ensures precise
+    land grading, creating a uniform surface with minimal slope
+    variations. This accuracy allows for efficient water management and
+    enables uniform distribution across the rice fields **(Nguyen &
+    Thang, 2019)**. By achieving a consistent water depth, laser
+    leveling reduces water wastage, enhances irrigation efficiency, and
+    minimizes the risk of both waterlogging and drought stress **(Ngoc
+    et al., 2012)**.
+
+2.  Increased Productivity and Yield: Uneven land surfaces can hinder
+    crop growth, leading to uneven maturity and reduced overall yield.
+    By providing a flat and consistent terrain, laser leveling promotes
+    uniform plant growth, facilitates optimal nutrient absorption, and
+    ensures a balanced distribution of sunlight **(Tuan et al., 2014)**.
+    These factors collectively contribute to increased crop productivity
+    and improved rice grain quality.
+
+3.  Cost and Labor Savings: Traditional manual leveling methods are
+    labor-intensive and time-consuming. In contrast, laser leveling
+    technology automates the land grading process, significantly
+    reducing the need for manual labor **(Nguyen et al., 2021)**. This
+    not only saves costs associated with hiring and managing labor but
+    also expedites the cultivation process, allowing for timely crop
+    rotations and potentially increasing the number of planting cycles
+    per year **(Hoang & Vien, 2018)**.
+
+4.  Environmental Sustainability: Laser leveling helps mitigate negative
+    environmental impacts associated with traditional cultivation
+    practices. By optimizing water distribution, it reduces water
+    consumption and minimizes runoff, preserving this valuable resource
+    **(Ngoc et al., 2012)**. Additionally, by promoting uniform crop
+    growth, it minimizes the need for excessive fertilizer and pesticide
+    applications, thereby reducing chemical runoff and environmental
+    pollution.
 
 ## Objective
 
--Determine whether laser leveling should be applied by a small farmer in
-Vietnam
+The aim of this project is to determine whether laser leveling should be
+applied by a small farmer rice cooperative in Vietnam or not.
 
 # Methodology
 
--Methods we use -Decision analysis theory
+-Methods we use -Decision analysis theory and decisionSupport package by
+Luedeling et al
+
+Decision analysis is a systematic approach for making decisions under
+uncertainty, incorporating mathematical and analytical techniques to
+evaluate alternative courses of action and their potential outcomes. It
+is a quantitative approach that aims to support decision-making
+processes by explicitly considering uncertainties, trade-offs, and
+potential consequences.
+
+The decisionSuppoty package developed by Eike Luedeling et al, provides
+a systematic framework for making informed decisions based on a
+combination of data, models, and stakeholder preferences. This R package
+incorporates decision analysis techniques into a user-friendly software
+tool, allowing decision-makers to analyze complex problems and evaluate
+alternative courses of action. The methodology typically involves the
+following steps:
+
+1.  Problem Definition: Clearly defining the decision problem and
+    identifying the objectives, constraints, and stakeholders involved.
+    This step helps establish a clear understanding of the decision
+    context.
+
+2.  Data Collection: Gathering relevant data and information related to
+    the decision problem. This may include historical data, expert
+    opinions, stakeholder preferences, and other sources of information
+    required for the analysis.
+
+3.  Model Development: Developing mathematical or statistical models to
+    represent the relationships between different variables and assess
+    the potential outcomes of different decisions. The R package
+    provides a range of modeling tools and techniques for decision
+    analysis.
+
+4.  Uncertainty Assessment: Quantifying uncertainties associated with
+    key variables or parameters in the decision problem. This may
+    involve statistical analysis, sensitivity analysis, or the use of
+    probabilistic modeling approaches to estimate the range of possible
+    outcomes.
+
+5.  Decision Evaluation: Integrating the models, data and uncertainties
+    to evaluate different decision alternatives. This involves comparing
+    and ranking the alternatives based on multiple criteria, considering
+    trade-offs and uncertainties.
+
+6.  Sensitivity Analysis: Assessing the robustness of the decision
+    results by examining the impact of changes in assumptions, input
+    data, or models on the recommended decision.
+
+7.  Communication and Implementation: Communicating the decision
+    analysis results effectively to stakeholders and facilitating their
+    understanding of the implications and trade-offs. This step helps in
+    gaining consensus and support for the recommended decision and
+    facilitating its implementation.
+
+The desicionSupport R package provides a comprehensive set of functions
+and tools to support decision analysis using the R programming language.
+It offers a flexible and customizable platform for implementing decision
+support methodologies, enabling users to perform sophisticated decision
+analysis tasks efficiently.
 
 ## Decision Criteria (maybe with Data Sources?)
 
--features of our input table explained and sorted by overlying category
-(eg. Economical, Ecological etc.)
+Because our main objective is to determine whether laser leveling could
+be applied by a small farmer rice cooperative in Vietnam or not, first
+we decided to focus on the Economic Criteria and Ecological Criteria of
+laser leveling, as recommended by **(Oertlé et al., 2019)** where they
+explain the importance of introducing the topic, since it is currently
+not that known in Vietnam. They remark that is also important to
+demonstrate that the technology (laser leveling in this case) could have
+an economic an environmental potential for cooperative farmers. We know
+that we can implement this technology in Vietnam because the goverment
+has runned a program of "5 for 1 program" in Vietnam, to promote
+sustainable rice production, which includes laser leveling as an
+strategy. The following steps after this project will be to to hold a
+stakeholder dialogue to identify barriers and drivers for future
+implementation.
 
-**Economical Criteria** cost-effectiveness potential yield improvement
+For the model building process we determined first all the possible
+variables for the economic and environmental components in our model and
+design an input table, that is stored locally as XXXXX.csv, this table
+contains all the input variables and each basic values used in the
+model.
+
+Economical Criteria cost-effectiveness potential yield improvement
 (fertilizer savings, yield increase, seed savings)
 
-**Ecological** (Water use savings, GHGE, soil conservation)
+Ecological (Water use savings, GHGE, soil conservation)
 
 ## Package Management Section
 
@@ -50,7 +192,6 @@ library(dplyr)
 library(ggplot2)
 library(readr)
 
-```{r, warning=FALSE, include = FALSE}
 #Automatically write R package citation entries to a .bib file
 knitr::write_bib(c(.packages(),
                    'decisionSupport',
@@ -62,7 +203,7 @@ knitr::write_bib(c(.packages(),
 
 ## Loading and organizing existing data and assumptions made
 
-```{r data preparation, echo=TRUE}
+```{r data preparationn, echo=TRUE}
 # data loading and sorting R code:
 
 ```
@@ -86,15 +227,15 @@ assumptions below.
 
 ![](images/Screenshot%202023-06-12%20at%209.42.22%20PM.png)
 
-Source: (Nguyen-Van-Hung et al., 2022)
+Source: @nguyen-van-hung_precision_2022
 
 ![](images/Screenshot%202023-06-12%20at%2010.52.03%20PM.png)
 
-Source: (Nguyen-Van-Hung et al., 2022)
+Source: @nguyen-van-hung_precision_2022
 
 ![](images/Screenshot%202023-06-16%20at%2012.29.18%20PM.png)
 
-Source: (Nguyen-Van-Hung et al., 2022)
+Source: @nguyen-van-hung_precision_2022
 
 20000 VND-\> minimum wage in Region II Vietnam (Dat, 2023)
 
@@ -209,8 +350,6 @@ ggplot(cost_shares, aes(x = "", y = share, fill = Portions)) +
   theme_void()
 ```
 
-![](images/Cost_portions.png)
-
 Figure X. Cost proportions of LLL.
 
 ```{r data preparation, echo=TRUE}
@@ -227,7 +366,7 @@ laser leveling could offer in comparison to tradtional farming.
 
 ![](images/Screenshot%202023-06-12%20at%209.38.09%20PM.png)
 
-Source: (Nguyen-Van-Hung et al., 2022)
+Source: @nguyen-van-hung_precision_2022
 
 ```{r yield-analysis, echo=TRUE}
 # yield analysis R:
@@ -253,6 +392,9 @@ adopt laser leveling?
 
 ## Input data for the Model for a Business as usual scenario
 
+source for data used in BAU scenario:
+<https://link.springer.com/article/10.1007/s11119-022-09900-8/tables/1>
+
 ```{r}
 #Input data for Business as usual (BAU) scenario 
 #Production cost consisted of: (1) land use; (2) service costs of mechanized operations such as land preparation, mechanical transplanting, fertilizer and pesticide applications and combine harvesting; (3) agronomic inputs including seeds, fertilizer and pesticide; and, (4) labor.
@@ -268,25 +410,22 @@ input_estimates_BAU<- data.frame(variable = c("Yield", "Market_price", "Producti
                                     "Production costs in a normal season"))
 
 input_estimates_BAU
+
+
 ```
 
 ## Monte Carlo Simulation for business as usual scenario
 
-"""
-investment_LLL = TRUE
-n_years = 25
-establishment_cost_LLL = cost_area # assuming 1 hectar right now
-maintenance_cost = (establishment_cost_LLL * 0.8)/5 
-# fictive assumtion that maintenance costs are 80% of initial investment costs each 5 years
-Yield = 5400 # assuming 5.4 tons for testing
-Market_price = 0.439 * VND # 0.439 USD times VND exchange rate
-intervention_communication_cost = 200 * VND
-intervention_zoning_cost = 150 * VND
-    # Estimate the income in a normal season
-  income_norm <- Yield * Market_price
-"""
+""" investment_LLL = TRUE n_years = 25 establishment_cost_LLL =
+cost_area \# assuming 1 hectar right now maintenance_cost =
+(establishment_cost_LLL \* 0.8)/5 \# fictive assumtion that maintenance
+costs are 80% of initial investment costs each 5 years Yield = 5400 \#
+assuming 5.4 tons for testing Market_price = 0.439 \* VND \# 0.439 USD
+times VND exchange rate intervention_communication_cost = 200 \* VND
+intervention_zoning_cost = 150 \* VND \# Estimate the income in a normal
+season income_norm \<- Yield \* Market_price """
 
-```{r}
+```{r, echo=TRUE}
 LLL_model_function <- function(x, varnames){
   
     # calculate ex-ante risks: impact the implementation of interventions ####
@@ -295,11 +434,46 @@ LLL_model_function <- function(x, varnames){
     chance_event(intervention_NonPColabInvolv, 1, 0, n = 1)
   # chance_event chooses with probability "intervention_NonColabInvolv" the first scenario (1 in this case), otherwise 0 (no involvement)
   
-  # benefits of rice cultivation WITH LLL:
-  precalc_intervention_LLL <-
-    vv(intervention_rice_yield_t_ha, var_CV, n_years) *
+  #precalculation of common random draws for all intervention model runs
+  # benefits of rice cultivation WITH LLL:            
+
+            # ##reference for the units used in precalculations, these are values per season, and there are 2 seasons per year:
+            # seed_rate<-40 #kg/ha
+            # yield<-5500 #at 14% MC, kg/ha
+            # N_fert<-70 #kg/ha
+            # P_fert<-10 #kg/ha
+            # K_fert<-12 #kg/ha
+            # land_use<-200*23487 #benefit in VND/ha/year
+            # seed<-0.6*23487 #benefit in VND/kg
+            # paddy<-0.2*23487 #benefit in VND/kg
+            # fertilizer<-170*23487 #benefit in VND/ha
+            # season_profit<- ((land_use)/2)+(seed*seed_rate)+ (paddy*seed_rate) + (fertilizer)#profit from season's yields and savings after LLL in VND/ha
+            # Output_farmer<- season_profit *10 #VND/ha for 10 cropping seasons                                      
+    
+  precalc_intervention_land_use <-
+    vv(intervention_land_USD_ha_year, var_CV, n_years) *
+    vv(intervention_land_area_ha, var_CV, n_years) 
+  
+  precalc_intervention_water_savings <-
+    vv(intervention_water_cum_ha, var_CV, n_years) * 
+    vv(intervention_water_cost_USD_m3, var_CV, n_years)
+  
+  precalc_intervention_fert_savings <-
+    vv(intervention_fert_USD_ha, var_CV, n_years) *
+    vv(intervention_fert_area_ha, var_CV, n_years)
+  
+  precalc_intervention_seed_savings <-
+    vv(intervention_seed_kg_ha, var_CV, n_years) *
+    vv(intervention_seed_USD_kg, var_CV, n_years)
+  
+  precalc_intervention_yield <-
+      vv(intervention_rice_yield_t_ha, var_CV, n_years) *
     vv(intervention_rice_area_ha, var_CV, n_years) *
-    vv(rice_price_USD_t, var_CV, n_years)    
+    vv(rice_price_USD_t, var_CV, n_years)
+  
+  precalc_intervention_LLL <-
+    precalc_intervention_fert_savings + precalc_intervention_yield +   precalc_intervention_seed_savings + precalc_intervention_land_use +
+    precalc_intervention_water_savings
     
     # benefits of rice cultivation WITHOUT LLL:
   precalc_ground_truth_normal_rice_production <-
@@ -386,7 +560,7 @@ LLL_model_function <- function(x, varnames){
 
   
   
-  # Total benefits from crop production (agricultural development and riparian zone) ####
+  # Total benefits from crop production                       ####
   # combined benefits (in reality: intervention_LLL_benefits + 0 OR rice_normal_benefits + 0)
   #rice_production <- intervention_LLL_benefits + rice_normal_benefits #not needed since we separate the cases in the next part
   
@@ -449,11 +623,9 @@ return(list(LLL_NPV = NPV_interv,
 Include: -probability distributions -sensitivity analyses -relevant
 metrics or charts that provide insights into the decision-making process
 
-#loading the data here for now:
-Test_Input <- read_delim("Test_Input.csv", 
-    delim = ";", escape_double = FALSE, trim_ws = TRUE, header = TRUE)
-View(Test_Input)
-
+#loading the data here for now: Test_Input \<-
+read_delim("Test_Input.csv", delim = ";", escape_double = FALSE, trim_ws
+= TRUE, header = TRUE) View(Test_Input)
 
 ```{r monte-carlo-results, echo=TRUE}
 # Generate a random seed
@@ -471,7 +643,6 @@ mcSimulation_results <- decisionSupport::mcSimulation(
   numberOfModelRuns = 1e3, #run 1,000 times
   functionSyntax = "plainNames"
 )
-
 ```
 
 ## Data Visualization
@@ -480,6 +651,8 @@ The simulated scenarios for the application of laser leveling visualized
 using the `ggplot2` package [@R-ggplot2] -Time charts?
 
 ```{r data visualization, echo=TRUE}
+library(decisionSupport)
+
 # R code for vizualisation of results:
 
 decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
@@ -511,11 +684,51 @@ decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results,
 plot_cashflow(mcSimulation_object = mcSimulation_results, cashflow_var_name = "Cashflow_LLL_added_value")
 ```
 
+## Projection to Latent Structures (PLS) analysis
+
+Application of post-hoc analysis to `mcSimulation()` outputs
+
+```{r, echo=TRUE}
+library(decisionSupport)
+
+#select the 3rd outcome variable "NPV_LLL_added_value" from the mcSimulation results and run PLS simulation
+pls_result <- plsr.mcSimulation(object = mcSimulation_results,
+                  resultName = names(mcSimulation_results$y)[3], ncomp = 1)
+
+input_table <- read.csv("Test_Input.csv")
+
+plot_pls(pls_result, input_table = input_table, threshold = 0)
+
+```
+
+## Value of Information Analysis
+
+Value of Information Analysis conducted using EVPI.
+
+```{r, echo=TRUE}
+#here we subset the outputs from the mcSimulation function (y) by selecting the correct variables
+# this should be done by the user (be sure to run the multi_EVPI only on the variables that the user wants)
+mcSimulation_table <- data.frame(mcSimulation_results$x, mcSimulation_results$y[1:3])
+
+evpi <- multi_EVPI(mc = mcSimulation_table, first_out_var = "LLL_NPV")
+#> [1] "Processing 3 output variables. This can take some time."
+#> [1] "Output variable 1 (LLL_NPV) completed."
+#> [1] "Output variable 2 (NO_LLL_NPV) completed."
+#> [1] "Output variable 3 (NPV_LLL_added_value) completed."
+
+plot_evpi(evpi, decision_vars = "LLL_NPV")
+#> Warning: There are no variables with a positive EVPI. You probably do not need a
+#> plot for that.
+#> 
+compound_figure(mcSimulation_object = mcSimulation_results, input_table = input_table, plsrResults = pls_result, EVPIresults = evpi, decision_var_name = "NPV_LLL_added_value", cashflow_var_name = "Cashflow_LLL_added_value", base_size = 7)
+
+```
+
 ## Decision Recommendation
 
 -based on the analysis and simulation results of whether or not to
 implement laser leveling considering: -decision criteria -cost-benefit
-analysispotential risks and uncertainties.
+analysis potential risks and uncertainties.
 
 # Conclusion
 
@@ -524,14 +737,17 @@ for future research or consideration
 
 # References
 
+```{r add_R_bib}
+
+library(knitr)
+library(decisionSupport)
+
+knitr::write_bib(c(.packages(),'knitr','decisionSupport'),'bib/project_packages.bib')
+```
+
 Dat, L. T. Q. (2023). What are monthly and hourly statutory minimum
 wages in Vietnam? Retrieved from
 <https://lawnet.vn/thong-tin-phap-luat/en/tu-van-luat/what-are-monthly-and-hourly-statutory-minimum-wages-in-vietnam-116511.html>
-
-Nguyen-Van-Hung, Balingbing, C., Sandro, J. *et al.* Precision land
-leveling for sustainable rice production: case studies in Cambodia,
-Thailand, Philippines, Vietnam, and India. *Precision Agric* **23**,
-1633--1652 (2022). <https://doi.org/10.1007/s11119-022-09900-8>
 
 World Bank. (2021). Retrieved from
 <https://data.worldbank.org/indicator/FR.INR.LEND?locations=VN>
