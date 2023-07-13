@@ -178,6 +178,11 @@ Ecological (Water use savings, GHGE, soil conservation)
 
 ## Package Management Section
 
+Code for knitting bib 'project_packages.bib' was commented out to
+prevent the code from overwriting the added references. The bib file
+contains both the library packages and the references used for this
+Rmarkdown file.
+
 ```{r package-installation, echo=TRUE}
 # Install packages if needed (uncomment code):
 # install.packages("decisionSupport")
@@ -200,7 +205,7 @@ library(knitr)
 
 ## Conceptual model
 
-![](figures/conceptual model.svg)
+![](figures/conceptual%20model.svg)
 
 # Results
 
