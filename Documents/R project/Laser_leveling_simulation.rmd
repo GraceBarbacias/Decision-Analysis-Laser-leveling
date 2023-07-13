@@ -168,7 +168,7 @@ drivers for future implementation.
 For the model building process we determined first all the possible
 variables for the economic and environmental components in our model and
 design an input table, that is stored locally
-as Input_table_LL_decision.csv, this table contains all the input
+as *Input_table_LL_decision.csv*, this table contains all the input
 variables and their values used in the model.
 
 Economical Criteria cost-effectiveness potential yield improvement
@@ -211,14 +211,13 @@ library(knitr)
 
 ## Monte Carlo Simulation
 
-""" investment_LL = TRUE n_years = 25 establishment_cost_LL = cost_area
-\# assuming 1 hectar right now maintenance_cost = (establishment_cost_LL
-\* 0.8)/5 \# fictive assumtion that maintenance costs are 80% of initial
-investment costs each 5 years Yield = 5400 \# assuming 5.4 tons for
-testing Market_price = 0.439 \* VND \# 0.439 USD times VND exchange rate
-intervention_communication_cost = 200 \* VND intervention_zoning_cost =
-150 \* VND \# Estimate the income in a normal season income_norm \<-
-Yield \* Market_price """
+Input table used is named *Input_table_LL_decision.csv* within this
+Rproject folder. LL benefit ranges were lifted from Table 4 and 5 of
+@nguyen-van-hung_precision_2022, divided by 5 since we consider yearly
+values in this project, and not per 5-year period in contrast to the
+cited literature. We consider 2 seasons per year since this is the
+recommended assumption in the same literature, to maintain soil health
+and prevent outbreak of rice diseases.
 
 ```{r, echo=TRUE}
 LL_model_function <- function(x, varnames){
