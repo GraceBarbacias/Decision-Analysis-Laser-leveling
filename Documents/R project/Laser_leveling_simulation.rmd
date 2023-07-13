@@ -207,7 +207,7 @@ library(knitr)
 
 """ investment_LL = TRUE n_years = 25 establishment_cost_LL = cost_area
 \# assuming 1 hectar right now maintenance_cost =
-(establishment_cost_LLL \* 0.8)/5 \# fictive assumtion that maintenance
+(establishment_cost_LL \* 0.8)/5 \# fictive assumtion that maintenance
 costs are 80% of initial investment costs each 5 years Yield = 5400 \#
 assuming 5.4 tons for testing Market_price = 0.439 \* VND \# 0.439 USD
 times VND exchange rate intervention_communication_cost = 200 \* VND
@@ -216,29 +216,15 @@ season income_norm \<- Yield \* Market_price """
 
 ```{r, echo=TRUE}
 LL_model_function <- function(x, varnames){
+  #browser() # enter the debugger 
   
-    # calculate ex-ante risks: impact the implementation of interventions ####
-  #
-    intervention_No_coop_Event <- chance_event(chance_noLL, 1, 0, n = 1)
-  # chance_event chooses with probability "intervention_NonColabInvolv" the first scenario (1 in this case), otherwise 0 (no involvement)
+  # calculate ex-ante risks ####
+  intervention_No_coop_Event <- chance_event(chance_noLL, 1, 0, n = 1)
+  # chance_event chooses with probability "intervention_No_coop_Event" the first scenario (1 in this case), otherwise 0 (no involvement)
   
-  #precalculation of common random draws for all intervention model runs
-  # benefits of rice cultivation WITH LLL:        
+  # precalculation of common random draws for all intervention model runs
+  # benefits of rice cultivation WITH LL:        
     
-######ARE WE GOING TO LEAVE THIS ABOUT THE INPUT VALUES? SHOULDNT WE DELETE IT??###
-
-            # ##reference for the units used in precalculations, these are values per season, and there are 2 seasons per year:
-            # seed_rate<-40 #kg/ha
-            # yield<-5500 #at 14% MC, kg/ha
-            # N_fert<-70 #kg/ha
-            # P_fert<-10 #kg/ha
-            # K_fert<-12 #kg/ha
-            # land_use<-200*23487 #benefit in VND/ha/year
-            # seed<-0.6*23487 #benefit in VND/kg
-            # paddy<-0.2*23487 #benefit in VND/kg
-            # fertilizer<-170*23487 #benefit in VND/ha
-            # season_profit<- ((land_use)/2)+(seed*seed_rate)+ (paddy*seed_rate) + (fertilizer)#profit from season's yields and savings after LLL in VND/ha
-            # Output_farmer<- season_profit *10 #VND/ha for 10 cropping seasons                                      
   # Precalculationn for the change in yield with the intervention of Laser Leveling
   precalc_LL_yield <-
     vv(yield_LL, var_CV, n_years) * # yield [t/ha]
@@ -280,13 +266,12 @@ LL_model_function <- function(x, varnames){
     vv(Labor_cost_LL , var_CV, n_years)) * # labor cost with LL [USD/ha]
     vv(farm_area, var_CV, n_years) # area of the field per farmer [ha]
   
-  # ASK GRACE -please explain
   # Precalculationn for the change in land use with the intervention of Laser Leveling
    precalc_LL_land_use <-
     vv(LL_land_USD_ha_year, var_CV, n_years) *
     vv(farm_area, var_CV, n_years) 
   
-  
+  # summed benefits of rice production after LL:
   precalc_LL <-
     precalc_LL_yield + 
     precalc_LL_water_savings +
@@ -311,7 +296,7 @@ LL_model_function <- function(x, varnames){
   for (intervention_LL in c(FALSE,TRUE))
       {
   
-  # Set the preambles for the case if LLL application:    
+  # Set the preambles for the case if LL application:    
   if (intervention_LL)
   {
     event_LL <- TRUE
@@ -329,16 +314,16 @@ LL_model_function <- function(x, varnames){
   
   if (intervention_No_coop_Event) {
     # only relevant if selected by chance and = TRUE
-    # if this condition is TRUE the implementation of LLL will be planned but not executed
-    event_LL <- FALSE # no LLL applied
+    # if this condition is TRUE the implementation of LL will be planned but not executed
+    event_LL <- FALSE # no LL applied
     event_LL_cost <- FALSE # no establishment costs are created (planning costs however may occur)
-    event_LL_PlanningCost <- TRUE
+    #event_LL_PlanningCost <- TRUE # the planning cost will still be applied since the project is aborted
     event_conv_rice_prod <- TRUE # the normal scenario takes place
 }
     
   ####  Intervention ####
   
-  # summing up the investment costs if LLL is applied or not
+  # summing up the investment costs if LL is applied or not
   if (event_LL_cost) {
     investment_cost_LL <- establishment_cost_LL
   } else
@@ -354,7 +339,7 @@ LL_model_function <- function(x, varnames){
   # calculating the maintenance costs, initializing the array with 0 costs for the first year:
   maintenance_cost <- rep(0, n_years) 
   
-  # Cost of the application of LLL per year 
+  # Cost of the application of LL per year 
   if (event_LL_cost)
     maintenance_cost <-
     maintenance_cost + 
@@ -376,13 +361,13 @@ LL_model_function <- function(x, varnames){
   # Now all benefits of the intervention will be calculated
   # event_LL is 0 if the introduction of LL does not take place, thereby the gains would be multiplied by 0 = become 0
   
-  # Benefits of intervention LLL:
+  # Benefits of intervention LL:
   intervention_LL_benefits <-
     as.numeric(event_LL) * precalc_LL
   
   # Benefits of conventional rice production (ground truth):
   no_LL_benefits <-
-    as.numeric(event_conv_rice_prod) *   precalc_conv_prod
+    as.numeric(event_conv_rice_prod) * precalc_conv_prod
 
   
   
@@ -444,7 +429,7 @@ print(random_seed)
 mcSimulation_results <- decisionSupport::mcSimulation(
   estimate = decisionSupport::estimate_read_csv("Input_table_LL_decision.csv", sep = ';', strip.white = TRUE),
   model_function = LL_model_function,
-  numberOfModelRuns = 1e3, #run 1,000 times
+  numberOfModelRuns = 1e3, #run 10,000 times
   functionSyntax = "plainNames"
 )
 ```
@@ -454,38 +439,71 @@ mcSimulation_results <- decisionSupport::mcSimulation(
 The simulated scenarios for the application of laser leveling visualized
 using the `ggplot2` package [@R-ggplot2] -Time charts?
 
+```{r monte-carlo-results, echo=TRUE}
+gg <- decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
+                                    vars = c("LL_NPV", "NO_LL_NPV"),
+                                    method = 'smooth_simple_overlay',
+                                    base_size = 16,
+                                    colors = c("#FFC300", "#9f3ee2"),
+                                    x_axis_name = "Outcome distribution [USD] NPV (N = 10,000)",
+                                    y_axis_name = "Density of Estimations",
+                                    )
+
+gg +
+  scale_x_continuous(limits = c(-30000, 360000), breaks = seq(-100000, 200000, by = 50000))
+```
+
 ```{r data visualization, echo=TRUE}
 library(decisionSupport)
 
 # R code for vizualisation of results:
 
-decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
+smooth_plt <- decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
                                     vars = c("LL_NPV", "NO_LL_NPV"),
-                                    method = 'smooth_simple_overlay', 
-                                    base_size = 12,
-                                    colors = c("#FFC300", "#9f3ee2"))
+                                    method = 'smooth_simple_overlay',
+                                    base_size = 16,
+                                    colors = c("#FFC300", "#9f3ee2"),
+                                    x_axis_name = "Outcome distribution [USD] NPV (N = 10,000)",
+                                    y_axis_name = "Density of Estimations")
 
-decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
+smooth_plt +
+  scale_x_continuous(limits = c(-30000, 360000), breaks = seq(-100000, 200000, by = 50000))
+
+
+hist_plt <- decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
                                     vars = c("LL_NPV", "NO_LL_NPV"),
                                     method = 'hist_simple_overlay', 
-                                    base_size = 12,
-                                    colors = c("#FFC300", "#9f3ee2"))
+                                    base_size = 16,
+                                    colors = c("#FFC300", "#9f3ee2"),
+                                    x_axis_name = "Outcome distribution [USD] NPV (N = 10,000)",
+                                    y_axis_name = "Number of Outcomes in Bin")
+
+hist_plt +
+  scale_x_continuous(limits = c(-30000, 360000), breaks = seq(-100000, 200000, by = 50000))
+
 
 NPV_names = c("Rice Production with Laser Leveling NPV", "Conventional Rice Production NPV")
 decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
                                     vars = c("LL_NPV", "NO_LL_NPV"),
                                     method = 'boxplot',
                                     new_names = "NPV_names",
-                                    base_size = 12,
-                                    colors = c("#FFC300", "#9f3ee2"))
+                                    base_size = 16,
+                                    colors = c("#FFC300", "#9f3ee2"),
+                                    x_axis_name = "Outcome distribution [USD] NPV (N = 10,000)",
+                                    y_axis_name = NULL)
 
 decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
                                     vars = "NPV_LL_added_value",
                                     method = 'boxplot_density',
-                                    base_size = 12,
-                                    colors = "#FFC300")
+                                    base_size = 16,
+                                    colors = "#FFC300",
+                                    x_axis_name = "Outcome distribution [USD] NPV (N = 10,000)",
+                                    y_axis_name = "NDensity of Estimations")
 
 plot_cashflow(mcSimulation_object = mcSimulation_results, cashflow_var_name = "Cashflow_LL_added_value")
+
+
+
 ```
 
 ## Projection to Latent Structures (PLS) analysis
@@ -495,7 +513,7 @@ Application of post-hoc analysis to `mcSimulation()` outputs
 ```{r, echo=TRUE}
 library(decisionSupport)
 
-#select the 3rd outcome variable "NPV_LLL_added_value" from the mcSimulation results and run PLS simulation
+#select the 3rd outcome variable "NPV_LL_added_value" from the mcSimulation results and run PLS simulation
 pls_result <- plsr.mcSimulation(object = mcSimulation_results,
                   resultName = names(mcSimulation_results$y)[3], ncomp = 1)
 
@@ -516,9 +534,9 @@ mcSimulation_table <- data.frame(mcSimulation_results$x, mcSimulation_results$y[
 
 evpi <- multi_EVPI(mc = mcSimulation_table, first_out_var = "LL_NPV")
 #> [1] "Processing 3 output variables. This can take some time."
-#> [1] "Output variable 1 (LLL_NPV) completed."
-#> [1] "Output variable 2 (NO_LLL_NPV) completed."
-#> [1] "Output variable 3 (NPV_LLL_added_value) completed."
+#> [1] "Output variable 1 (LL_NPV) completed."
+#> [1] "Output variable 2 (NO_LL_NPV) completed."
+#> [1] "Output variable 3 (NPV_LL_added_value) completed."
 
 plot_evpi(evpi, decision_vars = "LL_NPV")
 #> Warning: There are no variables with a positive EVPI. You probably do not need a
