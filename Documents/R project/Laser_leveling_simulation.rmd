@@ -234,7 +234,8 @@ LL_model_function <- function(x, varnames){
   # Precalculationn for the water savings with the intervention of Laser Leveling
   precalc_LL_water_savings <-
     vv(LL_water_saving, var_CV, n_years) * # water savings in [m^3/ha]
-    vv(LL_water_cost, var_CV, n_years) # cost of irrigation water [USD/m^3]
+    vv(LL_water_cost, var_CV, n_years) * # cost of irrigation water [USD/m^3]
+    vv(farm_area, var_CV, n_years) # area of the field per farmer [ha]
   
   # Precalculationn for the fertilizer savings with the intervention of Laser Leveling
   precalc_LL_fert_savings <-
@@ -268,8 +269,8 @@ LL_model_function <- function(x, varnames){
   
   # Precalculationn for the change in land use with the intervention of Laser Leveling
    precalc_LL_land_use <-
-    vv(LL_land_USD_ha_year, var_CV, n_years) *
-    vv(farm_area, var_CV, n_years) 
+    vv(LL_land_USD_ha_year, var_CV, n_years) * # land savings LL [USD/ha]
+    vv(farm_area, var_CV, n_years) # area of the field per farmer [ha]
   
   # summed benefits of rice production after LL:
   precalc_LL <-
@@ -381,8 +382,15 @@ LL_model_function <- function(x, varnames){
   if (intervention_LL){
     net_benefits <- intervention_LL_benefits - intervention_cost
     # save result in result_interv (result intervention):
+    result_interv <- net_benefits
+    # if the No Cooperation event takes place default to conventional production benefits 
+    # but subtract intervention cost (which in this case will only contain planing costs)
+    if (intervention_No_coop_Event){
+    net_benefits <- no_LL_benefits - intervention_cost
+    # save result in result_interv (result intervention):
     result_interv <- net_benefits}
-  
+  }
+
   
   # if the decision was to NOT implement LL:
   if (!intervention_LL){
@@ -432,6 +440,11 @@ mcSimulation_results <- decisionSupport::mcSimulation(
   numberOfModelRuns = 1e3, #run 10,000 times
   functionSyntax = "plainNames"
 )
+
+# 1 ha, 1.8 ha, 20 ha
+
+
+mcSimulation_results
 ```
 
 ## Data Visualization
@@ -439,22 +452,10 @@ mcSimulation_results <- decisionSupport::mcSimulation(
 The simulated scenarios for the application of laser leveling visualized
 using the `ggplot2` package [@R-ggplot2] -Time charts?
 
-```{r monte-carlo-results, echo=TRUE}
-gg <- decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
-                                    vars = c("LL_NPV", "NO_LL_NPV"),
-                                    method = 'smooth_simple_overlay',
-                                    base_size = 16,
-                                    colors = c("#FFC300", "#9f3ee2"),
-                                    x_axis_name = "Outcome distribution [USD] NPV (N = 10,000)",
-                                    y_axis_name = "Density of Estimations",
-                                    )
-
-gg +
-  scale_x_continuous(limits = c(-30000, 360000), breaks = seq(-100000, 200000, by = 50000))
-```
 
 ```{r data visualization, echo=TRUE}
-library(decisionSupport)
+# Prevent display of digits in scientific notation for numbers up to 6 digits
+options(scipen = 100, digits = 6)
 
 # R code for vizualisation of results:
 
@@ -467,7 +468,10 @@ smooth_plt <- decisionSupport::plot_distributions(mcSimulation_object = mcSimula
                                     y_axis_name = "Density of Estimations")
 
 smooth_plt +
-  scale_x_continuous(limits = c(-30000, 360000), breaks = seq(-100000, 200000, by = 50000))
+  scale_x_continuous(limits = c(-10000, 360000), breaks = seq(-100000, 300000, by = 100000)) +
+  ggtitle ("Density of NPV Estimations") +
+  #geom_hline(yintercept = median(c("LL_NPV", "NO_LL_NPV")), color="blue")
+  geom_hline(yintercept = median(mcSimulation_results$LL_NPV), color = "red", linetype = "dashed")
 
 
 hist_plt <- decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
@@ -479,7 +483,7 @@ hist_plt <- decisionSupport::plot_distributions(mcSimulation_object = mcSimulati
                                     y_axis_name = "Number of Outcomes in Bin")
 
 hist_plt +
-  scale_x_continuous(limits = c(-30000, 360000), breaks = seq(-100000, 200000, by = 50000))
+  scale_x_continuous(limits = c(-10000, 360000), breaks = seq(-100000, 300000, by = 100000))
 
 
 NPV_names = c("Rice Production with Laser Leveling NPV", "Conventional Rice Production NPV")
@@ -497,8 +501,10 @@ decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results,
                                     method = 'boxplot_density',
                                     base_size = 16,
                                     colors = "#FFC300",
-                                    x_axis_name = "Outcome distribution [USD] NPV (N = 10,000)",
-                                    y_axis_name = "NDensity of Estimations")
+                                    x_axis_name = "Outcome distribution [USD] added value (N = 10,000)",
+                                    y_axis_name = "Density of Estimations")
+
+
 
 plot_cashflow(mcSimulation_object = mcSimulation_results, cashflow_var_name = "Cashflow_LL_added_value")
 
