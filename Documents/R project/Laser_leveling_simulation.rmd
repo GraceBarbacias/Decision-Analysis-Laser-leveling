@@ -200,7 +200,7 @@ library(knitr)
 
 ## Conceptual model
 
-![](images/conceptual_model-01.png)
+![](figures/conceptual model.svg)
 
 # Results
 
