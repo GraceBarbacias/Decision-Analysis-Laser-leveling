@@ -35,14 +35,14 @@ However, irrigated rice farming requires significant water resources,
 accounting for a substantial portion of global freshwater consumption
 [@food__agriculture_organization_future_2018, @yang_water_2006]. As
 water scarcity becomes an increasing concern, optimizing water use in
-irrigated rice fields is crutial [@molden_improving_2010]**.**
+irrigated rice fields is crucial [@molden_improving_2010]**.**
 
 Irrigated rice fields play a crucial role in Vietnam's agricultural
 landscape, providing sustenance for its population and contributing
 significantly to the national economy [@ngoc_benefits_2012]. However,
 traditional manual leveling methods used in rice cultivation are
 time-consuming, labor-intensive, and often result in uneven water
-distribution, leading to suboptimal crop growth and reduced yield
+distribution, leading to sub-optimal crop growth and reduced yield
 [@tuan_effects_2014]. To address these challenges, laser leveling
 techniques have emerged as a promising solution for irrigated rice
 fields. Here we enumerate some of the benefits of laser leveling, its
@@ -55,7 +55,7 @@ the Vietnamese context.
     enables uniform distribution across the rice fields
     [@nguyen_application_2019]. By achieving a consistent water depth,
     laser leveling reduces water wastage, enhances irrigation
-    efficiency, and minimizes the risk of both waterlogging and drought
+    efficiency, and minimizes the risk of both water-logging and drought
     stress [@ngoc_benefits_2012].
 
 2.  Increased Productivity and Yield: Uneven land surfaces can hinder
@@ -98,7 +98,7 @@ is a quantitative approach that aims to support decision-making
 processes by explicitly considering uncertainties, trade-offs, and
 potential consequences.
 
-The decisionSuppoty package developed by @R-decisionSupport, provides a
+The decisionSupport package developed by @R-decisionSupport, provides a
 systematic framework for making informed decisions based on a
 combination of data, models, and stakeholder preferences. This R package
 incorporates decision analysis techniques into a user-friendly software
@@ -143,7 +143,7 @@ following steps:
     gaining consensus and support for the recommended decision and
     facilitating its implementation.
 
-The desicionSupport R package provides a comprehensive set of functions
+The decisionSupport R package provides a comprehensive set of functions
 and tools to support decision analysis using the R programming language.
 It offers a flexible and customizable platform for implementing decision
 support methodologies, enabling users to perform sophisticated decision
@@ -154,15 +154,16 @@ analysis tasks efficiently.
 Because our main objective is to determine whether laser leveling could
 be applied by a small farmer rice cooperative in Vietnam or not, first
 we decided to focus on the economic and ecological criteria of laser
-leveling, as recommended by [@oertle_potential_2019] since they highlite
-the importance of introducing this not so well known topic so far. They
-remark that is also important to demonstrate that this technology could
-have an economic an environmental potential for cooperative farmers. We
-know that we can implement this technology in Vietnam because the
-goverment has runned the "5 for 1 program" to promote sustainable rice
-production, which includes laser leveling as a strategy. The following
-steps after this project would be to hold a stakeholder dialogue to
-identify barriers and drivers for future implementation.
+leveling, as recommended by [@oertle_potential_2019] since they
+highlight the importance of introducing this not so well known topic so
+far. They remark that is also important to demonstrate that this
+technology could have an economic and environmental potential for
+cooperative farmers. We know that we can implement this technology in
+Vietnam because the government has implemented the "One Must do Five
+Reductions" or 1M5R to promote sustainable rice production, which
+includes laser leveling as a strategy. The following steps after this
+project would be to hold a stakeholder dialogue to identify barriers and
+drivers for future implementation.
 
 For the model building process we determined first all the possible
 variables for the economic and environmental components in our model and
