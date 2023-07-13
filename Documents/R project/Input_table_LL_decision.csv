@@ -9,7 +9,7 @@ zoning_cost_LL;7;;18;posnorm;Part of planning costs - measurements of the field 
 establishment_cost_LL;46;;186;posnorm;Cost for the initial investment in laser leveling  [USD/ha]
 maintenance_cost_LL;7.36;;29.76;posnorm;Maintenace costs per year after 1st year [USD/ha]
 yield_noLL;8;;13;posnorm;Rice yield conventional farming in [tons/hectar] per year
-yield_LL;9.32;;14.32;posnorm;Rice yield with Laser Leveling in [tons/hectar] per year
+yield_LL;8.033;;13.033;posnorm;Rice yield with Laser Leveling in [tons/hectar] per year
 Seed_cost_LL ;55.56;;68.88;posnorm;Seed cost LL (USD/ha)
 Fertilizer_cost_LL ;97.17;;134.25;posnorm;Fertilizer cost LL (USD/ha)
 Pesticide_cost_LL ;57.97;;78.35;posnorm;Pesticide cost LL (USD/ha)
