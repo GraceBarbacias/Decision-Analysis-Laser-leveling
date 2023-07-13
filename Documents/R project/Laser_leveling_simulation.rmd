@@ -458,14 +458,14 @@ under the laser leveling intervention scenario, and in lila (NO_LL_NPV)
 the scenario under conventional production practices (without the
 intervention).
 
-Because the \'do\' LL_NPV scenario has a higher concentration of density
+Because the 'do' LL_NPV scenario has a higher concentration of density
 with a rightward trend in comparison with the NO_LL_NPV, it can be
 concluded that the laser leveling intervention would have a higher
 positive impact on the farmers economy, since the positive net present
 value represents that the rate of return of the investment will be above
 the discount rate. 
 
-The boxplot of the distributions of the \'do\' LL_NPV and \'do not do\'
+The boxplot of the distributions of the 'do' LL_NPV and 'do not do'
 NO_LL_NPV decision scenarios illustrates the spread of the data in a
 median (central line), with 25th and 75th percentiles. So here we can
 see with a more detailed view, how the median NPV values differs between
@@ -476,9 +476,9 @@ The introduction of laser leveling in rice production in Vietnam seems
 to have a positive impact on the Net Present Value (NPV) over a time
 span of 25 years.
 
-Further, it can be seen that the \'do not do\' NO_LL_NPV scenario has a
+Further, it can be seen that the 'do not do' NO_LL_NPV scenario has a
 concentrated density range between 50,000 USD and 170,000 USD, while in
-the \'do\' LL_NPV scenario has a distribution between 60,000 USD and
+the 'do' LL_NPV scenario has a distribution between 60,000 USD and
 185,000 USD - a right-hand-skew.
 
 The maximum NPV with laser leveling LL_NPV is 245,320 USD, which is
@@ -653,8 +653,7 @@ towards farmers who own huge chunks of land.
 By leveling rice fields, 20 - 40 % of water can be saved, and at the
 same time, weed can be reduced by 40% due to more consistent water
 coverage, which results in less pesticide use and excessive working
-hours
-[@van_nguyen_reporting_2019][.](https://cgspace.cgiar.org/bitstream/handle/10568/121685/OutcomesCaseStudySummary-Rice-P1581-OICS2861.pdf?sequence=1&isAllowed=y).)
+hours [@van_nguyen_reporting_2019].
 
 Consideration should be given to the scalability and replicability of
 the application of laser leveling in Vietnam. According to
