@@ -3,7 +3,7 @@ n_years;25;;25;const;Number of years for simulation;
 farm_area;0.7;;2;posnorm;Rice area per farmer [ha];
 chance_noLL;0.05;;0.15;tnorm_0_1;Chance that not all farmers agree to a final LL application [%];
 discount_rate;0.1;;0.3;tnorm_0_1;Discount rate for reducing future cost and benefit to their present values (%);
-rice_price;320;;513;posnorm;The price of the rice [USD per tons];
+rice_price;320;;513;posnorm;The price of the rice [USD per tons];https://www.selinawamucii.com/insights/prices/vietnam/rice/
 planning_cost_LL;5;;30;posnorm;Planning costs (USD);https://link.springer.com/article/10.1007/s11119-022-09900-8
 zoning_cost_LL;7;;18;posnorm;Part of planning costs - measurements of the field etc. (USD);https://link.springer.com/article/10.1007/s11119-022-09900-8
 establishment_cost_LL;46;;186;posnorm;Cost for the initial investment in laser leveling  [USD/ha];https://link.springer.com/article/10.1007/s11119-022-09900-8
