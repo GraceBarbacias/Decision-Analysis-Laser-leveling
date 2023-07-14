@@ -5,183 +5,167 @@ date: "`r Sys.Date()`"
 output:
   html_document:
     df_print: paged
-subtitle: Creating a decision support model for smale scale farmers in Vietnam using
+subtitle: Creating a decision support model for small-scale farmers in Vietnam using
   the decisionSupport R package by Lüdeling et al.
 bibliography: project_packages.bib
 editor_options:
   markdown:
-    wrap: 72
+    wrap: 80
 ---
 
-------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 # Introduction
 
-Water scarcity and the efficient management of water resources have
-emerged as major challenges in agricultural development worldwide. With
-the increasing impacts of climate change, ensuring sustainable food
-production has become a pressing concern. Irrigated rice cultivation
-plays a vital role in ensuring global food security, providing a
-substantial portion of the world's population with a staple crop
-[@bouman_rice_2007]. Rice is a primary dietary staple for billions of
-people, particularly in Asia, where it serves as a crucial source of
-calories and nutrition [@seck_crops_2012]. Rice consumption has
-increased globally over the last decade. Statista data shows that, in
-the cropping year 2020/2021, the world population consumed about 504.3
-million metric tons of rice, increasing from 437.18 million metric tons
-in 2008/2009 [@cuaton_two_2022]. To meet the growing demand for rice and
-ensure stable food supplies, efficient water management is essential.
-However, irrigated rice farming requires significant water resources,
-accounting for a substantial portion of global freshwater consumption
-[@food__agriculture_organization_future_2018, @yang_water_2006]. As
-water scarcity becomes an increasing concern, optimizing water use in
-irrigated rice fields is crucial [@molden_improving_2010]**.**
+Water scarcity and the efficient management of water resources have emerged as
+major challenges in agricultural development worldwide. With the increasing
+impacts of climate change, ensuring sustainable food production has become a
+pressing concern. Irrigated rice cultivation plays a vital role in ensuring
+global food security, providing a substantial portion of the world's population
+with a staple crop [@bouman_rice_2007]. Rice is a primary dietary staple for
+billions of people, particularly in Asia, where it serves as a crucial source of
+calories and nutrition [@seck_crops_2012]. Rice consumption has increased
+globally over the last decade. Statista data shows that in the cropping year
+2020/2021, the world population consumed about 504.3 million metric tons of
+rice, increasing from 437.18 million metric tons in 2008/2009
+[@cuaton_two_2022]. To meet the growing demand for rice and ensure stable food
+supplies, efficient water management is essential. However, irrigated rice
+farming requires significant water resources, accounting for a substantial
+portion of global freshwater consumption
+[@food__agriculture_organization_future_2018, @yang_water_2006]. As water
+scarcity becomes an increasing concern, optimizing water use in irrigated rice
+fields is crucial [@molden_improving_2010]**.**
 
-Irrigated rice fields play a crucial role in Vietnam's agricultural
-landscape, providing sustenance for its population and contributing
-significantly to the national economy [@ngoc_benefits_2012]. However,
-traditional manual leveling methods used in rice cultivation are
-time-consuming, labor-intensive, and often result in uneven water
-distribution, leading to sub-optimal crop growth and reduced yield
-[@tuan_effects_2014]. To address these challenges, laser leveling
-techniques have emerged as a promising solution for irrigated rice
-fields. Here we enumerate some of the benefits of laser leveling, its
-potential impact on agricultural productivity, and its suitability for
-the Vietnamese context.
+Irrigated rice fields play a crucial role in Vietnam's agricultural landscape,
+providing sustenance for its population and contributing significantly to the
+national economy [@ngoc_benefits_2012]. However, traditional manual leveling
+methods used in rice cultivation are time-consuming, labor-intensive, and often
+result in uneven water distribution, leading to sub-optimal crop growth and
+reduced yield [@tuan_effects_2014]. To address these challenges, laser leveling
+techniques have emerged as a promising solution for irrigated rice fields. Here
+we enumerate some of the benefits of laser leveling, its potential impact on
+agricultural productivity, and its suitability for the Vietnamese context.
 
-1.  Improved Water Management: Laser leveling technology ensures precise
-    land grading, creating a uniform surface with minimal slope
-    variations. This accuracy allows for efficient water management and
-    enables uniform distribution across the rice fields
-    [@nguyen_application_2019]. By achieving a consistent water depth,
-    laser leveling reduces water wastage, enhances irrigation
-    efficiency, and minimizes the risk of both water-logging and drought
-    stress [@ngoc_benefits_2012].
+1.  Improved Water Management: Laser leveling technology ensures precise land
+    grading, creating a uniform surface with minimal slope variations. This
+    accuracy allows for efficient water management and enables uniform
+    distribution across the rice fields [@nguyen_application_2019]. By achieving
+    a consistent water depth, laser leveling reduces water wastage, enhances
+    irrigation efficiency, and minimizes the risk of both water-logging and
+    drought stress [@ngoc_benefits_2012].
 
-2.  Increased Productivity and Yield: Uneven land surfaces can hinder
-    crop growth, leading to uneven maturity and reduced overall yield.
-    By providing a flat and consistent terrain, laser leveling promotes
-    uniform plant growth, facilitates optimal nutrient absorption, and
-    ensures a balanced distribution of sunlight [@tuan_effects_2014].
-    These factors collectively contribute to increased crop productivity
-    and improved rice grain quality.
+2.  Increased Productivity and Yield: Uneven land surfaces can hinder crop
+    growth, leading to uneven maturity and reduced overall yield. By providing a
+    flat and consistent terrain, laser leveling promotes uniform plant growth,
+    facilitates optimal nutrient absorption, and ensures a balanced distribution
+    of sunlight [@tuan_effects_2014]. These factors collectively contribute to
+    increased crop productivity and improved rice grain quality.
 
 3.  Cost and Labor Savings: Traditional manual leveling methods are
-    labor-intensive and time-consuming. In contrast, laser leveling
-    technology automates the land grading process, significantly
-    reducing the need for manual labor [@nguyen_evaluating_2021]. This
-    not only saves costs associated with hiring and managing labor but
-    also expedites the cultivation process, allowing for timely crop
-    rotations and potentially increasing the number of planting cycles
-    per year [@hoang_benefits_2018].
+    labor-intensive and time-consuming. In contrast, laser leveling technology
+    automates the land grading process, significantly reducing the need for
+    manual labor [@nguyen_evaluating_2021]. This not only saves costs associated
+    with hiring and managing labor but also expedites the cultivation process,
+    allowing for timely crop rotations and potentially increasing the number of
+    planting cycles per year [@hoang_benefits_2018].
 
 4.  Environmental Sustainability: Laser leveling helps mitigate negative
-    environmental impacts associated with traditional cultivation
-    practices. By optimizing water distribution, it reduces water
-    consumption and minimizes runoff, preserving this valuable resource
-    [@ngoc_benefits_2012]. Additionally, by promoting uniform crop
-    growth, it minimizes the need for excessive fertilizer and pesticide
-    applications, thereby reducing chemical runoff and environmental
-    pollution.
+    environmental impacts associated with traditional cultivation practices.
+    Optimizing water distribution reduces water consumption and minimizes
+    runoff, preserving this valuable resource [@ngoc_benefits_2012].
+    Additionally, by promoting uniform crop growth, it minimizes the need for
+    excessive fertilizer and pesticide applications, thereby reducing chemical
+    runoff and environmental pollution.
 
 ## Objective
 
-The aim of this project is to determine whether laser leveling should be
-applied by a small farmer rice cooperative in Vietnam or not.
+The aim of this project is to determine whether laser leveling should be applied
+by a small-scale rice farmer or rice farmer cooperative in Vietnam or not.
 
 # Methodology
 
 Decision analysis is a systematic approach for making decisions under
-uncertainty, incorporating mathematical and analytical techniques to
-evaluate alternative courses of action and their potential outcomes. It
-is a quantitative approach that aims to support decision-making
-processes by explicitly considering uncertainties, trade-offs, and
-potential consequences.
+uncertainty, incorporating mathematical and analytical techniques to evaluate
+alternative courses of action and their potential outcomes. It is a quantitative
+approach that aims to support decision-making processes by explicitly
+considering uncertainties, trade-offs, and potential consequences.
 
 The decisionSupport package developed by @R-decisionSupport, provides a
-systematic framework for making informed decisions based on a
-combination of data, models, and stakeholder preferences. This R package
-incorporates decision analysis techniques into a user-friendly software
-tool, allowing decision-makers to analyze complex problems and evaluate
-alternative courses of action. The methodology typically involves the
-following steps:
+systematic framework for making informed decisions based on a combination of
+data, models, and stakeholder preferences. This R package incorporates decision
+analysis techniques into a user-friendly software tool, allowing decision-makers
+to analyze complex problems and evaluate alternative courses of action. The
+methodology typically involves the following steps:
 
-1.  Problem Definition: Clearly defining the decision problem and
-    identifying the objectives, constraints, and stakeholders involved.
-    This step helps establish a clear understanding of the decision
-    context.
+1.  Problem Definition: Clearly defining the decision problem and identifying
+    the objectives, constraints, and stakeholders involved. This step helps
+    establish a clear understanding of the decision context.
 
-2.  Data Collection: Gathering relevant data and information related to
-    the decision problem. This may include historical data, expert
-    opinions, stakeholder preferences, and other sources of information
-    required for the analysis.
-
-3.  Model Development: Developing mathematical or statistical models to
-    represent the relationships between different variables and assess
-    the potential outcomes of different decisions. The R package
-    provides a range of modeling tools and techniques for decision
+2.  Data Collection: Gathering relevant data and information related to the
+    decision problem. This may include historical data, expert opinions,
+    stakeholder preferences, and other sources of information required for the
     analysis.
 
-4.  Uncertainty Assessment: Quantifying uncertainties associated with
-    key variables or parameters in the decision problem. This may
-    involve statistical analysis, sensitivity analysis, or the use of
-    probabilistic modeling approaches to estimate the range of possible
-    outcomes.
+3.  Model Development: Develop mathematical or statistical models to represent
+    the relationships between different variables and assess the potential
+    outcomes of different decisions. The R package provides a range of modeling
+    tools and techniques for decision analysis.
 
-5.  Decision Evaluation: Integrating the models, data and uncertainties
-    to evaluate different decision alternatives. This involves comparing
-    and ranking the alternatives based on multiple criteria, considering
-    trade-offs and uncertainties.
+4.  Uncertainty Assessment: Quantifying uncertainties associated with key
+    variables or parameters in the decision problem. This may involve
+    statistical analysis, sensitivity analysis, or the use of probabilistic
+    modeling approaches to estimate the range of possible outcomes.
 
-6.  Sensitivity Analysis: Assessing the robustness of the decision
-    results by examining the impact of changes in assumptions, input
-    data, or models on the recommended decision.
+5.  Decision Evaluation: Integrating the model and data uncertainties to
+    evaluate different decision alternatives. This involves comparing and
+    ranking the alternatives based on multiple criteria, considering trade-offs
+    and uncertainties.
 
-7.  Communication and Implementation: Communicating the decision
-    analysis results effectively to stakeholders and facilitating their
-    understanding of the implications and trade-offs. This step helps in
-    gaining consensus and support for the recommended decision and
-    facilitating its implementation.
+6.  Sensitivity Analysis: Assessing the robustness of the decision results by
+    examining the impact of changes in assumptions, input data, or models on the
+    recommended decision.
 
-The decisionSupport R package provides a comprehensive set of functions
-and tools to support decision analysis using the R programming language.
-It offers a flexible and customizable platform for implementing decision
-support methodologies, enabling users to perform sophisticated decision
-analysis tasks efficiently.
+7.  Communication and Implementation: Communicating the decision analysis
+    results effectively to stakeholders and facilitating their understanding of
+    the implications and trade-offs. This step helps in gaining consensus and
+    support for the recommended decision and facilitating its implementation.
+
+The decisionSupport R package provides a comprehensive set of functions and
+tools to support decision analysis using the R programming language. It offers a
+flexible and customizable platform for implementing decision support
+methodologies, enabling users to perform sophisticated decision analysis tasks
+efficiently.
 
 ## Decision Criteria
 
-Because our main objective is to determine whether laser leveling could
-be applied by a small farmer rice cooperative in Vietnam or not, first
-we decided to focus on the economic and ecological criteria of laser
-leveling, as recommended by [@oertle_potential_2019] since they
-highlight the importance of introducing this not so well known topic so
-far. They remark that is also important to demonstrate that this
-technology could have an economic and environmental potential for
-cooperative farmers. We know that we can implement this technology in
-Vietnam because the government has implemented the "One Must do Five
-Reductions" or 1M5R to promote sustainable rice production, which
-includes laser leveling as a strategy. The following steps after this
-project would be to hold a stakeholder dialogue to identify barriers and
-drivers for future implementation.
+Because our main objective is to determine whether laser leveling could be
+applied by a small farmer rice cooperative in Vietnam or not, first we decided
+to focus on the economic and ecological criteria of laser leveling, as
+recommended by [@oertle_potential_2019] since they highlight the importance of
+introducing this not so well known topic so far. They remark that is also
+important to demonstrate that this technology could have an economic and
+environmental potential for cooperative farmers. We know that we can implement
+this technology in Vietnam because the government has implemented the "One Must
+Do Five Reductions" or 1M5R to promote sustainable rice production, which
+includes laser leveling as a strategy. The following steps after this project
+would be to hold a stakeholder dialogue to identify barriers and drivers for
+future implementation.
 
-For the model building process we determined first all the possible
-variables for the economic and environmental components in our model and
-design an input table, that is stored locally
-as *Input_table_LL_decision.csv*, this table contains all the input
-variables and their values used in the model.
+For the model-building process, we determined first all the possible variables
+for the economic and environmental components in our model and design an input
+table, that is stored locally as *Input_table_LL_decision.csv*, this table
+contains all the input variables and their values used in the model.
 
-Economical Criteria cost-effectiveness potential yield improvement
-(fertilizer savings, yield increase, seed savings)
+Economical Criteria cost-effectiveness potential yield improvement (fertilizer
+savings, yield increase, seed savings)
 
 Ecological (Water use savings, GHGE, soil conservation)
 
 ## Package Management Section
 
-Code for knitting bib 'project_packages.bib' was commented out to
-prevent the code from overwriting the added references. The bib file
-contains both the library packages and the references used for this
-Rmarkdown file.
+The code for knitting bib 'project_packages.bib' was commented out to prevent
+the code from overwriting the added references. The bib file contains both the
+library packages and the references used for this Rmarkdown file.
 
 ```{r package-installation, echo=TRUE}
 # Install packages if needed (uncomment code):
@@ -211,16 +195,15 @@ library(knitr)
 
 ## Monte Carlo Simulation
 
-Input table used is named *Input_table_LL_decision.csv* within this
-Rproject folder. LL benefit ranges were lifted from Table 4 and 5 of
-@nguyen-van-hung_precision_2022, divided by 5 since we consider yearly
-values in this project, and not per 5-year period in contrast to the
-cited literature. We consider 2 seasons per year since this is the
-recommended assumption in the same literature, to maintain soil health
-and prevent outbreak of rice diseases. We work with 1 hectare field size
-for ease of comparison with literature later on.
+The input table used is named *Input_table_LL_decision.csv* within this Rproject
+folder. LL benefit ranges were lifted from Table 4 and 5 of
+@nguyen-van-hung_precision_2022, divided by 5 since we consider yearly values in
+this project, and not per 5-year period in contrast to the cited literature. We
+consider 2 seasons per year since this is the recommended assumption in the same
+literature, to maintain soil health and prevent outbreaks of rice diseases. We
+work with 1 hectare field size for ease of comparison with literature later on.
 
-```{r, echo=TRUE}
+```{r model function, echo=TRUE}
 LL_model_function <- function(x, varnames){
   #browser() # enter the debugger 
   
@@ -299,7 +282,7 @@ LL_model_function <- function(x, varnames){
   
   ####  Intervention Preamble ####
   
-  # Run a simulation for both the application of LL and the conventional scenario without it:
+  # Simulate both the application of LL and the conventional scenario without it:
   for (intervention_LL in c(FALSE,TRUE))
       {
   
@@ -423,15 +406,14 @@ return(list(LL_NPV = NPV_interv,
 }
 ```
 
-Random seed is generated and will be stored throughout the simulation to
-keep values and plots generated during project creation consistent with
-future runs.
+A random seed is generated and will be stored throughout the simulation to keep
+values and plots generated during project creation consistent with future runs.
 
 ```{r monte-carlo-results, echo=TRUE}
 # Generate a random seed
 random_seed <- as.integer(Sys.time())  # Get the current time in seconds and convert it to an integer
 # Set the random seed
-set.seed(random_seed)
+set.seed(1689289612)
 # Print the random seed
 print(random_seed)
 
@@ -440,7 +422,7 @@ print(random_seed)
 mcSimulation_results <- decisionSupport::mcSimulation(
   estimate = decisionSupport::estimate_read_csv("Input_table_LL_decision.csv", sep = ';', strip.white = TRUE),
   model_function = LL_model_function,
-  numberOfModelRuns = 1e3, #run 10,000 times
+  numberOfModelRuns = 1e4, #run 10,000 times
   functionSyntax = "plainNames"
 )
 
@@ -448,89 +430,83 @@ mcSimulation_results <- decisionSupport::mcSimulation(
 
 ## Data Visualization
 
-The simulated scenarios for the application of laser leveling visualized
-using the `ggplot2` package [@R-ggplot2]. The code is shown below, as
-well as the figures generated.
+The simulated scenarios for the application of laser leveling were visualized
+using the `ggplot2` package [@R-ggplot2]. The code is shown below, as well as
+the figures generated.
 
 The density estimations of the NPV distribution plot of the Monte Carlo
-Simulation model shows in yellow (LL_NPV) the expected NPV distribution
-under the laser leveling intervention scenario, and in lila (NO_LL_NPV)
-the scenario under conventional production practices (without the
-intervention).
+Simulation model show in yellow (LL_NPV) the expected NPV distribution under the
+laser leveling intervention scenario, and in lila (NO_LL_NPV) the scenario under
+conventional production practices (without the intervention).
 
-Because the 'do' LL_NPV scenario has a higher concentration of density
-with a rightward trend in comparison with the NO_LL_NPV, it can be
-concluded that the laser leveling intervention would have a higher
-positive impact on the farmers economy, since the positive net present
-value represents that the rate of return of the investment will be above
-the discount rate. 
+Because the 'do' LL_NPV scenario has a higher concentration of density with a
+rightward trend in comparison with the NO_LL_NPV, it can be concluded that the
+laser leveling intervention would have a higher positive impact on the farmer's
+economy since the positive net present value represents that the rate of return
+of the investment will be above the discount rate. 
 
-The boxplot of the distributions of the 'do' LL_NPV and 'do not do'
-NO_LL_NPV decision scenarios illustrates the spread of the data in a
-median (central line), with 25th and 75th percentiles. So here we can
-see with a more detailed view, how the median NPV values differs between
-scenarios, having the LL scenario a higher NPV than the business as
-usual scenario. 
+The boxplot of the distributions of the 'do' LL_NPV and 'do not do' NO_LL_NPV
+decision scenarios illustrate the spread of the data in a median (central line),
+with 25th and 75th percentiles. So here we can see with a more detailed view,
+how the median NPV values differ between scenarios, having the LL scenario with
+a higher NPV than the business-as-usual scenario. 
 
-The introduction of laser leveling in rice production in Vietnam seems
-to have a positive impact on the Net Present Value (NPV) over a time
-span of 25 years.
+The introduction of laser leveling in rice production in Vietnam seems to had a
+positive impact on the Net Present Value (NPV) over a period of 25 years.
 
 Further, it can be seen that the 'do not do' NO_LL_NPV scenario has a
-concentrated density range between 50,000 USD and 170,000 USD, while in
-the 'do' LL_NPV scenario has a distribution between 60,000 USD and
-185,000 USD - a right-hand-skew.
+concentrated density range between 50,000 USD and 170,000 USD, while in the 'do'
+LL_NPV scenario has a distribution between 60,000 USD and 185,000 USD - a
+right-hand-skew.
 
-The maximum NPV with laser leveling LL_NPV is 245,320 USD, which is
-higher compared to the maximum NPV without laser leveling NO_LL_NPV of
-213,121 USD. Similarly, the minimum NPV for LL is 54,757 USD, while for
-No LL, it is 53,758 USD. The mean NPV is 121,925 USD for LL and 107,581
-USD for No LL. These statistics suggest that laser leveling can
-potentially lead to improved economic returns in rice production.
+The maximum NPV with laser leveling LL_NPV is 245,320 USD, which is higher
+compared to the maximum NPV without laser leveling NO_LL_NPV of 213,121 USD.
+Similarly, the minimum NPV for LL is 54,757 USD, while for No LL, it is 53,758
+USD. The mean NPV is 121,925 USD for LL and 107,581 USD for No LL. These
+statistics suggest that laser leveling can potentially lead to improved economic
+returns in rice production.
 
-The NPV of the added value NPV_LL_added_value that laser leveling
-provides has a maximum value of 101,462 USD and a minimum value of
--62,091 USD. The mean NPV_LL_added_value is 14,343 USD. This indicates
-that there can be instances where laser leveling may not provide
-economic net benefits, as reflected by the negative minimum value.
-However, on average, the NPV_LL_added_value is positive, implying a
-positive impact of laser leveling on the added value in rice production.
+The NPV of the added value NPV_LL_added_value that laser leveling provides has a
+maximum value of 101,462 USD and a minimum value of -62,091 USD. The mean
+NPV_LL_added_value is 14,343 USD. This indicates that there can be instances
+where laser leveling may not provide economic net benefits, as reflected by the
+negative minimum value. However, on average, the NPV_LL_added_value is positive,
+implying a positive impact of laser leveling on the added value in rice
+production.
 
-The outcome distribution vs density estimation graph, displays the
-estimated probability density of a variable along with the observed
-distribution of outcomes, in our case this graph reflects the difference
-between the NO_LL_NPV and LL_NPV scenarios, where the x-axis represents
-the NPV while the y-axis represents the estimated probability density.
-It can be seen that the curve is skewed to the right, which indicates
-asymmetry and a higher distribution into the LL_NPV scenario, which
-promotes laser leveling usage.
+The outcome distribution vs density estimation graph, displays the estimated
+probability density of a variable along with the observed distribution of
+outcomes, in our case this graph reflects the difference between the NO_LL_NPV
+and LL_NPV scenarios, where the x-axis represents the NPV while the y-axis
+represents the estimated probability density. It can be seen that the curve is
+skewed to the right, which indicates asymmetry and a higher distribution into
+the LL_NPV scenario, which promotes laser leveling usage.
 
-The cash flow over time plot, where the x-axis represents the duration
-of the interventions, between 5 to 25 years in our case, while the
-y-axis represents the magnitude of the cash flow, where positive values
-indicate incoming cash flows (revenue, investments, etc.), and negative
-values represent outgoing cash flows (expenses, payments, etc.). The
-blue line in the 25-75% quantile is consistently positive and upward
-sloping, which indicates a positive cash flow, where the mean cashflow
-is 489 USD and cashflow per year with laser leveling
-Cashflow_LL_added_value has a maximum value of 7,056 USD and a minimum
-value of -6,206 USD. These statistics indicate that the costs and
-benefits associated with laser leveling can vary across different
-scenarios. However, the mean cashflow is positive, suggesting a
-potential positive impact on the overall cashflow in rice production.
+The cash flow over time plot, where the x-axis represents the duration of the
+interventions, between 5 to 25 years in our case, while the y-axis represents
+the magnitude of the cash flow, where positive values indicate incoming cash
+flows (revenue, investments, etc.), and negative values represent outgoing cash
+flows (expenses, payments, etc.). The blue line in the 25-75% quantile is
+consistently positive and upward sloping, which indicates a positive cash flow,
+where the mean cashflow is 489 USD and cashflow per year with laser leveling
+Cashflow_LL_added_value has a maximum value of 7,056 USD and a minimum value of
+-6,206 USD. These statistics indicate that the costs and benefits associated
+with laser leveling can vary across different scenarios. However, the mean
+cashflow is positive, suggesting a potential positive impact on the overall
+cashflow in rice production.
 
-Overall, these specific values reinforce the notion that laser leveling
-has the potential to enhance the economic viability and added value in
-rice production in Vietnam. It is important to consider these specific
-figures along with other factors such as cost-effectiveness,
-environmental impact, and long-term sustainability when making decisions
-about the implementation of laser leveling in agricultural practices.
+Overall, these specific values reinforce the notion that laser leveling has the
+potential to enhance economic viability and added value in rice production in
+Vietnam. It is important to consider these specific figures along with other
+factors such as cost-effectiveness, environmental impact, and long-term
+sustainability when making decisions about the implementation of laser leveling
+in agricultural practices.
 
 ```{r data visualization, echo=TRUE}
 # Prevent display of digits in scientific notation for numbers up to 6 digits
 options(scipen = 100, digits = 6)
 
-# R code for vizualisation of results:
+# R code for visualisation of results:
 
 smooth_plt <- decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
                                     vars = c("LL_NPV", "NO_LL_NPV"),
@@ -590,9 +566,7 @@ plot_cashflow(mcSimulation_object = mcSimulation_results, cashflow_var_name = "C
 
 Application of post-hoc analysis to `mcSimulation()` outputs.
 
-```{r, echo=TRUE}
-library(decisionSupport)
-
+```{r PLS analysis, echo=TRUE}
 #select the 3rd outcome variable "NPV_LL_added_value" from the mcSimulation results and run PLS simulation
 pls_result <- plsr.mcSimulation(object = mcSimulation_results,
                   resultName = names(mcSimulation_results$y)[3], ncomp = 1)
@@ -608,18 +582,17 @@ plot_pls(pls_result, input_table = input_table, threshold = 0)
 Value of Information Analysis was conducted using EVPI.
 
 The Variable Importance in the Projection (VIP) analysis derived by
-statistically relating outputs to inputs using PLS regression, shows
-colored horizontal bars, where blue represents a positive impact and red
-a negative impact. This figure indicates which input variables had the
-strongest influence on the model outputs, in our case the variables in
-red were: the rice yield in conventional farming, the part of planing
-cost, maintenance cost, land use savings and the price of the rice, this
-variables. The further analysis of every variable will be needed to
-understand its impact on NO_LL_NPV and  LL_NPV scenarios.
+statistically relating outputs to inputs using PLS regression, shows colored
+horizontal bars, where blue represents a positive impact and red a negative
+impact. This figure indicates which input variables had the strongest influence
+on the model outputs, in this case, the variables in red were: the rice yield in
+conventional farming, part of the planning cost, maintenance cost, land use
+savings, and the price of the rice, these variables. Further analysis of every
+variable will be needed to understand its impact on NO_LL_NPV and  LL_NPV
+scenarios.
 
-```{r, echo=TRUE}
+```{r EVPI analysis, echo=TRUE, warning=FALSE}
 #here we subset the outputs from the mcSimulation function (y) by selecting the correct variables
-# this should be done by the user (be sure to run the multi_EVPI only on the variables that the user wants)
 mcSimulation_table <- data.frame(mcSimulation_results$x, mcSimulation_results$y[1:3])
 
 evpi <- multi_EVPI(mc = mcSimulation_table, first_out_var = "LL_NPV")
@@ -629,8 +602,6 @@ evpi <- multi_EVPI(mc = mcSimulation_table, first_out_var = "LL_NPV")
 #> [1] "Output variable 3 (NPV_LL_added_value) completed."
 
 plot_evpi(evpi, decision_vars = "LL_NPV")
-#> Warning: There are no variables with a positive EVPI. You probably do not need a
-#> plot for that.
 #> 
 compound_figure(mcSimulation_object = mcSimulation_results, input_table = input_table, plsrResults = pls_result, EVPIresults = evpi, decision_var_name = "NPV_LL_added_value", cashflow_var_name = "Cashflow_LL_added_value", base_size = 7)
 
@@ -638,107 +609,100 @@ compound_figure(mcSimulation_object = mcSimulation_results, input_table = input_
 
 # Discussion
 
-According to @galindo-prieto_variable_2014, VIP values greater than 1
-point are the most relevant variables, while VIP values below 0.5 are
-considered irrelevant. According to our results in the VIP graph, rice
-yield is the variable with more positive and negative impact with a
-higher value than 1 in the blue and red bars. After multiple runs with
-different values, we found that rice yield with and without LL are the
-variables worth investing to research more on to make more informed
-decision in our context. Farm size was not a VIP in our runs, as was the
-VIP plot results showed by @sapkal_impact_2019emphatized, where they
-highlight that LL is a scale-neutral technology and is not biased
-towards farmers who own huge chunks of land.
+According to @galindo-prieto_variable_2014, VIP values greater than 1 point are
+the most relevant variables, while VIP values below 0.5 are considered
+irrelevant. According to our results in the VIP graph, rice yield is the
+variable with more positive and negative impact with a higher value than 1 in
+the blue and red bars. After multiple runs with different values, we found that
+rice yield with and without LL are the variables worth investing to research
+more on to make more informed decisions in our context. Farm size was not a VIP
+in our runs, as were the VIP plot results showed by
+@sapkal_impact_2019emphatized, where they highlight that LL is a scale-neutral
+technology and is not biased towards farmers who own huge chunks of land.
 
-By leveling rice fields, 20 - 40 % of water can be saved, and at the
-same time, weed can be reduced by 40% due to more consistent water
-coverage, which results in less pesticide use and excessive working
-hours [@van_nguyen_reporting_2019].
+By leveling rice fields, 20 - 40 % of water can be saved, and at the same time,
+weed can be reduced by 40% due to more consistent water coverage, which results
+in less pesticide use and excessive working hours [@van_nguyen_reporting_2019].
 
-Consideration should be given to the scalability and replicability of
-the application of laser leveling in Vietnam. According to
+Consideration should be given to the scalability and replicability of the
+application of laser leveling in Vietnam. According to
 @nguyen-van-hung_precision_2022**,** the cost savings obtained from LLL
-application were in the range of USD 1110--1331 ha−1 5 years−1, around
-222 - 266.2 ha−1 yr; these values are consistent with our cash flow
-analysis, where median value (blue line) in the 25-75% quantile goes
-around 489 USD. This indicates that the potential for scaling up the
-implementation of laser leveling technology across different regions and
-farming systems is promising. Also, this introduces the implications
-that policies at the national or regional level, that promotion of laser
-leveling technology, would be valuable. Creating a holistic picture and
-understanding the broader economic, social, and environmental impacts,
-as well as the necessary policy framework can guide the integration of
-laser leveling into agricultural development plans and strategies.
+application were in the range of USD 1110--1331 ha−1 5 years−1, around 222 -
+266.2 ha−1 yr; these values are consistent with our cash flow analysis, where
+median value (blue line) in the 25-75% quantile goes around 489 USD. This
+indicates that the potential for scaling up the implementation of laser leveling
+technology across different regions and farming systems is promising. Also, this
+introduces the implications that policies at the national or regional level,
+that promotion of laser leveling technology, would be valuable. Creating a
+holistic picture and understanding the broader economic, social, and
+environmental impacts, as well as the necessary policy framework can guide the
+integration of laser leveling into agricultural development plans and
+strategies.
 
-For this vision to work, exploring the challenges and barriers is
-essential to the widespread adoption of laser leveling in Vietnam. This
-could involve assessing the availability and accessibility of laser
-leveling equipment, training and technical support for farmers. As it
-stands, there is only a limited amount of companies that provide laser
-leveling services, but the numbers are constantly increasing
-[@van_nguyen_reporting_2019].
+For this vision to work, exploring the challenges and barriers is essential to
+the widespread adoption of laser leveling in Vietnam. This could involve
+assessing the availability and accessibility of laser leveling equipment,
+training, and technical support for farmers. As it stands, only a limited number
+of companies provide laser leveling services, but the numbers are constantly
+increasing [@van_nguyen_reporting_2019].
 
-In addition to policy incentives, financial support from foreign or
-private sources to encourage the adoption of this technology in Vietnam
-may benefit locals, investors and the environment likewise. Identifying
-potential challenges early on was always what enables stakeholders to
-develop strategies to overcome them and ensure successful implementation
-at a larger scale. This may be what separates bad from great investors.
+In addition to policy incentives, financial support from foreign or private
+sources to encourage the adoption of this technology in Vietnam may benefit
+locals, investors, and the environment likewise. Identifying potential
+challenges early on was always what enables stakeholders to develop strategies
+to overcome them and ensure successful implementation at a larger scale. This
+may be what separates bad from great investors.
 
 ## Decision recommendation
 
-Overall, the results generated highlight that the adoption of LL is more
-preferable in the context of smallholder cooperative in Vietnam compared
-to non-adoption in terms of the costs and benefits taken into account in
-this study.
+Overall, the results highlighted that adopting LL is preferable in the context
+of smallholder cooperatives in Vietnam compared to non-adoption in terms of the
+costs and benefits taken into account in this study.
 
 # Conclusion
 
 In conclusion, the Monte Carlo simulation analysis of laser leveling
-intervention in rice production in Vietnam has demonstrated the
-potential economic benefits and positive impact of this technology. The
-results indicate that laser leveling has the potential to enhance the
-economic viability and NPV in rice production.
+intervention in rice production in Vietnam has demonstrated the potential
+economic benefits and positive impact of this technology. The results indicate
+that laser leveling has the potential to enhance economic viability and NPV in
+rice production.
 
-While there can be instances where laser leveling may not provide
-economic net benefits, on average, it contributes positively to the
-added value and we showed that that laser leveling has the potential to
-generate improved economic returns and higher NPV in rice production
-over a 25-year timeframe for each hectare leveled.
+While there can be instances where laser leveling may not provide economic net
+benefits, on average, it contributes positively to the added value and we showed
+that laser leveling has the potential to generate improved economic returns and
+higher NPV in rice production over a 25-year time frame for each hectare
+leveled.
 
 Additionally, we conducted an analysis of cash flow over time that also
-indicated a positive impact of laser leveling on the overall cash flow
-in rice production, thereby showing how the investments starts to pay
-off from the first year consistently, further supporting the potential
-economic benefits associated with laser leveling.
+indicated a positive impact of laser leveling on the overall cash flow in rice
+production, thereby showing how the investments start to pay off from the first
+year consistently, further supporting the potential economic benefits associated
+with laser leveling.
 
-Through the Variable Importance in the Projection analysis, several
-variables have been identified as more or less important. These findings
-should be carefully considered and analyzed in future studies and
-decision-making processes.
+Through the Variable Importance in the Projection analysis, several variables
+have been identified as more or less important. These findings should be
+carefully considered and analyzed in future studies and decision-making
+processes.
 
-Furthermore, apart from the economical perspective there is also an
-ecological perspective which should not be completely neglected as laser
-leveling comes with beneficial and sustainable characteristics, namely
-reduced greenhouse gas emissions and erosion, less need for
-agrochemicals such as fertilizer and pesticides, as well as increased
-freshwater water savings.
+Furthermore, apart from the economical perspective, there is also an ecological
+perspective that should not be completely neglected as laser leveling comes with
+beneficial and sustainable characteristics, namely reduced greenhouse gas
+emissions and erosion, less need for agrochemicals such as fertilizer and
+pesticides, as well as increased freshwater water savings.
 
-However, we also addressed challenges and barriers to widespread
-adoption of laser leveling, including how to ensure the accessibility of
-laser leveling equipment, providing training and technical support.
-Moreover, we noted that it is important to raise awareness for this
-technology as the consideration of policy incentives and financial
-support to promote it is necessary to implement laser leveling at a
-larger scale.
+However, we also addressed challenges and barriers to the widespread adoption of
+laser leveling, including how to ensure the accessibility of laser leveling
+equipment and providing training and technical support. Moreover, we noted that
+it is important to raise awareness for this technology as the consideration of
+policy incentives and financial support to promote it is necessary to implement
+laser leveling at a larger scale.
 
-In conclusion, the results from this modelling highlight the potential
-benefits of laser leveling in rice production, creating a basis of
-insights for decision-makers, especially small-scale farmers and farmer
-cooperations, to work with. Our findings underline the importance of
-even more comprehensive research of the impact of laser leveling,
-financial and political support, as well as holistic thinking to fully
-explore the potential of laser leveling in economically sustainable
-Vietnamese rice production.
+In conclusion, the results from this modeling highlight the potential benefits
+of laser leveling in rice production, creating a basis of insights for
+decision-makers, especially small-scale farmers and farmer cooperation, to work
+with. Our findings underline the importance of even more comprehensive research
+on the impact of laser leveling, financial and political support, as well as
+holistic thinking to fully explore the potential of laser leveling in
+economically sustainable Vietnamese rice production.
 
 # References
