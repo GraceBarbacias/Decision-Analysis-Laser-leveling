@@ -1,0 +1,26 @@
+variable;lower;median;upper;distribution;label;Source
+n_years;25;;25;const;Number of years for simulation;
+farm_area;0.7;;2;posnorm;Rice area per farmer [ha];
+chance_noLL;0.05;;0.15;tnorm_0_1;Chance that not all farmers agree to a final LL application [%];
+discount_rate;0.1;;0.3;tnorm_0_1;Discount rate for reducing future cost and benefit to their present values (%);
+rice_price;320;;513;posnorm;The price of the rice [USD per tons];
+planning_cost_LL;5;;30;posnorm;Planning costs (USD);https://link.springer.com/article/10.1007/s11119-022-09900-8
+zoning_cost_LL;7;;18;posnorm;Part of planning costs - measurements of the field etc. (USD);https://link.springer.com/article/10.1007/s11119-022-09900-8
+establishment_cost_LL;46;;186;posnorm;Cost for the initial investment in laser leveling  [USD/ha];https://link.springer.com/article/10.1007/s11119-022-09900-8
+maintenance_cost_LL;7.36;;29.76;posnorm;Maintenace costs per year after 1st year [USD/ha];https://microstep.com/en/Expertenwissen/Laserschneiden/was-kostet-laserschneiden
+yield_noLL;8;;13;posnorm;Rice yield conventional farming in [tons/hectar] per year;Vol10b (1).pdf (mardi.gov.my)
+yield_LL;8.033;;13.033;posnorm;Rice yield with Laser Leveling in [tons/hectar] per year;Vol10b (1).pdf (mardi.gov.my)
+Seed_cost_LL ;55.56;;68.88;posnorm;Seed cost LL (USD/ha);https://www.mdpi.com/2073-4395/13/2/587
+Fertilizer_cost_LL ;97.17;;134.25;posnorm;Fertilizer cost LL (USD/ha);https://www.mdpi.com/2073-4395/13/2/587
+Pesticide_cost_LL ;57.97;;78.35;posnorm;Pesticide cost LL (USD/ha);https://www.mdpi.com/2073-4395/13/2/587
+Water_pumping_fuel_cost_LL ;33.49;;57.81;posnorm;Water pumping fuel cost LL (USD/ha);https://www.mdpi.com/2073-4395/13/2/587
+Labor_cost_LL ;565.73;;670.31;posnorm;Labor cost LL (USD/ha);https://www.mdpi.com/2073-4395/13/2/587
+Seed_cost_noLL ;116.03;;170.57;posnorm;Seed cost without LL (USD/ha);https://www.mdpi.com/2073-4395/13/2/587
+Fertilizer_cost_noLL ;175.25;;267.47;posnorm;Fertilizer cost without LL (USD/ha);https://www.mdpi.com/2073-4395/13/2/587
+Pesticide_cost_noLL ;124.51;;186.17;posnorm;Pesticide cost without LL (USD/ha);https://www.mdpi.com/2073-4395/13/2/587
+Water_pumping_fuel_cost_noLL ;37.64;;74.48;posnorm;Water pumping fuel cost without LL (USD/ha);https://www.mdpi.com/2073-4395/13/2/587
+Labor_cost_noLL ;563.09;;756.05;posnorm;Labor_cost_noLL (USD/ha);https://www.mdpi.com/2073-4395/13/2/587
+LL_land_USD_ha_year;200;;300;posnorm;Land use savings (USD/ha/year);https://link.springer.com/article/10.1007/s11119-022-09900-8
+LL_water_saving;200;;600;posnorm;Water savings (m3/ha);https://link.springer.com/article/10.1007/s11119-022-09900-8
+LL_water_cost;0.22;;0.54;posnorm;Irrigation price (USD/m3);https://link.springer.com/article/10.1007/s11119-022-09900-8
+var_CV;5;;20;posnorm; coeff. Variation: ratio of the standard deviation to the mean (a measure of relative variability).;
