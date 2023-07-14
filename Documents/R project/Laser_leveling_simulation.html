@@ -1723,8 +1723,8 @@ and environmental pollution.</p></li>
 <div id="objective" class="section level2">
 <h2>Objective</h2>
 <p>The aim of this project is to determine whether laser leveling should
-be applied by a small-scale rice farmer or rice farmer cooperative in
-Vietnam or not.</p>
+be applied by a rice farmer in a small-scale cooperative in Vietnam or
+not.</p>
 </div>
 </div>
 <div id="methodology" class="section level1">
@@ -1797,10 +1797,10 @@ implementation.</p>
 variables for the economic and environmental components in our model and
 design an input table, that is stored locally
 as <em>Input_table_LL_decision.csv</em>, this table contains all the
-input variables and their values used in the model.</p>
-<p>Economical Criteria cost-effectiveness potential yield improvement
-(fertilizer savings, yield increase, seed savings)</p>
-<p>Ecological (Water use savings, GHGE, soil conservation)</p>
+input variables and their values used in the model. Additionally, we
+created a separate table,  <em>input_table_sources.csv</em> to document
+the sources of the input variables. Both tables are stored in the
+Rproject folder of our GitHub repository.</p>
 </div>
 <div id="package-management-section" class="section level2">
 <h2>Package Management Section</h2>
@@ -1808,12 +1808,7 @@ input variables and their values used in the model.</p>
 prevent the code from overwriting the added references. The bib file
 contains both the library packages and the references used for this
 Rmarkdown file.</p>
-<pre class="r"><code># Install packages if needed (uncomment code):
-# install.packages(&quot;decisionSupport&quot;)
-# install.packages(&quot;dplyr&quot;)
-# install.packages(&quot;ggplot2&quot;)
-# install.packages(&quot;knitr&quot;)
-
+<pre class="r"><code># load libraries:
 library(decisionSupport)</code></pre>
 <pre><code>## The legacy packages maptools, rgdal, and rgeos, underpinning the sp package,
 ## which was just loaded, will retire in October 2023.
@@ -2069,7 +2064,7 @@ random_seed &lt;- as.integer(Sys.time())  # Get the current time in seconds and 
 set.seed(1689289612)
 # Print the random seed
 print(random_seed)</code></pre>
-<pre><code>## [1] 1689313487</code></pre>
+<pre><code>## [1] 1689319262</code></pre>
 <pre class="r"><code># Monte Carlo simulation results R code:
 mcSimulation_results &lt;- decisionSupport::mcSimulation(
   estimate = decisionSupport::estimate_read_csv(&quot;Input_table_LL_decision.csv&quot;, sep = &#39;;&#39;, strip.white = TRUE),
@@ -2266,7 +2261,7 @@ variable with more positive and negative impact with a higher value than
 we found that rice yield with and without LL are the variables worth
 investing to research more on to make more informed decisions in our
 context. Farm size was not a VIP in our runs, as were the VIP plot
-results showed by <span class="citation">(<strong>sapkal_impact_2019emphatized?</strong>)</span>,
+results showed by <span class="citation">Sapkal et al. (2019)</span>,
 where they highlight that LL is a scale-neutral technology and is not
 biased towards farmers who own huge chunks of land.</p>
 <p>By leveling rice fields, 20 - 40 % of water can be saved, and at the
@@ -2433,6 +2428,13 @@ Regina Müller. 2019. <span>“Potential for Water Reuse in
 <span>Vietnam</span>: <span>Tiềm</span> Năng Tái Sử Dụng Nước Tại
 <span>Việt</span> <span>Nam</span>.”</span> <em>Journal of Vietnamese
 Environment</em> 11 (2): 65–73. <a href="https://doi.org/10.13141/jve.vol11.no2.pp65-73">https://doi.org/10.13141/jve.vol11.no2.pp65-73</a>.
+</div>
+<div id="ref-sapkal_impact_2019" class="csl-entry">
+Sapkal, Sanjay, BH Kamble, Pramod Kumar, Amit Kar, and GK Jha. 2019.
+<span>“Impact of Laser Land Levelling in Rice-Wheat Systems of the
+<span>North</span>-<span>Eastern</span> Indo-Gangetic Plains of
+<span>India</span>.”</span> <em>Journal of Pharmacognosy and
+Phytochemistry</em> 1 (8): 764–69.
 </div>
 <div id="ref-seck_crops_2012" class="csl-entry">
 Seck, Papa Abdoulaye, Aliou Diagne, Samarendu Mohanty, and Marco C. S.

@@ -80,7 +80,7 @@ agricultural productivity, and its suitability for the Vietnamese context.
 ## Objective
 
 The aim of this project is to determine whether laser leveling should be applied
-by a small-scale rice farmer or rice farmer cooperative in Vietnam or not.
+by a rice farmer in a small-scale cooperative in Vietnam or not.
 
 # Methodology
 
@@ -155,11 +155,9 @@ For the model-building process, we determined first all the possible variables
 for the economic and environmental components in our model and design an input
 table, that is stored locally as *Input_table_LL_decision.csv*, this table
 contains all the input variables and their values used in the model.
-
-Economical Criteria cost-effectiveness potential yield improvement (fertilizer
-savings, yield increase, seed savings)
-
-Ecological (Water use savings, GHGE, soil conservation)
+Additionally, we created a separate table,  *input_table_sources.csv* to
+document the sources of the input variables. Both tables are stored in the
+Rproject folder of our GitHub repository.
 
 ## Package Management Section
 
@@ -167,13 +165,8 @@ The code for knitting bib 'project_packages.bib' was commented out to prevent
 the code from overwriting the added references. The bib file contains both the
 library packages and the references used for this Rmarkdown file.
 
-```{r package-installation, echo=TRUE}
-# Install packages if needed (uncomment code):
-# install.packages("decisionSupport")
-# install.packages("dplyr")
-# install.packages("ggplot2")
-# install.packages("knitr")
-
+```{r package-management, echo=TRUE}
+# load libraries:
 library(decisionSupport)
 library(dplyr)
 library(ggplot2)
@@ -616,9 +609,9 @@ variable with more positive and negative impact with a higher value than 1 in
 the blue and red bars. After multiple runs with different values, we found that
 rice yield with and without LL are the variables worth investing to research
 more on to make more informed decisions in our context. Farm size was not a VIP
-in our runs, as were the VIP plot results showed by
-@sapkal_impact_2019emphatized, where they highlight that LL is a scale-neutral
-technology and is not biased towards farmers who own huge chunks of land.
+in our runs, as were the VIP plot results showed by @sapkal_impact_2019, where
+they highlight that LL is a scale-neutral technology and is not biased towards
+farmers who own huge chunks of land.
 
 By leveling rice fields, 20 - 40 % of water can be saved, and at the same time,
 weed can be reduced by 40% due to more consistent water coverage, which results
